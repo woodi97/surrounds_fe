@@ -5,12 +5,12 @@ import Head from "next/head";
 import { ThemeProvider } from "styled-components";
 import theme from "@src/styles/theme";
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: AppProps): JSX.Element {
 	return (
-		<ThemeProvider theme={theme}>
+		<>
 			<GlobalStyles />
 			<Head>
-				<title>surrounds</title>
+				<title>Surrounds</title>
 				<link rel="icon" href="images/favicon.ico" />
 				<meta charSet="utf-8" />
 				<meta
@@ -22,7 +22,9 @@ export default function App({ Component, pageProps }: AppProps) {
 					rel="stylesheet"
 				/>
 			</Head>
-			<Component {...pageProps} />
-		</ThemeProvider>
+			<ThemeProvider theme={theme}>
+				<Component {...pageProps} />
+			</ThemeProvider>
+		</>
 	);
 }
