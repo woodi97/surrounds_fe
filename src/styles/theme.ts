@@ -1,4 +1,4 @@
-import baseStyled, { css, ThemedStyledInterface } from 'styled-components';
+import baseStyled, { css, ThemedStyledInterface } from "styled-components";
 
 const sizes = {
 	desktop: 1167,
@@ -15,17 +15,17 @@ const media = {
 
 Object.keys(sizes).reduce((acc, label: string) => {
 	acc[label] = (...args) => css`
-    @media (max-width: ${sizes[label]}px) {
-      ${css(args.shift(), ...args)}
-    }
-  `;
+		@media (max-width: ${sizes[label]}px) {
+			${css(args.shift(), ...args)}
+		}
+	`;
 	return acc;
 }, media);
 
 const color = {
-	blue: '#2054ae',
-	pink: '#c43683',
-	black: '#24272a',
+	blue: "#2054ae",
+	pink: "#c43683",
+	black: "#24272a",
 };
 
 const theme = {
@@ -35,4 +35,4 @@ const theme = {
 
 export type Theme = typeof theme;
 export const styled = baseStyled as ThemedStyledInterface<Theme>;
-export default theme
+export default theme;

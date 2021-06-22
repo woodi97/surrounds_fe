@@ -6,11 +6,9 @@ import Head from "next/head";
 export interface IElementsProps {}
 
 export default function Elements(props: IElementsProps) {
-
 	return (
 		<>
-			<div id="wrapper">
-			</div>
+			<div id="wrapper"></div>
 		</>
 	);
 }

@@ -4,12 +4,9 @@ import React, { useEffect } from "react";
 export interface IGenericProps {}
 
 export default function Generic(props: IGenericProps) {
-
 	return (
 		<>
-			<div id="wrapper">
-
-			</div>
+			<div id="wrapper"></div>
 		</>
 	);
 }

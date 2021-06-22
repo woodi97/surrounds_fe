@@ -1,8 +1,8 @@
-import React from 'react';
-import * as styledComponents from 'styled-components';
-import { Theme } from './theme';
-import withSizes from './withSizes';
-export type DeviceSize = 'phone' | 'tablet' | 'desktop' | 'ssr';
+import React from "react";
+import * as styledComponents from "styled-components";
+import { Theme } from "./theme";
+import withSizes from "./withSizes";
+export type DeviceSize = "phone" | "tablet" | "desktop" | "ssr";
 
 type StyledFunction<T> = styledComponents.ThemedStyledFunction<any, Theme>;
 
