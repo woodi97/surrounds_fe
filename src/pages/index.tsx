@@ -1,10 +1,14 @@
-import { Contact, Footer, Header, Menu } from "@src/components/common";
 import React, { useEffect } from "react";
+import dynamic from "next/dynamic";
 
-export default function Home() {
+const DynamicWithNoSSR = dynamic(() => import("@src/components/mapbox/Map"), {
+	ssr: false,
+});
+
+export default function Home(): JSX.Element {
 	return (
 		<>
-			<div id="wrapper"></div>
+			<DynamicWithNoSSR className="App" />
 		</>
 	);
 }

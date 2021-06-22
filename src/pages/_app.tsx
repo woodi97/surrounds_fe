@@ -17,6 +17,10 @@ export default function App({ Component, pageProps }: AppProps) {
 					name="viewport"
 					content="width=device-width, initial-scale=1, user-scalable=no"
 				/>
+				<link
+					href="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css"
+					rel="stylesheet"
+				/>
 			</Head>
 			<Component {...pageProps} />
 		</ThemeProvider>

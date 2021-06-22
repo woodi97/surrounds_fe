@@ -1,6 +1,7 @@
-import Koa from "koa";
-import next from "next";
-import Router from "@koa/router";
+/* eslint-disable @typescript-eslint/no-var-requires */
+const Koa = require("koa");
+const next = require("next");
+const Router = require("@koa/router");
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";

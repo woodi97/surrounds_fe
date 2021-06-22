@@ -10,10 +10,10 @@
 const config = { iceServers: [{ urls: ["stun:stun.l.google.com:19302"] }, {urls:"url", "username":"username", "credential":"credential"}] };
 module.exports = {
     peerConfig : {
-        // for deployment enable below
+        // for local test enable below
         host: "localhost",
         port: 3000
-        // for local test enable below
+        // for deployment enable below
         // host: "serverURL",
         // port: 443
         path: "/media-chat",
@@ -24,7 +24,10 @@ module.exports = {
     apiConfig : {
         // baseURL: "https://serverURL",
 		baseURL: "http://localhost:3000",
-    }
+    },
+    mapboxConfig: {
+		token : "Your Token",
+	},
 }
 </pre>
 
@@ -45,10 +48,10 @@ module.exports = {
 2. 아래 내용을 붙여넣기
 {
     // Set the default
-    "editor.formatOnSave": false,
-    // Enable per-language
+    "editor.formatOnSave": true,
+    // per-language
     "[javascript]": {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": false
     },
     "editor.codeActionsOnSave": {
     // For ESLint
