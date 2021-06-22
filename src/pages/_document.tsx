@@ -1,4 +1,5 @@
-import Document, { Html, Head, Main, NextScript } from "next/document";
+import Document, { Head, Html, Main, NextScript } from "next/document";
+
 import { ServerStyleSheet } from "styled-components";
 
 export default class MyDocument extends Document {
@@ -35,13 +36,7 @@ export default class MyDocument extends Document {
 				<body>
 					<Main /> {/* 라우트에 해당하는 페이지 렌더링 */}
 					<NextScript /> {/* Next.js 관련 js 파일 */}
-					<script src="/js/jquery.min.js"></script>
-					<script src="/js/jquery.scrolly.min.js"></script>
-					<script src="/js/jquery.scrollex.min.js"></script>
-					<script src="/js/browser.min.js"></script>
-					<script src="/js/breakpoints.min.js"></script>
-					<script src="/js/util.js"></script>
-					<script src="/js/main.js"></script>
+					{/* <script src="/js/jquery.min.js"></script> */}
 				</body>
 			</Html>
 		);

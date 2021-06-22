@@ -36,17 +36,32 @@
     "import/no-unresolved": 0,
     "react/jsx-filename-extension": [
       2,
-      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+      {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
+      }
     ],
-    "react/jsx-indent": [2, "tab"],
-    "react/jsx-indent-props": [2, "tab"],
+    "react/jsx-indent": [
+      2,
+      "tab"
+    ],
+    "react/jsx-indent-props": [
+      2,
+      "tab"
+    ],
     "@typescript-eslint/no-inferrable-types": "off",
     "@typescript-eslint/interface-name-prefix": "off",
     "@typescript-eslint/explicit-function-return-type": "off"
   },
   "overrides": [
     {
-      "files": ["**/*.tsx"],
+      "files": [
+        "**/*.tsx"
+      ],
       "rules": {
         "react/prop-types": "off"
       }
