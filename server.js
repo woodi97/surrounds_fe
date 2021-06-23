@@ -8,19 +8,15 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 const config = require("./config");
-const { ExpressPeerServer } = require("peer");
+const { PeerServer } = require("peer");
 
 app.prepare().then(() => {
 	const server = new Koa();
 	const router = new Router();
 	const io = require("socket.io")(server);
 
-	// const peerServer = ExpressPeerServer(server, {
-	// 	allow_discovery: true,
-	// 	debug: true,
-	// });
-
-	// server.use(peerServer);
+	// Init PeerServer
+	PeerServer({ port: 4000, path: "/media-chat" });
 
 	router.get("/signin", async (ctx) => {
 		await app.render(ctx.req, ctx.res, "/", ctx.req.query);
@@ -62,7 +58,8 @@ app.prepare().then(() => {
 	});
 
 	server.use(router.routes());
+	server.use(router.allowedMethods());
 	server.listen(port, () => {
-		console.log(`> Ready on ${config.apiConfig.baseURL}`);
+		console.log(`> Ready on ${config.apiConfig.SERVER_URL}`);
 	});
 });
