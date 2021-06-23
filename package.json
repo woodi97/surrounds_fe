@@ -1,5 +1,5 @@
 {
-	"name": "Surrounds",
+	"name": "surrounds",
 	"version": "0.4.0",
 	"scripts": {
 		"lint": "eslint .",
