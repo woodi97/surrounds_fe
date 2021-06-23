@@ -15,12 +15,12 @@ app.prepare().then(() => {
 	const router = new Router();
 	const io = require("socket.io")(server);
 
-	const peerServer = ExpressPeerServer(server, {
-		allow_discovery: true,
-		debug: true,
-	});
+	// const peerServer = ExpressPeerServer(server, {
+	// 	allow_discovery: true,
+	// 	debug: true,
+	// });
 
-	server.use(peerServer);
+	// server.use(peerServer);
 
 	router.get("/signin", async (ctx) => {
 		await app.render(ctx.req, ctx.res, "/", ctx.req.query);
