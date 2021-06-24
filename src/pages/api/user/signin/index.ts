@@ -5,10 +5,15 @@ import connectDB from "@src/util/mongodb";
 import jwt from "jsonwebtoken";
 import config from "../../../../../config";
 
-const api = nextConnect<NextApiRequest, NextApiResponse>();
+interface Request extends NextApiRequest {
+	app: any;
+}
+
+const api = nextConnect<Request, NextApiResponse>();
 
 api.post(async (req, res) => {
 	const { email, password } = req.body;
+	console.log(typeof req.app);
 	const secret = req.app.get("jwt-secret");
 	const options = {
 		expiresIn: "2d",
@@ -45,7 +50,7 @@ api.post(async (req, res) => {
 	};
 
 	const respond = (token, user) => {
-		res.cookie("token", token);
+		// res.cookie("token", token);
 		res.json({
 			header: {
 				message: "success",
