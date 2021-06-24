@@ -1,39 +1,63 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const Koa = require("koa");
+const http = require("http");
 const next = require("next");
-const Router = require("@koa/router");
-
+const path = require("path");
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
+const express = require("express");
 const config = require("./config");
-const { PeerServer } = require("peer");
+const { ExpressPeerServer } = require("peer");
 
 app.prepare().then(() => {
-	const server = new Koa();
-	const router = new Router();
+	const exapp = express();
+	const server = http.createServer(exapp);
 	const io = require("socket.io")(server);
 
-	// Init PeerServer
-	PeerServer({ port: 4000, path: "/media-chat" });
-
-	router.get("/signin", async (ctx) => {
-		await app.render(ctx.req, ctx.res, "/", ctx.req.query);
+	let connected = [];
+	const expServer = ExpressPeerServer(server, {
+		allow_discovery: true,
+		debug: true,
 	});
 
-	router.get("/signup", async (ctx) => {
-		await app.render(ctx.req, ctx.res, "/", ctx.req.query);
+	//MiddleWares
+	exapp.use(express.static(path.join(__dirname, "public")));
+	// set the secret key variable for jwt
+	exapp.set("jwt-secret", config.apiConfig.SECRET_KEY);
+
+	// express + peerjs setting
+	exapp.use("/media-chat", expServer);
+
+	// when user connected to peer server, save that id to connected array
+	// this is for managing connected person
+	expServer.on("connection", (id) => {
+		let idx = connected.indexOf(id);
+		if (idx === -1) {
+			connected.push(id);
+		}
+	});
+	expServer.on("disconnect", (id) => {
+		let idx = connected.indexOf(id);
 	});
 
-	router.get("/", async (ctx) => {
-		await app.render(ctx.req, ctx.res, "/", ctx.query);
-		ctx.respond = false;
+	// signin page routing
+	exapp.get("/signin", (req, res) => {
+		return app.render(req, res, "/", req.query);
 	});
 
-	router.all("(.*)", async (ctx) => {
-		await handle(ctx.req, ctx.res);
-		ctx.respond = false;
+	// signup page routing
+	exapp.get("/signup", (req, res) => {
+		return app.render(req, res, "/", req.query);
+	});
+
+	// nextjs custom rendering
+	exapp.get("/", (req, res) => {
+		return app.render(req, res, "/", req.query);
+	});
+	// nextjs custom rendering
+	exapp.all("*", (req, res) => {
+		return handle(req, res);
 	});
 
 	// io connection for video/voice chat
@@ -52,13 +76,7 @@ app.prepare().then(() => {
 		});
 	});
 
-	server.use(async (ctx, next) => {
-		ctx.res.statusCode = 200;
-		await next();
-	});
-
-	server.use(router.routes());
-	server.use(router.allowedMethods());
+	// listen for secured http connection
 	server.listen(port, () => {
 		console.log(`> Ready on ${config.apiConfig.SERVER_URL}`);
 	});
