@@ -21,10 +21,14 @@ module.exports = {
         // deploy to aws or herokuapp enable secure:true option
         // secure: true,
     },
-    apiConfig : {
-        // baseURL: "https://serverURL",
-		baseURL: "http://localhost:3000",
-    },
+	apiConfig: {
+		// baseURL: "https://surrounds.or.kr",
+		SERVER_URL: "http://localhost:3000",
+		IMAGE_URL : "http://localhost:3000/profiles/",
+		SECRET_KEY : "Your Secret Key",
+		MONGODB_DB:"Your DB Name",
+		MONGODB_URI:"Your DB URI,
+	},
     mapboxConfig: {
 		token : "Your Token",
 	},
