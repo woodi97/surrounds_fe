@@ -1,14 +1,27 @@
-import React, { useEffect } from "react";
+import React from "react";
+import axios from "axios";
 import dynamic from "next/dynamic";
+import { GetServerSideProps } from "next";
 
-const DynamicWithNoSSR = dynamic(() => import("@src/components/mapbox/Map"), {
+import { UserInfo } from "@src/core/interface";
+import { useRouter } from "next/router";
+
+import styles from "./index.module.scss";
+// interface Props {
+// 	me?: UserInfo;
+// }
+
+const MapBox = dynamic(() => import("@src/components/mapbox/Map"), {
 	ssr: false,
 });
 
-export default function Home(): JSX.Element {
+export default function MainPage(): JSX.Element {
+	// const { me } = props;
+	const router = useRouter();
 	return (
 		<>
-			<DynamicWithNoSSR className="App" />
+			{/* rendering mapbox */}
+			<MapBox className="App" />
 		</>
 	);
 }

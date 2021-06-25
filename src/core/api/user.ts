@@ -5,10 +5,8 @@ export const signin = async (email: string, password: string) => {
 	let data;
 	try {
 		data = await axios.post("/api/user/signin", {
-			data: {
-				email: email,
-				password: password,
-			},
+			email: email,
+			password: password,
 		});
 		return data.body;
 	} catch (error) {
@@ -24,11 +22,9 @@ export const signup = async (
 	let data;
 	try {
 		data = await axios.post("/api/user/signup", {
-			data: {
-				username: username,
-				email: email,
-				password: password,
-			},
+			username: username,
+			email: email,
+			password: password,
 		});
 		return data.body;
 	} catch (error) {
@@ -60,13 +56,11 @@ export const viewProfile = async (email: string) => {
 	}
 };
 
-export const editNickname = async (nickname: string) => {
+export const editNickname = async (username: string) => {
 	let data;
 	try {
 		data = await axios.put("/api/user", {
-			data: {
-				nickname: nickname,
-			},
+			username: username,
 		});
 		return data.body;
 	} catch (error) {
