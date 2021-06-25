@@ -48,7 +48,6 @@ api.get(async (req, res) => {
 				},
 			});
 		});
-		//console.log(data)
 
 		res.json({
 			header: {

@@ -3,10 +3,10 @@ import nextConnect from "next-connect";
 import connectDB from "@src/util/mongodb";
 import authMiddleware from "@src/util/auth";
 import multer from "multer";
-import User from "@src/models/user";
+import { User } from "@src/models";
 import randomstring from "randomstring";
 import fs from "fs";
-import config from "../../../../config";
+import fileConfig from "../../../../config";
 
 // image uploader setting
 const imageUpload = multer({
@@ -56,7 +56,6 @@ api.use(imageUpload.single("image"));
 
 api.put(async (req, res) => {
 	const check = (user) => {
-		console.log(user);
 		return new Promise(function (resolve) {
 			if (!req.file) {
 				//user does not exist
@@ -84,8 +83,8 @@ api.put(async (req, res) => {
 			},
 			body: {
 				email: user.email,
-				nickname: user.nickname,
-				profileImage: config.apiConfig.IMAGE_URL + user.profileImage,
+				username: user.username,
+				profileImage: fileConfig.apiConfig.IMAGE_URL + user.profileImage,
 			},
 		});
 	};
@@ -106,3 +105,9 @@ api.put(async (req, res) => {
 });
 
 export default connectDB(api);
+
+export const config = {
+	api: {
+		bodyParser: false,
+	},
+};
