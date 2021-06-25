@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const crypto = require("crypto");
 const User = require("./user");
-const config = require("../config");
+const config = require("../../config");
 
 //made Room
 const Room = new Schema({
@@ -23,7 +23,7 @@ Room.statics.create = function (title, latitude, longitude, generator) {
 	//room id will encrypted by user.email
 	const encrypted = encodeURIComponent(
 		crypto
-			.createHmac("sha1", config.secret)
+			.createHmac("sha1", config.apiConfig.SECRET_KEY)
 			.update(generator.email)
 			.digest("base64"),
 	);
@@ -64,7 +64,10 @@ Room.statics.searching = function (latitude, longitude) {
 //find one by nickname or email
 Room.statics.findOneByEmail = function (email) {
 	const encrypted = encodeURIComponent(
-		crypto.createHmac("sha1", config.secret).update(email).digest("base64"),
+		crypto
+			.createHmac("sha1", config.apiConfig.SECRET_KEY)
+			.update(email)
+			.digest("base64"),
 	);
 	return this.findOne({ id: encrypted }).exec();
 };
