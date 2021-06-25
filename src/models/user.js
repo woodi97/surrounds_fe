@@ -75,4 +75,5 @@ User.statics.findOneAndReplaceNickname = async function (user, username) {
 	return user;
 };
 
-module.exports = mongoose.model("User", User);
+// Add this line for checking duplication(for serverless)
+module.exports = mongoose.models.User || mongoose.model("User", User);

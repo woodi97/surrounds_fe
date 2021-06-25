@@ -73,4 +73,5 @@ Room.statics.delete = function (room) {
 	return this.deleteOne({ id: room.id }).exec();
 };
 
-module.exports = mongoose.model("Room", Room);
+// Add this line for checking duplication(for serverless)
+module.exports = mongoose.models.Room || mongoose.model("Room", Room);

@@ -13,7 +13,6 @@ const api = nextConnect<Request, NextApiResponse>();
 
 api.post(async (req, res) => {
 	const { email, password } = req.body;
-	console.log(typeof req.app);
 	const secret = req.app.get("jwt-secret");
 	const options = {
 		expiresIn: "2d",
