@@ -1,19 +1,21 @@
+import { Location } from "@src/core/interface";
 import classNames from "classnames";
 import React, { useState } from "react";
 import ReactMapGL from "react-map-gl";
 import config from "../../../config";
 
-export interface IMapProps {
+interface IMapProps {
 	className: any;
+	location: Location;
 }
 
 export default function Map(props: IMapProps): JSX.Element {
-	const { className } = props;
+	const { className, location } = props;
 	const [viewPort, setViewPort] = useState({
 		width: "100vw",
 		height: "100vh",
-		latitude: 41.5868,
-		longitude: -93.625,
+		latitude: location.latitude,
+		longitude: location.longitude,
 		zoom: 13,
 	});
 

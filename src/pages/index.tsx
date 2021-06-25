@@ -1,4 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+// Custom Hooks
+import { useLocation } from "@src/util/hooks";
+// NextJS
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 // import Interface
@@ -6,7 +9,6 @@ import { UserInfo } from "@src/core/interface";
 import styles from "./index.module.scss";
 // API Methods
 import { getMyProfile } from "@src/core/api/user";
-import { useState } from "react";
 // import Components
 import ProfileHeader from "@src/components/primary/ProfileHeader";
 // import Mapbox By Dynamic
@@ -16,6 +18,7 @@ const MapBox = dynamic(() => import("@src/components/mapbox/Map"), {
 
 export default function MainPage(): JSX.Element {
 	const [me, setMe] = useState<UserInfo>(undefined);
+	const [myLocation] = useLocation();
 	const router = useRouter();
 
 	// Get User Data
@@ -32,11 +35,12 @@ export default function MainPage(): JSX.Element {
 		}
 	}, []);
 
+	// Return JSX
 	return (
 		<>
-			{console.log(me)}
 			{/* rendering mapbox */}
-			<MapBox className="App" />
+			{myLocation && <MapBox className={styles.map} location={myLocation} />}
+			{/* rendering profileheader */}
 			<ProfileHeader className={styles.profile} user={me} />
 		</>
 	);
