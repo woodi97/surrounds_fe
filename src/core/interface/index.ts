@@ -5,7 +5,7 @@ export interface Location {
 
 export interface UserInfo {
 	email: string;
-	nickname: string;
+	username: string;
 	profileImage: string;
 }
 

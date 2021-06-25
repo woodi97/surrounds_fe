@@ -3,17 +3,17 @@ import Link from "next/link";
 import classNames from "classnames";
 import { useRouter } from "next/router";
 import { UserInfo } from "@src/core/interface";
-import styles from "./bdmainprofile.module.scss";
+import styles from "./ProfileHeader.module.scss";
 
 interface Props {
 	className?: string;
 	user?: UserInfo;
-	onClick(emailId: string, e: any): void;
+	// onClick(emailId: string, e: any): void;
 }
 
 export default function ProfileHeader(props: Props) {
 	const router = useRouter();
-	const { className, user, onClick } = props;
+	const { className, user } = props;
 
 	return (
 		<div className={classNames(className, styles.profile)}>
@@ -25,11 +25,11 @@ export default function ProfileHeader(props: Props) {
 							: user?.profileImage
 					}
 					alt=""
-					onClick={(e) => onClick(user.email, e)}
+					// onClick={(e) => onClick(user.email, e)}
 				/>
 			</div>
 			<div className={styles.infos}>
-				<div className={styles.info_name}>{user?.nickname}</div>
+				<div className={styles.info_name}>{user?.username}</div>
 				<div className={styles.info_email}>{user?.email}</div>
 			</div>
 			<div className={styles.buttons}>

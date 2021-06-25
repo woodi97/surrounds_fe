@@ -15,42 +15,35 @@ export async function signin(email: string, password: string) {
 	}
 }
 
-export const signup = async (
+export async function signup(
 	username: string,
 	email: string,
 	password: string,
-) => {
-	let data;
+) {
 	try {
-		data = await axios.post("/api/user/signup", {
+		const { data } = await axios.post("/api/user/signup", {
 			username: username,
 			email: email,
 			password: password,
 		});
 		return data.body;
-	} catch (error) {
-		throw error;
+	} catch (err) {
+		throw err;
 	}
-};
+}
 
-export const viewMyProfile = async (cookie?: string) => {
-	let data;
+export async function getMyProfile() {
 	try {
-		data = await axios.get("/api/user", {
-			headers: {
-				cookie: cookie,
-			},
-		});
+		const { data } = await axios.get("/api/user");
 		return data.body;
-	} catch (error) {
-		throw error;
+	} catch (err) {
+		throw err;
 	}
-};
+}
 
-export const viewProfile = async (email: string) => {
-	let data;
+export const getProfile = async (email: string) => {
 	try {
-		data = await axios.get(`/api/user/${email}`);
+		const { data } = await axios.get(`/api/user/${email}`);
 		return data.body;
 	} catch (error) {
 		throw error;

@@ -4,6 +4,7 @@ import Link from "next/link";
 import classNames from "classnames";
 import { signin } from "@src/core/api/user";
 import styles from "./index.module.scss";
+import axios from "axios";
 
 interface IProps {
 	className?: string;
@@ -39,7 +40,7 @@ export default function SignInPage(props: IProps): JSX.Element {
 		if (!isBtnActivate) return;
 		try {
 			await signin(email, password);
-			router.push("/");
+			router.push("/", undefined, { shallow: true });
 		} catch (error) {
 			alert(error);
 		}
