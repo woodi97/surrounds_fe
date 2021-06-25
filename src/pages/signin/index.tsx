@@ -14,7 +14,7 @@ interface IInputs {
 	password: string;
 }
 
-export default function SignInPage(props: IProps) {
+export default function SignInPage(props: IProps): JSX.Element {
 	const router = useRouter();
 	const { className } = props;
 	const [isBtnActivate, setBtnActivate] = useState<boolean>(false);
@@ -24,6 +24,7 @@ export default function SignInPage(props: IProps) {
 	});
 	const { email, password } = inputs;
 
+	// 입력시 입력값 업데이트
 	const onChange = (e) => {
 		const { value, name } = e.target;
 		setInputs({
@@ -32,12 +33,12 @@ export default function SignInPage(props: IProps) {
 		});
 	};
 
-	async function trySignin(e) {
+	// SignIn 로직
+	async function onSignIn(e) {
 		e.preventDefault();
 		if (!isBtnActivate) return;
 		try {
-			const me = await signin(email, password);
-			console.log(me);
+			await signin(email, password);
 			router.push("/");
 		} catch (error) {
 			alert(error);
@@ -51,6 +52,7 @@ export default function SignInPage(props: IProps) {
 			: setBtnActivate(false);
 	};
 
+	// JSX Code
 	return (
 		<div className={styles.blur}>
 			<div className={classNames(className, styles.login_box)}>
@@ -87,9 +89,9 @@ export default function SignInPage(props: IProps) {
 						)}
 						type="submit"
 						value="Log In"
-						onClick={trySignin}
+						onClick={onSignIn}
 					/>
-					<Link href="/intro">소개</Link>
+					<Link href="/intro">Surrounds</Link>
 					<br />
 					<Link href="/signup">회원가입</Link>
 				</form>

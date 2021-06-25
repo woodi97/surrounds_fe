@@ -49,7 +49,6 @@ api.post(async (req, res) => {
 	};
 
 	const respond = (token, user) => {
-		// res.cookie("token", token);
 		res.json({
 			header: {
 				message: "success",

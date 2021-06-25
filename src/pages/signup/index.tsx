@@ -14,7 +14,7 @@ interface IInputs {
 	password: string;
 }
 
-export default function BDSignup(props: IProps) {
+export default function SignUpPage(props: IProps): JSX.Element {
 	const router = useRouter();
 	const { className } = props;
 	const [inputs, setInputs] = useState<IInputs>({
@@ -23,9 +23,9 @@ export default function BDSignup(props: IProps) {
 		password: "",
 	});
 	const [isBtnActivate, setBtnActivate] = useState<boolean>(false);
-
 	const { username, email, password } = inputs;
 
+	// 입력시 입력값 업데이트
 	const onChange = (e) => {
 		const { value, name } = e.target;
 		setInputs({
@@ -34,7 +34,8 @@ export default function BDSignup(props: IProps) {
 		});
 	};
 
-	async function trySignup(e) {
+	// SignUp 로직
+	async function OnSignUp(e) {
 		e.preventDefault();
 		if (!isBtnActivate) return;
 		signup(username, email, password)
@@ -56,6 +57,7 @@ export default function BDSignup(props: IProps) {
 			: setBtnActivate(false);
 	};
 
+	// JSX Code
 	return (
 		<div className={styles.blur}>
 			<div className={classNames(className, styles.signup_box)}>
@@ -102,7 +104,7 @@ export default function BDSignup(props: IProps) {
 						)}
 						type="submit"
 						value="Sign up"
-						onClick={trySignup}
+						onClick={OnSignUp}
 					/>
 				</form>
 			</div>

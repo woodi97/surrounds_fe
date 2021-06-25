@@ -1,18 +1,19 @@
 import { UserInfo } from "@src/core/interface";
+import { rejects } from "assert";
 import axios from "axios";
 
-export const signin = async (email: string, password: string) => {
-	let data;
+export async function signin(email: string, password: string) {
 	try {
-		data = await axios.post("/api/user/signin", {
+		const { data } = await axios.post("/api/user/signin", {
 			email: email,
 			password: password,
 		});
+		axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
 		return data.body;
-	} catch (error) {
-		throw error;
+	} catch (err) {
+		throw err;
 	}
-};
+}
 
 export const signup = async (
 	username: string,
