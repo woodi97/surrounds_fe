@@ -2,14 +2,14 @@
 const jwt = require("jsonwebtoken");
 
 const authMiddleware = (request, response, next) => {
-	if (!request.headers.cookie) {
+	if (!request.headers.authorization) {
 		return response.status(401).json({
 			success: false,
 			message: "token does not exist",
 		});
 	}
 	//read token from Auth
-	const token = request.headers.cookie.split("=")[1];
+	const token = request.headers.authorization.split("Bearer ")[1];
 
 	//create a promise that decodes the token
 	const p = new Promise((resolve, reject) => {

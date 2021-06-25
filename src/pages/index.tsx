@@ -20,7 +20,6 @@ export default function MainPage(): JSX.Element {
 	const router = useRouter();
 	return (
 		<>
-			{console.log(axios.defaults.headers)}
 			{/* rendering mapbox */}
 			<MapBox className="App" />
 		</>
