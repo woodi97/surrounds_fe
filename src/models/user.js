@@ -65,7 +65,7 @@ User.statics.findOneAndReplaceImage = async function (user, profileImage) {
 	return user;
 };
 
-User.statics.findOneAndReplaceNickname = async function (user, username) {
+User.statics.findOneAndReplaceUsername = async function (user, username) {
 	this.findOneAndUpdate(
 		{ email: user.email },
 		{ $set: { username: username } },

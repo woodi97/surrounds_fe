@@ -3,9 +3,10 @@ import nextConnect from "next-connect";
 import connectDB from "@src/util/mongodb";
 import authMiddleware from "@src/util/auth";
 import multer from "multer";
+import User from "@src/models/user";
 import randomstring from "randomstring";
 import fs from "fs";
-import fileConfig from "../../../../config";
+import config from "../../../../config";
 
 // image uploader setting
 const imageUpload = multer({
@@ -84,7 +85,7 @@ api.put(async (req, res) => {
 			body: {
 				email: user.email,
 				nickname: user.nickname,
-				profileImage: fileConfig.apiConfig.IMAGE_URL + user.profileImage,
+				profileImage: config.apiConfig.IMAGE_URL + user.profileImage,
 			},
 		});
 	};
@@ -105,9 +106,3 @@ api.put(async (req, res) => {
 });
 
 export default connectDB(api);
-
-export const config = {
-	api: {
-		bodyParser: false,
-	},
-};
