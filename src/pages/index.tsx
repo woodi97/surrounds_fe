@@ -41,7 +41,7 @@ export default function MainPage(): JSX.Element {
 			{/* rendering mapbox */}
 			{myLocation && <MapBox className={styles.map} location={myLocation} />}
 			{/* rendering profileheader */}
-			<ProfileHeader className={styles.profile} user={me} />
+			{myLocation && <ProfileHeader className={styles.profile} user={me} />}
 		</>
 	);
 }
