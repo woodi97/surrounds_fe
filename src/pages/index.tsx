@@ -5,20 +5,22 @@ import { useLocation } from "@src/util/hooks";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 // import Interface
-import { UserInfo } from "@src/core/interface";
+import { UserInfo, Location } from "@src/core/interface";
 import styles from "./index.module.scss";
 // API Methods
 import { getMyProfile } from "@src/core/api/user";
 // import Components
-import ProfileHeader from "@src/components/primary/ProfileHeader";
+import { ProfileHeader, Room } from "@src/components/primary";
+import { getNearChatrooms } from "@src/core/api/chatroom";
 // import Mapbox By Dynamic
 const MapBox = dynamic(() => import("@src/components/mapbox/Map"), {
 	ssr: false,
 });
 
 export default function MainPage(): JSX.Element {
-	const [me, setMe] = useState<UserInfo>(undefined);
 	const [myLocation] = useLocation();
+	const [chatrooms, setChatroms] = useState([]);
+	const [me, setMe] = useState<UserInfo>(undefined);
 	const router = useRouter();
 
 	// Get User Data
@@ -35,14 +37,33 @@ export default function MainPage(): JSX.Element {
 		}
 	}, []);
 
+	// Get Chatrooms
+	useEffect(() => {
+		if (myLocation) {
+			getChatrooms(myLocation);
+		}
+		async function getChatrooms(location: Location) {
+			try {
+				const data = await getNearChatrooms(location);
+				setChatroms(data);
+			} catch (err) {
+				window.alert(err);
+			}
+		}
+	}, [myLocation]);
+
 	// Return JSX
 	return (
-		<>
+		<div className={styles.container}>
 			{/* rendering mapbox */}
 			{myLocation && <MapBox className={styles.map} location={myLocation} />}
 			{/* rendering profileheader */}
 			{myLocation && <ProfileHeader className={styles.profile} user={me} />}
-		</>
+			{/* rendering joinable rooms */}
+			{myLocation && (
+				<Room className={styles.bottombar} chatrooms={chatrooms} />
+			)}
+		</div>
 	);
 }
 

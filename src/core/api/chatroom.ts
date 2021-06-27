@@ -1,10 +1,9 @@
-import { UserInfo, Location } from "@src/core/interface";
+import { Location } from "@src/core/interface";
 import axios from "axios";
 
-export const getNearbyChatrooms = async (location: Location) => {
-	let data;
+export const getNearChatrooms = async (location: Location) => {
 	try {
-		data = await axios.get("/api/chatroom", {
+		const { data } = await axios.get("/api/chatroom", {
 			params: {
 				longitude: location.longitude,
 				latitude: location.latitude,
@@ -17,9 +16,8 @@ export const getNearbyChatrooms = async (location: Location) => {
 };
 
 export const checkChatroom = async (email: string) => {
-	let data;
 	try {
-		data = await axios.get("/api/chatroom/check", {
+		const { data } = await axios.get("/api/chatroom/check", {
 			params: {
 				email: email,
 			},
@@ -31,14 +29,11 @@ export const checkChatroom = async (email: string) => {
 };
 
 export const createChatroom = async (title: string, location: Location) => {
-	let data;
 	try {
-		data = await axios.post("/api/chatroom", {
-			data: {
-				title: title,
-				longitude: location.longitude,
-				latitude: location.latitude,
-			},
+		const { data } = await axios.post("/api/chatroom", {
+			title: title,
+			longitude: location.longitude,
+			latitude: location.latitude,
 		});
 		return data.body;
 	} catch (error) {
@@ -47,9 +42,8 @@ export const createChatroom = async (title: string, location: Location) => {
 };
 
 export const deleteChatroom = async (email: string) => {
-	let data;
 	try {
-		data = await axios.delete("/api/chatroom", {
+		const { data } = await axios.delete("/api/chatroom", {
 			params: {
 				email: email,
 			},
