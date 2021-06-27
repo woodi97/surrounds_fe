@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import classNames from "classnames";
-import { signin } from "@src/core/api/user";
+import { SignIn } from "@src/core/api/user";
 import styles from "./index.module.scss";
 import axios from "axios";
 
@@ -39,7 +39,7 @@ export default function SignInPage(props: IProps): JSX.Element {
 		e.preventDefault();
 		if (!isBtnActivate) return;
 		try {
-			await signin(email, password);
+			await SignIn(email, password);
 			router.push("/", undefined, { shallow: true });
 		} catch (error) {
 			alert(error);

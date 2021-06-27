@@ -2,7 +2,7 @@ import { UserInfo } from "@src/core/interface";
 import { rejects } from "assert";
 import axios from "axios";
 
-export async function signin(email: string, password: string) {
+export async function SignIn(email: string, password: string) {
 	try {
 		const { data } = await axios.post("/api/user/signin", {
 			email: email,
@@ -15,7 +15,7 @@ export async function signin(email: string, password: string) {
 	}
 }
 
-export async function signup(
+export async function SignUp(
 	username: string,
 	email: string,
 	password: string,
@@ -50,7 +50,7 @@ export const getProfile = async (email: string) => {
 	}
 };
 
-export const editNickname = async (username: string) => {
+export const editUserName = async (username: string) => {
 	let data;
 	try {
 		data = await axios.put("/api/user", {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import classNames from "classnames";
-import { signup } from "@src/core/api/user";
+import { SignUp } from "@src/core/api/user";
 import styles from "./index.module.scss";
 
 interface IProps {
@@ -38,7 +38,7 @@ export default function SignUpPage(props: IProps): JSX.Element {
 	async function OnSignUp(e) {
 		e.preventDefault();
 		if (!isBtnActivate) return;
-		signup(username, email, password)
+		SignUp(username, email, password)
 			.then((result) => {
 				alert("successfully created");
 				router.push("/signin");
