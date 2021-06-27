@@ -10,7 +10,12 @@ import styles from "./index.module.scss";
 // API Methods
 import { getMyProfile } from "@src/core/api/user";
 // import Components
-import { ProfileHeader, ProfilePage, Room } from "@src/components/primary";
+import {
+	ProfileHeader,
+	RoomCreatePage,
+	ProfilePage,
+	Room,
+} from "@src/components/primary";
 import { getNearChatrooms } from "@src/core/api/chatroom";
 // import Mapbox By Dynamic
 const MapBox = dynamic(() => import("@src/components/mapbox/Map"), {
@@ -24,13 +29,14 @@ interface Profile {
 
 export default function MainPage(): JSX.Element {
 	const [myLocation] = useLocation();
-	const [chatrooms, setChatroms] = useState([]);
+	const [chatrooms, setChatrooms] = useState([]);
 	const [me, setMe] = useState<UserInfo>(undefined);
 	// Showing Profile
 	const [profile, setProfile] = useState<Profile>({
 		show: false,
 		email: "",
 	});
+	// Using Router
 	const router = useRouter();
 
 	// Open Profile Page When Click
@@ -40,6 +46,15 @@ export default function MainPage(): JSX.Element {
 	) {
 		e.preventDefault();
 		setProfile({ show: !profile.show, email: email });
+	}
+
+	async function getChatrooms(location: Location) {
+		try {
+			const data = await getNearChatrooms(location);
+			setChatrooms(data);
+		} catch (err) {
+			window.alert(err);
+		}
 	}
 
 	// Get User Data
@@ -61,14 +76,6 @@ export default function MainPage(): JSX.Element {
 		if (myLocation) {
 			getChatrooms(myLocation);
 		}
-		async function getChatrooms(location: Location) {
-			try {
-				const data = await getNearChatrooms(location);
-				setChatroms(data);
-			} catch (err) {
-				window.alert(err);
-			}
-		}
 	}, [myLocation]);
 
 	// Return JSX
@@ -88,12 +95,20 @@ export default function MainPage(): JSX.Element {
 			{myLocation && (
 				<Room className={styles.bottombar} chatrooms={chatrooms} />
 			)}
-			{/* rendering profilepage */}
+			{/* rendering profile page */}
 			{profile.show && (
 				<ProfilePage
 					className={styles.detailProfile}
 					emailId={profile.email}
 					onClick={onProfileClick}
+				/>
+			)}
+			{/* rendering room create page */}
+			{router.asPath == "/chatroom" && (
+				<RoomCreatePage
+					className={styles.createChatroom}
+					location={myLocation}
+					getChatRooms={getChatrooms}
 				/>
 			)}
 		</div>
