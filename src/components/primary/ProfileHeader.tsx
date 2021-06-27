@@ -8,12 +8,11 @@ import styles from "./ProfileHeader.module.scss";
 interface Props {
 	className?: string;
 	user?: UserInfo;
-	// onClick(emailId: string, e: any): void;
+	onClick(emailId: string, e: any): void;
 }
 
-export default function ProfileHeader(props: Props) {
-	const router = useRouter();
-	const { className, user } = props;
+export default function ProfileHeader(props: Props): JSX.Element {
+	const { className, user, onClick } = props;
 
 	return (
 		<div className={classNames(className, styles.profile)}>
@@ -25,7 +24,7 @@ export default function ProfileHeader(props: Props) {
 							: user?.profileImage
 					}
 					alt=""
-					// onClick={(e) => onClick(user.email, e)}
+					onClick={(e) => onClick(user.email, e)}
 				/>
 			</div>
 			<div className={styles.infos}>

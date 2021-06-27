@@ -1,2 +1,3 @@
 export { default as ProfileHeader } from "./ProfileHeader";
-export { Room } from "./Room";
+export { default as ProfilePage } from "./Profile";
+export { default as Room } from "./Room";
