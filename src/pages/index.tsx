@@ -71,17 +71,20 @@ export default function MainPage(): JSX.Element {
 	}
 
 	// Get User Data
+	async function getUserData() {
+		try {
+			const data = await getMyProfile();
+			setMe(data);
+			console.log(data);
+		} catch (err) {
+			router.push("/signin");
+		}
+	}
+
+	// Get User Data
 	// Should be called Once
 	useEffect(() => {
 		getUserData();
-		async function getUserData() {
-			try {
-				const data = await getMyProfile();
-				setMe(data);
-			} catch (err) {
-				router.push("/signin");
-			}
-		}
 	}, []);
 
 	// Get Chatrooms
@@ -124,6 +127,7 @@ export default function MainPage(): JSX.Element {
 					className={styles.detailProfile}
 					emailId={profile.email}
 					onClick={onProfileClick}
+					onProfileUpdate={getUserData}
 				/>
 			)}
 			{/* rendering room create page */}

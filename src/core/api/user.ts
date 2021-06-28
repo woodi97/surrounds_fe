@@ -1,5 +1,3 @@
-import { UserInfo } from "@src/core/interface";
-import { rejects } from "assert";
 import axios from "axios";
 
 export async function SignIn(email: string, password: string) {
@@ -51,9 +49,8 @@ export const getProfile = async (email: string) => {
 };
 
 export const editUserName = async (username: string) => {
-	let data;
 	try {
-		data = await axios.put("/api/user", {
+		const { data } = await axios.put("/api/user", {
 			username: username,
 		});
 		return data.body;
@@ -63,15 +60,13 @@ export const editUserName = async (username: string) => {
 };
 
 export const editProfileImage = async (image) => {
-	let data;
 	try {
 		const formData = new FormData();
-		formData.append("file", image);
-		data = await axios.put("/api/profile", {
+		formData.append("image", image);
+		const { data } = await axios.put("/api/profile", formData, {
 			headers: {
 				"Content-Type": "multipart/form-data",
 			},
-			data: formData,
 		});
 		return data.body;
 	} catch (error) {
