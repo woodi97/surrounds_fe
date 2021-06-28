@@ -21,6 +21,11 @@ module.exports = {
         // deploy to aws or herokuapp enable secure:true option
         // secure: true,
     },
+    userMediaConfig : {
+		audio: { sampleSize: 4, echoCancellation: true, noiseSuppression: true },
+		// video: { facingMode: "user" },
+		video: false,
+	},
 	apiConfig: {
 		// baseURL: "https://surrounds.or.kr",
 		SERVER_URL: "http://localhost:3000",
