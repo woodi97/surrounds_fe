@@ -42,7 +42,7 @@ api.get(async (req, res) => {
 				},
 				generator: {
 					email: room.generator.email,
-					nickname: room.generator.nickname,
+					username: room.generator.username,
 					profileImage:
 						config.apiConfig.IMAGE_URL + room.generator.profileImage,
 				},
@@ -102,7 +102,7 @@ api.post(async (req, res) => {
 				},
 				generator: {
 					email: room.generator.email,
-					nickname: room.generator.nickname,
+					username: room.generator.username,
 					profileImage: room.generator.profileImage,
 				},
 			},

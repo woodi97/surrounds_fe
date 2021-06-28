@@ -32,7 +32,7 @@ api.get(async (req, res) => {
 			},
 			body: {
 				email: user.email,
-				nickname: user.nickname,
+				username: user.username,
 				profileImage: config.apiConfig.IMAGE_URL + user.profileImage,
 			},
 		});

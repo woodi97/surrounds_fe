@@ -38,7 +38,7 @@ api.post(async (req, res) => {
 		});
 	};
 
-	// check nickname duplication
+	// check username duplication
 	User.findOneByUsernameEmail(username, email)
 		.then(create)
 		.then(respond)

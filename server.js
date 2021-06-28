@@ -41,16 +41,6 @@ app.prepare().then(() => {
 		let idx = connected.indexOf(id);
 	});
 
-	// signin page routing
-	exapp.get("/signin", (req, res) => {
-		return app.render(req, res, "/", req.query);
-	});
-
-	// signup page routing
-	exapp.get("/signup", (req, res) => {
-		return app.render(req, res, "/", req.query);
-	});
-
 	// nextjs custom rendering
 	exapp.get("/", (req, res) => {
 		return app.render(req, res, "/", req.query);

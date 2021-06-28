@@ -49,14 +49,13 @@ api.post(async (req, res) => {
 	};
 
 	const respond = (token, user) => {
-		// res.cookie("token", token);
 		res.json({
 			header: {
 				message: "success",
 			},
 			body: {
 				email: email,
-				nickname: user.nickname,
+				username: user.username,
 				profileImage: config.apiConfig.IMAGE_URL + user.profileImage,
 			},
 			token: token,
