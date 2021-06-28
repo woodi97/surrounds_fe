@@ -1,8 +1,6 @@
 import * as React from "react";
 
-export interface IFooterProps {}
-
-export default function Footer(props: IFooterProps) {
+export default function Footer(): JSX.Element {
 	return (
 		<>
 			<footer id="footer">

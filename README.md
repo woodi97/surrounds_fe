@@ -6,14 +6,14 @@
 2.npm install -g yarn
 3.yarn install
 4.yarn dev(for dev mode) or yarn build && yarn start(for build mode)
-5.root 디렉토리에 config.js 생성 후 아래와 같은 형식으로 작성
+5./src/core/config 디렉토리에 index.js 생성 후 아래와 같은 형식으로 작성
 const config = { iceServers: [{ urls: ["stun:stun.l.google.com:19302"] }, {urls:"url", "username":"username", "credential":"credential"}] };
 module.exports = {
     peerConfig : {
-        // for deployment enable below
+        // for local test enable below
         host: "localhost",
         port: 3000
-        // for local test enable below
+        // for deployment enable below
         // host: "serverURL",
         // port: 443
         path: "/media-chat",
@@ -21,10 +21,17 @@ module.exports = {
         // deploy to aws or herokuapp enable secure:true option
         // secure: true,
     },
-    apiConfig : {
-        // baseURL: "https://serverURL",
-		baseURL: "http://localhost:3000",
-    }
+	apiConfig: {
+		// baseURL: "https://surrounds.or.kr",
+		SERVER_URL: "http://localhost:3000",
+		IMAGE_URL : "http://localhost:3000/profiles/",
+		SECRET_KEY : "Your Secret Key",
+		MONGODB_DB:"Your DB Name",
+		MONGODB_URI:"Your DB URI,
+	},
+    mapboxConfig: {
+		token : "Your Token",
+	},
 }
 </pre>
 
@@ -45,10 +52,10 @@ module.exports = {
 2. 아래 내용을 붙여넣기
 {
     // Set the default
-    "editor.formatOnSave": false,
-    // Enable per-language
+    "editor.formatOnSave": true,
+    // per-language
     "[javascript]": {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": false
     },
     "editor.codeActionsOnSave": {
     // For ESLint

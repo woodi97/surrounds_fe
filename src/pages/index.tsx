@@ -1,153 +1,133 @@
-import React, { useEffect } from "react";
-import { Contact, Footer, Header, Menu } from "@src/components/common";
+import React, { useEffect, useState } from "react";
+// Custom Hooks
+import { useLocation } from "@src/util/hooks";
+// NextJS
+import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
+// import Interface
+import { UserInfo, Location } from "@src/core/interface";
+import styles from "./index.module.scss";
+// API Methods
+import { getMyProfile } from "@src/core/api/user";
+import { getNearChatrooms } from "@src/core/api/chatroom";
+// import Components
+import {
+	ProfileHeader,
+	RoomCreatePage,
+	ProfilePage,
+	Room,
+} from "@src/components/primary";
+// import Mapbox By Dynamic
+const MapBox = dynamic(() => import("@src/components/mapbox/Map"), {
+	ssr: false,
+});
 
-export default function Home() {
+interface Profile {
+	show: boolean;
+	email: string;
+}
+
+export default function MainPage(): JSX.Element {
+	const [myLocation] = useLocation();
+	const [chatrooms, setChatrooms] = useState([]);
+	const [me, setMe] = useState<UserInfo>(undefined);
+	// Showing Profile
+	const [profile, setProfile] = useState<Profile>({
+		show: false,
+		email: "",
+	});
+	// Using Router
+	const router = useRouter();
+
+	// Open Profile Page When Click
+	function onProfileClick(
+		email: string,
+		e: React.MouseEvent<HTMLInputElement>,
+	) {
+		e.preventDefault();
+		setProfile({ show: !profile.show, email: email });
+	}
+
+	async function getChatrooms(location: Location) {
+		try {
+			const data = await getNearChatrooms(location);
+			setChatrooms(data);
+		} catch (err) {
+			window.alert(err);
+		}
+	}
+
+	// Get User Data
+	// Should be called Once
 	useEffect(() => {
-		document.querySelector("body").classList.add("is-preload");
+		getUserData();
+		async function getUserData() {
+			try {
+				const data = await getMyProfile();
+				setMe(data);
+			} catch (err) {
+				router.push("/signin");
+			}
+		}
 	}, []);
 
+	// Get Chatrooms
+	useEffect(() => {
+		if (myLocation) {
+			getChatrooms(myLocation);
+		}
+	}, [myLocation]);
+
+	// Return JSX
 	return (
-		<>
-			<div id="wrapper">
-				<Header />
-				<Menu />
-
-				{/* <!-- Banner --> */}
-				<section id="banner" className="major">
-					<div className="inner">
-						<header className="major">
-							<h1>Hi, my name is Forty</h1>
-						</header>
-						<div className="content">
-							<p>
-								A responsive site template designed by HTML5 UP
-								<br />
-								and released under the Creative Commons.
-							</p>
-							<ul className="actions">
-								<li>
-									<a href="#one" className="button next scrolly">
-										Get Started
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</section>
-
-				{/* <!-- Main --> */}
-				<div id="main">
-					{/* <!-- One --> */}
-					<section id="one" className="tiles">
-						<article>
-							<span className="image">
-								<img src="images/pic01.jpg" alt="" />
-							</span>
-							<header className="major">
-								<h3>
-									<a href="/landing" className="link">
-										Aliquam
-									</a>
-								</h3>
-								<p>Ipsum dolor sit amet</p>
-							</header>
-						</article>
-						<article>
-							<span className="image">
-								<img src="images/pic02.jpg" alt="" />
-							</span>
-							<header className="major">
-								<h3>
-									<a href="/landing" className="link">
-										Tempus
-									</a>
-								</h3>
-								<p>feugiat amet tempus</p>
-							</header>
-						</article>
-						<article>
-							<span className="image">
-								<img src="images/pic03.jpg" alt="" />
-							</span>
-							<header className="major">
-								<h3>
-									<a href="/landing" className="link">
-										Magna
-									</a>
-								</h3>
-								<p>Lorem etiam nullam</p>
-							</header>
-						</article>
-						<article>
-							<span className="image">
-								<img src="images/pic04.jpg" alt="" />
-							</span>
-							<header className="major">
-								<h3>
-									<a href="/landing" className="link">
-										Ipsum
-									</a>
-								</h3>
-								<p>Nisl sed aliquam</p>
-							</header>
-						</article>
-						<article>
-							<span className="image">
-								<img src="images/pic05.jpg" alt="" />
-							</span>
-							<header className="major">
-								<h3>
-									<a href="/landing" className="link">
-										Consequat
-									</a>
-								</h3>
-								<p>Ipsum dolor sit amet</p>
-							</header>
-						</article>
-						<article>
-							<span className="image">
-								<img src="images/pic06.jpg" alt="" />
-							</span>
-							<header className="major">
-								<h3>
-									<a href="/landing" className="link">
-										Etiam
-									</a>
-								</h3>
-								<p>Feugiat amet tempus</p>
-							</header>
-						</article>
-					</section>
-
-					{/* <!-- Two --> */}
-					<section id="two">
-						<div className="inner">
-							<header className="major">
-								<h2>Massa libero</h2>
-							</header>
-							<p>
-								Nullam et orci eu lorem consequat tincidunt vivamus et sagittis
-								libero. Mauris aliquet magna magna sed nunc rhoncus pharetra.
-								Pellentesque condimentum sem. In efficitur ligula tate urna.
-								Maecenas laoreet massa vel lacinia pellentesque lorem ipsum
-								dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et
-								sagittis libero. Mauris aliquet magna magna sed nunc rhoncus
-								amet pharetra et feugiat tempus.
-							</p>
-							<ul className="actions">
-								<li>
-									<a href="/landing" className="button next">
-										Get Started
-									</a>
-								</li>
-							</ul>
-						</div>
-					</section>
-				</div>
-
-				<Contact />
-				<Footer />
-			</div>
-		</>
+		<div className={styles.container}>
+			{/* rendering mapbox */}
+			{myLocation && (
+				<MapBox
+					className={styles.map}
+					location={myLocation}
+					chatrooms={chatrooms}
+				/>
+			)}
+			{/* rendering profileheader */}
+			{myLocation && (
+				<ProfileHeader
+					className={styles.profile}
+					user={me}
+					onClick={onProfileClick}
+				/>
+			)}
+			{/* rendering joinable rooms */}
+			{myLocation && (
+				<Room className={styles.bottombar} chatrooms={chatrooms} />
+			)}
+			{/* rendering profile page */}
+			{profile.show && (
+				<ProfilePage
+					className={styles.detailProfile}
+					emailId={profile.email}
+					onClick={onProfileClick}
+				/>
+			)}
+			{/* rendering room create page */}
+			{router.asPath == "/chatroom" && (
+				<RoomCreatePage
+					className={styles.createChatroom}
+					location={myLocation}
+					getChatRooms={getChatrooms}
+				/>
+			)}
+		</div>
 	);
 }
+
+// export async function getServerSideProps(
+// 	ctx,
+// ): Promise<GetServerSidePropsResult<any>> {
+// 	const data = await getMyProfile();
+// 	return {
+// 		props: {
+// 			data,
+// 		},
+// 	};
+// }

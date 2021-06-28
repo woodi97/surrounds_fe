@@ -1,8 +1,6 @@
 import * as React from "react";
 
-export interface IContactProps {}
-
-export default function Contact(props: IContactProps) {
+export default function Contact(): JSX.Element {
 	return (
 		<>
 			<section id="contact">

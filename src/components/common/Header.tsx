@@ -1,8 +1,6 @@
-import * as React from "react";
+import React from "react";
 
-export interface IHeaderProps {}
-
-export default function Header(props: IHeaderProps) {
+export default function Header(): JSX.Element {
 	return (
 		<>
 			<header id="header" className="alt">
