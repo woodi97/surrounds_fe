@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
   }
   body{
     font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    font-size:20px;
   }
   a {
     color: inherit;
@@ -30,7 +31,7 @@ const GlobalStyle = createGlobalStyle`
 
   @media only screen and (max-width: 576px) {
     body {
-      font-size: 10px;
+      font-size: 24px;
     }
   }
 `;

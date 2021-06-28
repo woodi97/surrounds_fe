@@ -12,7 +12,6 @@ interface Props {
 }
 
 export default function ProfileHeader(props: Props): JSX.Element {
-	const router = useRouter();
 	const {
 		userInfo: { email, username, profileImage },
 		onProfileUpdate,
