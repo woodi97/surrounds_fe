@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import router from "next/router";
+// import MapBox
 import ReactMapGL, {
 	Marker,
 	Popup,
@@ -22,6 +24,7 @@ interface IMapProps {
 export default function Map(props: IMapProps): JSX.Element {
 	const { className, location, chatrooms } = props;
 	const isClient = typeof window === "object";
+	const [selectedRoom, setSelectedRoom] = useState<RoomInfo>(null);
 	const [viewPort, setViewPort] = useState({
 		...getSize(),
 		latitude: location.latitude,
@@ -72,7 +75,10 @@ export default function Map(props: IMapProps): JSX.Element {
 						latitude={room.location.latitude}
 						longitude={room.location.longitude}
 					>
-						<button className={styles.btn_marker}>
+						<button
+							className={styles.btn_marker}
+							onClick={() => setSelectedRoom(room)}
+						>
 							<img
 								src={
 									room.generator.profileImage ===
@@ -85,6 +91,35 @@ export default function Map(props: IMapProps): JSX.Element {
 						</button>
 					</Marker>
 				))}
+				{selectedRoom && (
+					<Popup
+						offsetLeft={25}
+						latitude={selectedRoom.location.latitude}
+						longitude={selectedRoom.location.longitude}
+						onClose={() => setSelectedRoom(null)}
+					>
+						<div className={styles.chatroom_popup}>
+							<div className={styles.chatroom_popup_info}>
+								<div className={styles.chatroom_popup_title}>
+									{selectedRoom.title}
+								</div>
+								<div className={styles.chatroom_popup_generator}>
+									by {selectedRoom.generator.username}
+								</div>
+							</div>
+							<div className={styles.chatroom_popup_buttons}>
+								<div className={styles.chatroom_popup_button_enter}>
+									<img
+										onClick={() =>
+											router.push("/", `/chatroom/${selectedRoom.id}`)
+										}
+										src="/images/icon_enter.svg"
+									/>
+								</div>
+							</div>
+						</div>
+					</Popup>
+				)}
 			</ReactMapGL>
 		</div>
 	);
