@@ -11,7 +11,7 @@ import RoomMedia from "./RoomMedia";
 // import config
 import config from "@src/core/config";
 // import custom hooks
-import { useUserMedia } from "@src/util/hooks";
+import { useUserMedia, useRemoteStreams } from "@src/util/hooks";
 // import api
 import { deleteChatroom } from "@src/core/api/chatroom";
 // import styles
@@ -27,13 +27,6 @@ interface IRoomProps {
 	onClick(emailId: string, e: any): void;
 }
 
-interface LocalMediaInfo {
-	peerId: string;
-	emailId: string;
-	profileImage: string;
-	stream: MediaStream;
-}
-
 export default function Room(props: IRoomProps): JSX.Element {
 	const {
 		className,
@@ -44,13 +37,14 @@ export default function Room(props: IRoomProps): JSX.Element {
 		getChatRooms,
 		onClick,
 	} = props;
+
 	const localStream = useUserMedia();
-	const peers = {};
 	const socket = useContext(SocketContext);
+
+	const peers = {};
 	const [myPeer, setPeer] = useState<Peer>(undefined);
-	const [remoteMediaInfos, setRemoteMediaInfos] = useState<LocalMediaInfo[]>(
-		[],
-	);
+	const [remoteStreams, addRemoteStream, removeRemoteStream] =
+		useRemoteStreams();
 
 	const cleanUp = () => {
 		if (myPeer) {
@@ -80,41 +74,6 @@ export default function Room(props: IRoomProps): JSX.Element {
 		}
 		setPeer(null);
 	};
-
-	const addRemoteStream = useCallback(
-		(stream, peerId, emailId, profileImage) => {
-			setRemoteMediaInfos((remoteMediaInfos) => {
-				if (!stream || !peerId) return [...remoteMediaInfos];
-				if (
-					remoteMediaInfos.some(
-						(remoteMediaInfo) => remoteMediaInfo.peerId === peerId,
-					)
-				)
-					return [...remoteMediaInfos];
-				return [
-					...remoteMediaInfos,
-					{
-						peerId: peerId,
-						emailId: emailId,
-						stream: stream,
-						profileImage: profileImage,
-					},
-				];
-			});
-		},
-		[],
-	);
-
-	const removeRemoteStream = useCallback((peerId) => {
-		setRemoteMediaInfos((remoteMediaInfos) => {
-			const index = remoteMediaInfos.findIndex(
-				(remote) => remote.peerId === peerId,
-			);
-			if (index < 0) return [...remoteMediaInfos];
-			remoteMediaInfos.splice(index, 1);
-			return [...remoteMediaInfos];
-		});
-	}, []);
 
 	useEffect(() => {
 		if (localStream) {
@@ -224,7 +183,7 @@ export default function Room(props: IRoomProps): JSX.Element {
 
 	const onExitButtonClick = async (e) => {
 		e.preventDefault();
-		if (remoteMediaInfos.length === 0) {
+		if (remoteStreams?.length === 0) {
 			try {
 				const result = await deleteChatroom(chatroom.generator.email);
 				console.log(result);
@@ -270,7 +229,7 @@ export default function Room(props: IRoomProps): JSX.Element {
 					muted={true}
 					profileImage={profileImage}
 				/>
-				{remoteMediaInfos.map((remoteMediaInfo, index) => {
+				{remoteStreams?.map((remoteMediaInfo, index) => {
 					return (
 						<RoomMedia
 							key={index}
