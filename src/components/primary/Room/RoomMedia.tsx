@@ -18,7 +18,6 @@ export default function RoomMedia(props: IRoomMediaProps): JSX.Element {
 	const viewRef = useRef<HTMLVideoElement>(null);
 
 	useEffect(() => {
-		console.log("profileImage is ", profileImage);
 		if (!viewRef.current) return;
 		viewRef.current.srcObject = mediaStream ? mediaStream : null;
 	}, [mediaStream]);
