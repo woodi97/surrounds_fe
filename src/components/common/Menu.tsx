@@ -1,9 +1,7 @@
 import Link from "next/link";
 import * as React from "react";
 
-export interface IMenuProps {}
-
-export default function Menu(props: IMenuProps) {
+export default function Menu(): JSX.Element {
 	return (
 		<>
 			<nav id="menu">

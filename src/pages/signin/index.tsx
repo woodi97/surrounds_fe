@@ -4,7 +4,6 @@ import Link from "next/link";
 import classNames from "classnames";
 import { SignIn } from "@src/core/api/user";
 import styles from "./index.module.scss";
-import axios from "axios";
 
 interface IProps {
 	className?: string;

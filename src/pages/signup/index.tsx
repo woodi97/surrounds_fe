@@ -39,7 +39,7 @@ export default function SignUpPage(props: IProps): JSX.Element {
 		e.preventDefault();
 		if (!isBtnActivate) return;
 		SignUp(username, email, password)
-			.then((result) => {
+			.then(() => {
 				alert("successfully created");
 				router.push("/signin");
 			})
