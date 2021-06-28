@@ -38,7 +38,7 @@ Room.statics.create = function (title, latitude, longitude, generator) {
 	});
 	room.save();
 	return room
-		.populate("generator", "email nickname profileImage")
+		.populate("generator", "email username profileImage")
 		.execPopulate();
 };
 
@@ -58,10 +58,10 @@ Room.statics.searching = function (latitude, longitude) {
 			},
 		},
 		{ _id: false },
-	).populate("generator", "email nickname profileImage", { _id: false });
+	).populate("generator", "email username profileImage", { _id: false });
 };
 
-//find one by nickname or email
+//find one by username or email
 Room.statics.findOneByEmail = function (email) {
 	const encrypted = encodeURIComponent(
 		crypto
