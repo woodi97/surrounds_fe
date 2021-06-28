@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 //import interface
 import { IRemoteMedia } from "@src/core/interface";
 

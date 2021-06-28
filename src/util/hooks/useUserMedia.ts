@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import config from "@src/core/config";
 
 const ratios = new Map([
 	["default", { width: 640, height: 480 }],
 	["portrait", { width: 375, height: 720 }],
 ]);
-
-const userMediaConfig = {
-	audio: { sampleSize: 4, echoCancellation: true, noiseSuppression: true },
-	// video: { facingMode: "user" },
-	video: false,
-};
 
 export default function useUserMedia() {
 	const [mediaStream, setMediaStream] = useState(null);
@@ -18,7 +13,7 @@ export default function useUserMedia() {
 		const enableStream = async () => {
 			try {
 				const stream = await navigator.mediaDevices.getUserMedia(
-					userMediaConfig,
+					config.userMediaConfig,
 				);
 				setMediaStream(stream);
 			} catch (error) {

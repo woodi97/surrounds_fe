@@ -16,11 +16,14 @@ import {
 	RoomCreatePage,
 	ProfilePage,
 	RoomList,
-	Room,
 } from "@src/components/primary";
 
 // import Mapbox By Dynamic
 const MapBox = dynamic(() => import("@src/components/mapbox/Map"), {
+	ssr: false,
+});
+// import Room By Dynamic
+const Room = dynamic(() => import("@src/components/primary/Room/Room"), {
 	ssr: false,
 });
 
