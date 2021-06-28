@@ -11,11 +11,12 @@ import { getProfile } from "@src/core/api/user";
 interface IProfilePageProps {
 	className?: string;
 	emailId?: string;
+	onProfileUpdate(): void;
 	onClick(emailId: string, e: any): void;
 }
 
 export default function ProfilePage(props: IProfilePageProps): JSX.Element {
-	const { className, emailId, onClick } = props;
+	const { className, emailId, onClick, onProfileUpdate } = props;
 	const [profileInfo, setProfileInfo] = useState({
 		email: "",
 		username: "",
@@ -79,7 +80,7 @@ export default function ProfilePage(props: IProfilePageProps): JSX.Element {
 				{isUserExist === undefined && <></>}
 				{isUserExist === true && (
 					<>
-						<Header userInfo={profileInfo} />
+						<Header userInfo={profileInfo} onProfileUpdate={onProfileUpdate} />
 						<Main />
 					</>
 				)}

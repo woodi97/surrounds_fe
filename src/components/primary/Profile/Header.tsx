@@ -1,17 +1,20 @@
 import React, { useState } from "react";
-import router from "next/router";
+import { useRouter } from "next/router";
 import styles from "./Header.module.scss";
 
 import { editUserName, editProfileImage } from "@src/core/api/user";
 import { UserInfo } from "@src/core/interface";
+import config from "@src/core/config";
 
 interface Props {
 	userInfo: UserInfo;
+	onProfileUpdate(): void;
 }
 
 export default function ProfileHeader(props: Props): JSX.Element {
 	const {
 		userInfo: { email, username, profileImage },
+		onProfileUpdate,
 	} = props;
 	const [inputs, setInputs] = useState({
 		username: username,
@@ -25,8 +28,12 @@ export default function ProfileHeader(props: Props): JSX.Element {
 		});
 		if (name === "profileImage") {
 			const onProfileImageChanged = async () => {
-				await editProfileImage(e.target.files[0]);
-				router.reload();
+				try {
+					await editProfileImage(e.target.files[0]);
+					onProfileUpdate();
+				} catch (error) {
+					console.log(error);
+				}
 			};
 			onProfileImageChanged();
 		}
@@ -36,8 +43,12 @@ export default function ProfileHeader(props: Props): JSX.Element {
 	const onEditButtonClick = async (e) => {
 		e.preventDefault();
 		if (isEdit) {
-			await editUserName(inputs.username);
-			router.reload();
+			try {
+				await editUserName(inputs.username);
+				onProfileUpdate;
+			} catch (error) {
+				console.log(error);
+			}
 		}
 		setEdit(!isEdit);
 	};
@@ -48,8 +59,8 @@ export default function ProfileHeader(props: Props): JSX.Element {
 				{/* <button>X</button> */}
 				<div className={styles.profile}>
 					<div className={styles.profile_image}>
-						{profileImage === "https://boundary.or.kr/api/NULL" ? (
-							<img src="/default_user.png" alt="" />
+						{profileImage === `${config.apiConfig.SERVER_URL}/profiles/NULL` ? (
+							<img src="/profiles/default.png" alt="" />
 						) : (
 							<img src={profileImage} alt="" />
 						)}
@@ -59,7 +70,7 @@ export default function ProfileHeader(props: Props): JSX.Element {
 									htmlFor={styles.profile_image_edit_btn}
 									className={styles.profile_image_edit_btn_label}
 								>
-									<img src="./icon_edit_image.svg" alt="" />
+									<img src="/images/icon_edit_image.svg" alt="" />
 								</label>
 								<input
 									id={styles.profile_image_edit_btn}

@@ -3,6 +3,7 @@ import Link from "next/link";
 import classNames from "classnames";
 import { UserInfo } from "@src/core/interface";
 import styles from "./ProfileHeader.module.scss";
+import config from "@src/core/config";
 
 interface Props {
 	className?: string;
@@ -18,7 +19,8 @@ export default function ProfileHeader(props: Props): JSX.Element {
 			<div className={styles.image}>
 				<img
 					src={
-						user?.profileImage === "https://boundary.or.kr/api/NULL"
+						user?.profileImage ===
+						`${config.apiConfig.SERVER_URL}/profiles/NULL`
 							? "/profiles/default.png"
 							: user?.profileImage
 					}

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Location } from "@src/core/interface";
 
 const gpsOptions = {
@@ -10,7 +10,6 @@ export default function useLocation() {
 	const [location, setLocation] = useState<Location>(null);
 
 	const getCurrentLocation = () => {
-		// navigator.geolocation.getCurrentPosition을 비동기로 사용하기 위해 Promise로 감쌌음
 		return new Promise<Location>((resolve, reject) => {
 			if (!navigator.geolocation) {
 				reject("위치정보 사용이 불가능한 브라우저입니다.");
