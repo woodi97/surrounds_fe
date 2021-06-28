@@ -10,6 +10,8 @@ import { Location, RoomInfo } from "@src/core/interface";
 import RoomMedia from "./RoomMedia";
 // import config
 import config from "@src/core/config";
+// import custom hooks
+import { useUserMedia } from "@src/util/hooks";
 // import api
 import { deleteChatroom } from "@src/core/api/chatroom";
 // import styles
@@ -42,10 +44,10 @@ export default function Room(props: IRoomProps): JSX.Element {
 		getChatRooms,
 		onClick,
 	} = props;
+	const localStream = useUserMedia();
 	const peers = {};
 	const socket = useContext(SocketContext);
 	const [myPeer, setPeer] = useState<Peer>(undefined);
-	const [localMediaInfo, setLocalMediaInfo] = useState<LocalMediaInfo>(null);
 	const [remoteMediaInfos, setRemoteMediaInfos] = useState<LocalMediaInfo[]>(
 		[],
 	);
@@ -115,7 +117,7 @@ export default function Room(props: IRoomProps): JSX.Element {
 	}, []);
 
 	useEffect(() => {
-		if (localMediaInfo) {
+		if (localStream) {
 			import("peerjs").then(({ default: Peer }) => {
 				const peer = myPeer ? myPeer : new Peer(undefined, config.peerConfig);
 				setPeer(peer);
@@ -127,7 +129,7 @@ export default function Room(props: IRoomProps): JSX.Element {
 				peer.on("call", (call) => {
 					const { emailId, profileImage } = call.metadata;
 					console.log("get call from ", call.peer, emailId, profileImage);
-					call.answer(localMediaInfo.stream);
+					call.answer(localStream);
 					call.on("stream", (remoteStream) => {
 						addRemoteStream(remoteStream, call.peer, emailId, profileImage);
 					});
@@ -171,10 +173,10 @@ export default function Room(props: IRoomProps): JSX.Element {
 						if (peer.disconnected) {
 							peer.connect(userId);
 						} else {
-							const call = peer.call(userId, localMediaInfo?.stream, {
+							const call = peer.call(userId, localStream, {
 								metadata: {
-									emailId: localMediaInfo?.emailId,
-									profileImage: localMediaInfo?.profileImage,
+									emailId: emailId,
+									profileImage: profileImage,
 								},
 							});
 							peers[userId] = call;
@@ -218,24 +220,7 @@ export default function Room(props: IRoomProps): JSX.Element {
 		return () => {
 			cleanUp();
 		};
-	}, [localMediaInfo]);
-
-	const getMyMediaStream = async () => {
-		const myMedia = await navigator.mediaDevices.getUserMedia({
-			video: false,
-			audio: { sampleSize: 8, echoCancellation: true },
-		});
-		setLocalMediaInfo({
-			peerId: "temp",
-			emailId: emailId,
-			stream: myMedia,
-			profileImage: profileImage,
-		});
-	};
-
-	useEffect(() => {
-		getMyMediaStream();
-	}, []);
+	}, [localStream]);
 
 	const onExitButtonClick = async (e) => {
 		e.preventDefault();
@@ -279,11 +264,11 @@ export default function Room(props: IRoomProps): JSX.Element {
 			</div>
 			<div className={styles.participants}>
 				<RoomMedia
-					mediaStream={localMediaInfo?.stream}
+					mediaStream={localStream}
 					emailId={emailId}
 					onClick={onClick}
 					muted={true}
-					profileImage={localMediaInfo?.profileImage}
+					profileImage={profileImage}
 				/>
 				{remoteMediaInfos.map((remoteMediaInfo, index) => {
 					return (
