@@ -1,3 +1,16 @@
 .map {
 	background: white;
 }
+
+.btn_marker {
+	background: none;
+	border: none;
+	cursor: pointer;
+	img {
+		width: 45px;
+		height: 45px;
+		overflow: hidden;
+		object-fit: cover;
+		border-radius: 70%;
+	}
+}

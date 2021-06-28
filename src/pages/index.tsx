@@ -9,6 +9,7 @@ import { UserInfo, Location } from "@src/core/interface";
 import styles from "./index.module.scss";
 // API Methods
 import { getMyProfile } from "@src/core/api/user";
+import { getNearChatrooms } from "@src/core/api/chatroom";
 // import Components
 import {
 	ProfileHeader,
@@ -16,7 +17,6 @@ import {
 	ProfilePage,
 	Room,
 } from "@src/components/primary";
-import { getNearChatrooms } from "@src/core/api/chatroom";
 // import Mapbox By Dynamic
 const MapBox = dynamic(() => import("@src/components/mapbox/Map"), {
 	ssr: false,
@@ -82,7 +82,13 @@ export default function MainPage(): JSX.Element {
 	return (
 		<div className={styles.container}>
 			{/* rendering mapbox */}
-			{myLocation && <MapBox className={styles.map} location={myLocation} />}
+			{myLocation && (
+				<MapBox
+					className={styles.map}
+					location={myLocation}
+					chatrooms={chatrooms}
+				/>
+			)}
 			{/* rendering profileheader */}
 			{myLocation && (
 				<ProfileHeader
