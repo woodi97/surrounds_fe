@@ -1,5 +1,5 @@
-import mongoose, { Schema } from "mongoose";
-import IRoom from "@src/core/interface/room";
+import { Schema, model, models } from "mongoose";
+import { IRoom, IRoomModel } from "@src/core/interface/room";
 import crypto from "crypto";
 import config from "@src/core/config";
 
@@ -75,5 +75,5 @@ RoomSchema.statics.delete = function (room) {
 };
 
 // Add this line for checking duplication(for serverless)
-module.exports =
-	mongoose.models.Room || mongoose.model<IRoom>("Room", RoomSchema);
+delete models.Room;
+export default model<IRoom, IRoomModel>("Room", RoomSchema);

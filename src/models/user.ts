@@ -1,15 +1,23 @@
-import mongoose, { Schema } from "mongoose";
-import IUser from "@src/core/interface/user";
+import { Schema, model, models } from "mongoose";
+import { IUserDocument, IUserModel } from "@src/core/interface/user";
 import crypto from "crypto";
 import config from "@src/core/config";
 
 //made new user
-const UserSchema = new Schema<IUser>({
+const UserSchema = new Schema<IUserDocument>({
 	username: { type: String, unique: true },
 	email: { type: String, required: true, unique: true, lowercase: true },
 	password: { type: String, required: true },
 	profileImage: String,
 });
+
+UserSchema.methods.verify = async function (password) {
+	const encrypted = crypto
+		.createHmac("sha1", config.apiConfig.SECRET_KEY)
+		.update(password)
+		.digest("base64");
+	return this.password === encrypted;
+};
 
 //create new user
 UserSchema.statics.create = async function (
@@ -31,13 +39,6 @@ UserSchema.statics.create = async function (
 	return user.save();
 };
 
-UserSchema.methods.verify = async function (password) {
-	const encrypted = crypto
-		.createHmac("sha1", config.apiConfig.SECRET_KEY)
-		.update(password)
-		.digest("base64");
-	return this.password === encrypted;
-};
 //find one by username or email
 UserSchema.statics.findOneByUsernameEmail = async function (username, email) {
 	return this.findOne({
@@ -83,5 +84,5 @@ UserSchema.statics.findOneAndReplaceUsername = async function (user, username) {
 };
 
 // Add this line for checking duplication(for serverless)
-module.exports =
-	mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
+delete models.User;
+export default model<IUserDocument, IUserModel>("User", UserSchema);
