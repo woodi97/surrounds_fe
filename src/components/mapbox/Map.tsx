@@ -124,13 +124,3 @@ export default function Map(props: IMapProps): JSX.Element {
 		</div>
 	);
 }
-
-{
-	/* <Marker
-	key={idx}
-	longitude={chatroom.location.longitude}
-	latitude={chatroom.location.latitude}
->
-	<button className={styles.marker_btn} />
-</Marker>; */
-}

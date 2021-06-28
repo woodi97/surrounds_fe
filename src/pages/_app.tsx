@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
 			<GlobalStyles />
 			<Head>
 				<title>Surrounds</title>
-				<link rel="icon" href="images/favicon.ico" />
+				<link rel="icon" href="/images/favicon.ico" />
 				<meta charSet="utf-8" />
 				<meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 				<meta
