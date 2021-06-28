@@ -9,10 +9,11 @@ import styles from "./RoomList.module.scss";
 interface RoomListProps {
 	className: string;
 	chatrooms?: RoomInfo[];
+	onClick(room: RoomInfo, e: any): void;
 }
 
 export default function RoomListContainer(props: RoomListProps): JSX.Element {
-	const { className, chatrooms } = props;
+	const { className, chatrooms, onClick } = props;
 	return (
 		<div className={classNames(className, styles.bar)}>
 			{chatrooms?.map((chatroom) => (
@@ -20,6 +21,7 @@ export default function RoomListContainer(props: RoomListProps): JSX.Element {
 					className={styles.cell}
 					chatroom={chatroom}
 					key={chatroom.id}
+					onClick={onClick}
 				/>
 			))}
 		</div>

@@ -5,7 +5,7 @@ import { useLocation } from "@src/util/hooks";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 // import Interface
-import { UserInfo, Location } from "@src/core/interface";
+import { UserInfo, Location, RoomInfo } from "@src/core/interface";
 import styles from "./index.module.scss";
 // API Methods
 import { getMyProfile } from "@src/core/api/user";
@@ -16,7 +16,9 @@ import {
 	RoomCreatePage,
 	ProfilePage,
 	RoomList,
+	Room,
 } from "@src/components/primary";
+
 // import Mapbox By Dynamic
 const MapBox = dynamic(() => import("@src/components/mapbox/Map"), {
 	ssr: false,
@@ -30,6 +32,7 @@ interface Profile {
 export default function MainPage(): JSX.Element {
 	const [myLocation] = useLocation();
 	const [chatrooms, setChatrooms] = useState([]);
+	const [selectedRoom, setSelectedRoom] = useState<RoomInfo>(null);
 	const [me, setMe] = useState<UserInfo>(undefined);
 	// Showing Profile
 	const [profile, setProfile] = useState<Profile>({
@@ -48,6 +51,13 @@ export default function MainPage(): JSX.Element {
 		setProfile({ show: !profile.show, email: email });
 	}
 
+	// Select Room When Click
+	function onRoomClick(room: RoomInfo, e: React.MouseEvent<HTMLInputElement>) {
+		e.preventDefault();
+		setSelectedRoom(room);
+	}
+
+	// Get Near Chatrooms
 	async function getChatrooms(location: Location) {
 		try {
 			const data = await getNearChatrooms(location);
@@ -99,7 +109,11 @@ export default function MainPage(): JSX.Element {
 			)}
 			{/* rendering joinable rooms */}
 			{myLocation && (
-				<RoomList className={styles.bottombar} chatrooms={chatrooms} />
+				<RoomList
+					className={styles.bottombar}
+					chatrooms={chatrooms}
+					onClick={onRoomClick}
+				/>
 			)}
 			{/* rendering profile page */}
 			{profile.show && (
@@ -115,6 +129,18 @@ export default function MainPage(): JSX.Element {
 					className={styles.createChatroom}
 					location={myLocation}
 					getChatRooms={getChatrooms}
+				/>
+			)}
+			{/* enter room */}
+			{router.asPath.startsWith("/chatroom/") && (
+				<Room
+					className={styles.currentchatroom}
+					chatroom={selectedRoom}
+					emailId={me.email}
+					profileImage={me.profileImage}
+					currentLocation={myLocation}
+					getChatRooms={getChatrooms}
+					onClick={onProfileClick}
 				/>
 			)}
 		</div>
