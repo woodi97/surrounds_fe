@@ -6,7 +6,7 @@
 2.npm install -g yarn
 3.yarn install
 4.yarn dev(for dev mode) or yarn build && yarn start(for build mode)
-5.root 디렉토리에 config.js 생성 후 아래와 같은 형식으로 작성
+5./src/core/config 디렉토리에 index.js 생성 후 아래와 같은 형식으로 작성
 const config = { iceServers: [{ urls: ["stun:stun.l.google.com:19302"] }, {urls:"url", "username":"username", "credential":"credential"}] };
 module.exports = {
     peerConfig : {
