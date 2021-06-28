@@ -1,25 +1,23 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const crypto = require("crypto");
-const User = require("./user");
-const config = require("@src/core/config");
+import mongoose, { Schema } from "mongoose";
+import IRoom from "@src/core/interface/room";
+import crypto from "crypto";
+import config from "@src/core/config";
 
 //made Room
-const Room = new Schema({
+const RoomSchema = new Schema<IRoom>({
 	id: { type: String, unique: true },
 	title: { type: String, required: true },
 	location: {
 		type: { type: String },
 		coordinates: [],
 	},
-	generator: { type: Schema.Types.ObjectId, ref: User, unique: true },
+	generator: { type: Schema.Types.ObjectId, ref: "User", unique: true },
 });
 
-Room.index({ location: "2dsphere" });
+RoomSchema.index({ location: "2dsphere" });
 
 //create new user
-Room.statics.create = function (title, latitude, longitude, generator) {
+RoomSchema.statics.create = function (title, latitude, longitude, generator) {
 	//room id will encrypted by user.email
 	const encrypted = encodeURIComponent(
 		crypto
@@ -42,7 +40,7 @@ Room.statics.create = function (title, latitude, longitude, generator) {
 		.execPopulate();
 };
 
-Room.statics.searching = function (latitude, longitude) {
+RoomSchema.statics.searching = function (latitude, longitude) {
 	const coordinates = [longitude, latitude];
 	return this.find(
 		{
@@ -62,7 +60,7 @@ Room.statics.searching = function (latitude, longitude) {
 };
 
 //find one by username or email
-Room.statics.findOneByEmail = function (email) {
+RoomSchema.statics.findOneByEmail = function (email) {
 	const encrypted = encodeURIComponent(
 		crypto
 			.createHmac("sha1", config.apiConfig.SECRET_KEY)
@@ -72,9 +70,10 @@ Room.statics.findOneByEmail = function (email) {
 	return this.findOne({ id: encrypted }).exec();
 };
 
-Room.statics.delete = function (room) {
+RoomSchema.statics.delete = function (room) {
 	return this.deleteOne({ id: room.id }).exec();
 };
 
 // Add this line for checking duplication(for serverless)
-module.exports = mongoose.models.Room || mongoose.model("Room", Room);
+module.exports =
+	mongoose.models.Room || mongoose.model<IRoom>("Room", RoomSchema);

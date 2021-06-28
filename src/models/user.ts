@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const crypto = require("crypto");
-const config = require("@src/core/config");
+import mongoose, { Schema } from "mongoose";
+import IUser from "@src/core/interface/user";
+import crypto from "crypto";
+import config from "@src/core/config";
 
 //made new user
-const User = new Schema({
+const UserSchema = new Schema<IUser>({
 	username: { type: String, unique: true },
 	email: { type: String, required: true, unique: true, lowercase: true },
 	password: { type: String, required: true },
@@ -13,7 +12,12 @@ const User = new Schema({
 });
 
 //create new user
-User.statics.create = async function (username, email, password, profileImage) {
+UserSchema.statics.create = async function (
+	username,
+	email,
+	password,
+	profileImage,
+) {
 	const encrypted = crypto
 		.createHmac("sha1", config.apiConfig.SECRET_KEY)
 		.update(password)
@@ -27,7 +31,7 @@ User.statics.create = async function (username, email, password, profileImage) {
 	return user.save();
 };
 
-User.methods.verify = async function (password) {
+UserSchema.methods.verify = async function (password) {
 	const encrypted = crypto
 		.createHmac("sha1", config.apiConfig.SECRET_KEY)
 		.update(password)
@@ -35,45 +39,49 @@ User.methods.verify = async function (password) {
 	return this.password === encrypted;
 };
 //find one by username or email
-User.statics.findOneByUsernameEmail = async function (username, email) {
+UserSchema.statics.findOneByUsernameEmail = async function (username, email) {
 	return this.findOne({
 		$or: [{ username: username }, { email: email }],
 	}).exec();
 };
 
 //find one by username or email
-User.statics.findOneByEmail = async function (email) {
+UserSchema.statics.findOneByEmail = async function (email) {
 	return this.findOne({
 		email,
 	}).exec();
 };
 
 //find one by username or email
-User.statics.findOneByUsername = async function (username) {
+UserSchema.statics.findOneByUsername = async function (username) {
 	return this.findOne({
 		username,
 	}).exec();
 };
 
-User.statics.findOneAndReplaceImage = async function (user, profileImage) {
+UserSchema.statics.findOneAndReplaceImage = async function (
+	user,
+	profileImage,
+) {
 	this.findOneAndUpdate(
 		{ email: user.email },
 		{ $set: { profileImage: profileImage } },
-		{ returnNewDocument: true },
+		{ new: true },
 	).exec();
 	user.profileImage = profileImage;
 	return user;
 };
 
-User.statics.findOneAndReplaceUsername = async function (user, username) {
+UserSchema.statics.findOneAndReplaceUsername = async function (user, username) {
 	this.findOneAndUpdate(
 		{ email: user.email },
 		{ $set: { username: username } },
-		{ returnNewDocument: true },
+		{ new: true },
 	).exec();
 	user.username = username;
 	return user;
 };
 
 // Add this line for checking duplication(for serverless)
-module.exports = mongoose.models.User || mongoose.model("User", User);
+module.exports =
+	mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
