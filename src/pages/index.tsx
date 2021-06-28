@@ -15,7 +15,7 @@ import {
 	ProfileHeader,
 	RoomCreatePage,
 	ProfilePage,
-	Room,
+	RoomList,
 } from "@src/components/primary";
 // import Mapbox By Dynamic
 const MapBox = dynamic(() => import("@src/components/mapbox/Map"), {
@@ -99,7 +99,7 @@ export default function MainPage(): JSX.Element {
 			)}
 			{/* rendering joinable rooms */}
 			{myLocation && (
-				<Room className={styles.bottombar} chatrooms={chatrooms} />
+				<RoomList className={styles.bottombar} chatrooms={chatrooms} />
 			)}
 			{/* rendering profile page */}
 			{profile.show && (

@@ -1,33 +1,20 @@
 import React from "react";
-// import { useRouter } from "next/router";
 import classNames from "classnames";
-import styles from "./RoomCell.module.scss";
+import styles from "./RoomListCell.module.scss";
 
 import { RoomInfo } from "@src/core/interface";
-// import { checkChatroom } from "@src/core/api/chatroom";
 
-interface RoomCellProps {
+interface RoomListCellProps {
 	className: string;
 	chatroom: RoomInfo;
 }
 
-export default function RoomCell(props: RoomCellProps): JSX.Element {
+export default function RoomListCell(props: RoomListCellProps): JSX.Element {
 	const { className, chatroom } = props;
-	// const router = useRouter();
 
 	const onImageError = (e) => {
-		e.target.src = "/default_user.png";
+		e.target.src = "/profiles/default.png";
 	};
-
-	// const onChatroomClick = async () => {
-	// 	try {
-	// 		await checkChatroom(chatroom.generator.email);
-	// 		router.push("/", `/chatroom/${chatroom.id}`);
-	// 	} catch {
-	// 		alert("이미 폭파된 방입니다🥲 페이지를 다시 로딩합니다.");
-	// 		router.reload();
-	// 	}
-	// };
 	return (
 		<div className={classNames(className)}>
 			<div className={styles.cell}>
