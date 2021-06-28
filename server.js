@@ -7,7 +7,7 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 const express = require("express");
-const config = require("./config");
+const config = require("./src/core/config");
 const { ExpressPeerServer } = require("peer");
 
 app.prepare().then(() => {

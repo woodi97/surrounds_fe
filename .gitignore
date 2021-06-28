@@ -250,4 +250,5 @@ sketch
 
 # config files
 config.js
+src/core/config
 public/profiles

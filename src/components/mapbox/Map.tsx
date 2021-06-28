@@ -14,7 +14,7 @@ import styles from "./Map.module.scss";
 // import interface
 import { Location, RoomInfo } from "@src/core/interface";
 // import config
-import config from "../../../config";
+import config from "@src/core/config";
 interface IMapProps {
 	className: string;
 	location: Location;

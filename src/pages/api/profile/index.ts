@@ -6,7 +6,7 @@ import multer from "multer";
 import { User } from "@src/models";
 import randomstring from "randomstring";
 import fs from "fs";
-import fileConfig from "../../../../config";
+import fileConfig from "@src/core/config";
 
 // image uploader setting
 const imageUpload = multer({

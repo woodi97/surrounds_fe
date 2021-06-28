@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import config from "../../config";
+import config from "@src/core/config";
 
 const MONGODB_URI = config.apiConfig.MONGODB_URI;
 const MONGODB_DB = config.apiConfig.MONGODB_DB;

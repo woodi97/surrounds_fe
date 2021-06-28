@@ -3,7 +3,7 @@ import nextConnect from "next-connect";
 import User from "@src/models/user";
 import connectDB from "@src/util/mongodb";
 import jwt from "jsonwebtoken";
-import config from "../../../../config";
+import config from "@src/core/config";
 
 interface Request extends NextApiRequest {
 	app: any;

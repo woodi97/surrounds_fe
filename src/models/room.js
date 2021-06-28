@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const crypto = require("crypto");
 const User = require("./user");
-const config = require("../../config");
+const config = require("@src/core/config");
 
 //made Room
 const Room = new Schema({
