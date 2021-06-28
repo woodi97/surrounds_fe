@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import classNames from "classnames";
-import { useRouter } from "next/router";
 import { UserInfo } from "@src/core/interface";
 import styles from "./ProfileHeader.module.scss";
 
@@ -20,7 +19,7 @@ export default function ProfileHeader(props: Props): JSX.Element {
 				<img
 					src={
 						user?.profileImage === "https://boundary.or.kr/api/NULL"
-							? "/default_user.png"
+							? "/profiles/default.png"
 							: user?.profileImage
 					}
 					alt=""
