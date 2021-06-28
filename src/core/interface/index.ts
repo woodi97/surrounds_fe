@@ -15,3 +15,10 @@ export interface RoomInfo {
 	location: Location;
 	generator: UserInfo;
 }
+
+export interface IRemoteMedia {
+	peerId: string;
+	emailId: string;
+	profileImage: string;
+	stream: MediaStream;
+}
