@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
-import config from "@src/core/config";
 
-const MONGODB_URI = config.apiConfig.MONGODB_URI;
-const MONGODB_DB = config.apiConfig.MONGODB_DB;
+const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_DB = process.env.MONGODB_DB;
 
 if (!MONGODB_URI) {
 	throw new Error(
@@ -27,6 +26,7 @@ const connectDB = (handler) => async (req, res) => {
 		useFindAndModify: false,
 		useCreateIndex: true,
 		useNewUrlParser: true,
+		dbName: "surrounds",
 	});
 	return handler(req, res);
 };

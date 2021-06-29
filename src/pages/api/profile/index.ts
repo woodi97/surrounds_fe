@@ -6,7 +6,6 @@ import multer from "multer";
 import { User } from "@src/models";
 import randomstring from "randomstring";
 import fs from "fs";
-import fileConfig from "@src/core/config";
 
 // image uploader setting
 const imageUpload = multer({
@@ -84,7 +83,7 @@ api.put(async (req, res) => {
 			body: {
 				email: user.email,
 				username: user.username,
-				profileImage: fileConfig.apiConfig.IMAGE_URL + user.profileImage,
+				profileImage: process.env.IMAGE_URL + user.profileImage,
 			},
 		});
 	};

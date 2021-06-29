@@ -13,8 +13,6 @@ import classNames from "classnames";
 import styles from "./Map.module.scss";
 // import interface
 import { Location, RoomInfo } from "@src/core/interface";
-// import config
-import config from "@src/core/config";
 interface IMapProps {
 	className: string;
 	location: Location;
@@ -62,7 +60,7 @@ export default function Map(props: IMapProps): JSX.Element {
 			<ReactMapGL
 				{...viewPort}
 				mapStyle="mapbox://styles/mapbox/streets-v11"
-				mapboxApiAccessToken={config.mapboxConfig.token}
+				mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAPBOX_TOKEN}
 				transitionInterpolator={new FlyToInterpolator()}
 				onViewportChange={(viewport) => setViewPort(viewport)}
 			>
@@ -82,7 +80,7 @@ export default function Map(props: IMapProps): JSX.Element {
 							<img
 								src={
 									room.generator.profileImage ===
-									"https://boundary.or.kr/api/NULL"
+									`${process.env.NEXT_PUBLIC_IMAGE_URL}NULL`
 										? "/profiles/default.png"
 										: room.generator.profileImage
 								}

@@ -1,7 +1,6 @@
 import { Schema, model, models } from "mongoose";
 import { IRoom, IRoomModel } from "@src/core/interface/room";
 import crypto from "crypto";
-import config from "@src/core/config";
 
 //made Room
 const RoomSchema = new Schema<IRoom>({
@@ -21,7 +20,7 @@ RoomSchema.statics.create = function (title, latitude, longitude, generator) {
 	//room id will encrypted by user.email
 	const encrypted = encodeURIComponent(
 		crypto
-			.createHmac("sha1", config.apiConfig.SECRET_KEY)
+			.createHmac("sha1", process.env.SECRET_KEY)
 			.update(generator.email)
 			.digest("base64"),
 	);
@@ -63,7 +62,7 @@ RoomSchema.statics.searching = function (latitude, longitude) {
 RoomSchema.statics.findOneByEmail = function (email) {
 	const encrypted = encodeURIComponent(
 		crypto
-			.createHmac("sha1", config.apiConfig.SECRET_KEY)
+			.createHmac("sha1", process.env.SECRET_KEY)
 			.update(email)
 			.digest("base64"),
 	);

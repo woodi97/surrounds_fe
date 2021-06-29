@@ -7,7 +7,6 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 const express = require("express");
-const config = require("./src/core/config");
 const { ExpressPeerServer } = require("peer");
 
 app.prepare().then(() => {
@@ -24,7 +23,7 @@ app.prepare().then(() => {
 	//MiddleWares
 	exapp.use(express.static(path.join(__dirname, "public")));
 	// set the secret key variable for jwt
-	exapp.set("jwt-secret", config.apiConfig.SECRET_KEY);
+	exapp.set("jwt-secret", process.env.SECRET_KEY);
 
 	// express + peerjs setting
 	exapp.use("/media-chat", expServer);
@@ -68,6 +67,6 @@ app.prepare().then(() => {
 
 	// listen for secured http connection
 	server.listen(port, () => {
-		console.log(`> Ready on ${config.apiConfig.SERVER_URL}`);
+		console.log(`> Ready on ${process.env.SERVER_URL}`);
 	});
 });

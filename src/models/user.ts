@@ -1,7 +1,6 @@
 import { Schema, model, models } from "mongoose";
 import { IUserDocument, IUserModel } from "@src/core/interface/user";
 import crypto from "crypto";
-import config from "@src/core/config";
 
 //made new user
 const UserSchema = new Schema<IUserDocument>({
@@ -13,7 +12,7 @@ const UserSchema = new Schema<IUserDocument>({
 
 UserSchema.methods.verify = async function (password) {
 	const encrypted = crypto
-		.createHmac("sha1", config.apiConfig.SECRET_KEY)
+		.createHmac("sha1", process.env.SECRET_KEY)
 		.update(password)
 		.digest("base64");
 	return this.password === encrypted;
@@ -27,7 +26,7 @@ UserSchema.statics.create = async function (
 	profileImage,
 ) {
 	const encrypted = crypto
-		.createHmac("sha1", config.apiConfig.SECRET_KEY)
+		.createHmac("sha1", process.env.SECRET_KEY)
 		.update(password)
 		.digest("base64");
 	const user = new this({

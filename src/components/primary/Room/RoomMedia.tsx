@@ -55,8 +55,8 @@ export default function RoomMedia(props: IRoomMediaProps): JSX.Element {
 				playsInline
 				muted={muted}
 				poster={
-					profileImage === "https://boundary.or.kr/api/NULL"
-						? "/default_user.png"
+					profileImage === `${process.env.NEXT_PUBLIC_IMAGE_URL}NULL`
+						? "/profiles/default.png"
 						: profileImage
 				}
 				onClick={(e) => {

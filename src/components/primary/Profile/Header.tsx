@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { useRouter } from "next/router";
 import styles from "./Header.module.scss";
 
 import { editUserName, editProfileImage } from "@src/core/api/user";
 import { UserInfo } from "@src/core/interface";
-import config from "@src/core/config";
 
 interface Props {
 	userInfo: UserInfo;
@@ -59,7 +57,7 @@ export default function ProfileHeader(props: Props): JSX.Element {
 				{/* <button>X</button> */}
 				<div className={styles.profile}>
 					<div className={styles.profile_image}>
-						{profileImage === `${config.apiConfig.SERVER_URL}/profiles/NULL` ? (
+						{profileImage === `${process.env.NEXT_PUBLIC_IMAGE_URL}NULL` ? (
 							<img src="/profiles/default.png" alt="" />
 						) : (
 							<img src={profileImage} alt="" />
