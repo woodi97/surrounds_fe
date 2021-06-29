@@ -7,7 +7,7 @@ import theme from "@src/styles/theme";
 import axios from "axios";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = process.env.SERVER_URL;
 axios.defaults.withCredentials = true;
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
