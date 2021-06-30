@@ -7,7 +7,7 @@ import theme from "@src/styles/theme";
 import axios from "axios";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = process.env.SERVER_URL;
 axios.defaults.withCredentials = true;
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
@@ -19,6 +19,10 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
 				<link rel="icon" href="/images/favicon.ico" />
 				<meta charSet="utf-8" />
 				<meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+				<meta
+					httpEquiv="Content-Security-Policy"
+					content="upgrade-insecure-requests"
+				></meta>
 				<meta
 					name="viewport"
 					content="width=device-width, initial-scale=1, user-scalable=no"
