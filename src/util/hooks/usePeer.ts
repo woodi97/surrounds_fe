@@ -1,8 +1,44 @@
 import { useState, useEffect, useContext } from "react";
 import { getRandomId } from "@src/util/random";
 import { SocketContext } from "@src/util/socket";
-import config from "@src/core/config";
 import Peer from "peerjs";
+// import nextjs config
+import getConfig from "next/config";
+
+// Add SSR, CSR Process.env Set
+// Only holds serverRuntimeConfig and publicRuntimeConfig
+const {
+	publicRuntimeConfig: {
+		stunURL,
+		turnURL,
+		turnUsername,
+		turnCredential,
+		peerHost,
+		peerPort,
+		peerDebug,
+		peerPath,
+		peerSecure,
+	},
+} = getConfig();
+
+const config = {
+	iceServers: [
+		{ urls: [stunURL] },
+		{
+			urls: turnURL,
+			username: turnUsername,
+			credential: turnCredential,
+		},
+	],
+};
+const peerConfig = {
+	host: peerHost,
+	port: Number(peerPort),
+	debug: Number(peerDebug),
+	path: peerPath,
+	secure: peerSecure === "true",
+	config,
+};
 
 export default function usePeer(
 	addRemoteStream,
@@ -52,7 +88,8 @@ export default function usePeer(
 				.then(({ default: Peer }) => {
 					const peer = myPeer
 						? myPeer
-						: new Peer(String(getRandomId()), config.peerConfig);
+						: new Peer(String(getRandomId()), peerConfig);
+
 					peer.on("open", () => {
 						setPeer(peer);
 						setMyPeerID(peer.id);

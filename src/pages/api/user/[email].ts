@@ -3,7 +3,6 @@ import nextConnect from "next-connect";
 import User from "@src/models/user";
 import connectDB from "@src/util/mongodb";
 import authMiddleware from "@src/util/auth";
-import config from "@src/core/config";
 
 interface Request extends NextApiRequest {
 	params: any;
@@ -34,7 +33,7 @@ api.get(async (req, res) => {
 			body: {
 				email: user.email,
 				username: user.username,
-				profileImage: config.apiConfig.IMAGE_URL + user.profileImage,
+				profileImage: process.env.IMAGE_URL + user.profileImage,
 			},
 		});
 	};

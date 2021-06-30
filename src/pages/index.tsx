@@ -75,7 +75,6 @@ export default function MainPage(): JSX.Element {
 		try {
 			const data = await getMyProfile();
 			setMe(data);
-			console.log(data);
 		} catch (err) {
 			router.push("/signin");
 		}

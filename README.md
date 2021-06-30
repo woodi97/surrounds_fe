@@ -2,42 +2,46 @@
 
 <h1>사용법</h1>
 <pre>
-1.git clone repository_name
-2.npm install -g yarn
-3.yarn install
-4.yarn dev(for dev mode) or yarn build && yarn start(for build mode)
-5./src/core/config 디렉토리에 index.js 생성 후 아래와 같은 형식으로 작성
-const config = { iceServers: [{ urls: ["stun:stun.l.google.com:19302"] }, {urls:"url", "username":"username", "credential":"credential"}] };
-module.exports = {
-    peerConfig : {
-        // for local test enable below
-        host: "localhost",
-        port: 3000
-        // for deployment enable below
-        // host: "serverURL",
-        // port: 443
-        path: "/media-chat",
-        config,
-        // deploy to aws or herokuapp enable secure:true option
-        // secure: true,
-    },
-    userMediaConfig : {
-		audio: { sampleSize: 4, echoCancellation: true, noiseSuppression: true },
-		// video: { facingMode: "user" },
-		video: false,
-	},
-	apiConfig: {
-		// baseURL: "https://surrounds.or.kr",
-		SERVER_URL: "http://localhost:3000",
-		IMAGE_URL : "http://localhost:3000/profiles/",
-		SECRET_KEY : "Your Secret Key",
-		MONGODB_DB:"Your DB Name",
-		MONGODB_URI:"Your DB URI,
-	},
-    mapboxConfig: {
-		token : "Your Token",
-	},
-}
+1. git clone repository_name
+2. npm install -g yarn
+3. yarn install
+4. yarn dev(for dev mode) or yarn build && yarn start(for build mode)
+5. Root 디렉토리에 .env.local, .env.development.local, .env.production.local 생성 후 아래와 같은 형식으로 작성
+
+5-1. .env.local
+SECRET_KEY = YOUR_SECRET_KEY
+MONGODB_DB = YOUR_DB_NAME
+MONGODB_URI = YOUR_DB_URI
+
+STUN_URL = YOUR_STUN_URL
+TURN_URL = YOUR_TURN_URL
+TURN_USERNAME = YOUR_TURN_USERNAME
+TURN_CREDENTIAL = YOUR_TURN_CREDENTIAL
+
+NEXT_PUBLIC_MAPBOX_TOKEN = YOUR_MAPBOX_TOKEN
+
+5-2. .env.development.local
+SERVER_URL = YOUR_SERVER_URL
+IMAGE_URL = YOUR_SERVER_URL/profiles/
+NEXT_PUBLIC_IMAGE_URL = YOUR_SERVER_URL/profiles/
+
+PEER_HOST = YOUR_PEER_HOST(ex.localhost)
+PEER_PORT = YOUR_PEER_PORT
+PEER_DEBUG = YOUR_PEER_DEBUG_OPTION
+PEER_PATH = /media-chat
+PEER_SECURE = YOUR_PEER_SECURE_OPTION
+
+5-3. .env.production.local
+SERVER_URL = YOUR_SERVER_URL
+IMAGE_URL = YOUR_SERVER_URL/profiles/
+NEXT_PUBLIC_IMAGE_URL = YOUR_SERVER_URL/profiles/
+
+PEER_HOST = YOUR_PEER_HOST(ex.https://surrounds.herokuapp.com)
+PEER_PORT = 443
+PEER_DEBUG = 0
+PEER_PATH = /media-chat
+PEER_SERVER = true
+
 </pre>
 
 <h1>코드 작성전 유의사항</h1>

@@ -3,7 +3,6 @@ import nextConnect from "next-connect";
 import User from "@src/models/user";
 import connectDB from "@src/util/mongodb";
 import jwt from "jsonwebtoken";
-import config from "@src/core/config";
 
 interface Request extends NextApiRequest {
 	app: any;
@@ -56,7 +55,7 @@ api.post(async (req, res) => {
 			body: {
 				email: email,
 				username: user.username,
-				profileImage: config.apiConfig.IMAGE_URL + user.profileImage,
+				profileImage: process.env.IMAGE_URL + user.profileImage,
 			},
 			token: token,
 		});

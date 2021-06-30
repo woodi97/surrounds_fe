@@ -3,7 +3,6 @@ import nextConnect from "next-connect";
 import { User, Room } from "@src/models";
 import connectDB from "@src/util/mongodb";
 import authMiddleware from "@src/util/auth";
-import config from "@src/core/config";
 
 interface Request extends NextApiRequest {
 	params: any;
@@ -43,8 +42,7 @@ api.get(async (req, res) => {
 				generator: {
 					email: room.generator.email,
 					username: room.generator.username,
-					profileImage:
-						config.apiConfig.IMAGE_URL + room.generator.profileImage,
+					profileImage: process.env.IMAGE_URL + room.generator.profileImage,
 				},
 			});
 		});
