@@ -15,7 +15,8 @@
 		"jsx": "preserve",
 		"baseUrl": ".",
 		"paths": {
-			"@src/*": ["./src/*"]
+			"@src/*": ["./src/*"],
+			"@styles/*": ["./src/styles/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/util/mongodb.js"],
