@@ -54,11 +54,7 @@ export default function RoomMedia(props: IRoomMediaProps): JSX.Element {
 				autoPlay
 				playsInline
 				muted={muted}
-				poster={
-					profileImage === `${process.env.NEXT_PUBLIC_IMAGE_URL}NULL`
-						? "/profiles/default.png"
-						: profileImage
-				}
+				poster="/profiles/default.png"
 				onClick={(e) => {
 					onClick(emailId, e);
 				}}

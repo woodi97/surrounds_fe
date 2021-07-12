@@ -77,15 +77,7 @@ export default function Map(props: IMapProps): JSX.Element {
 							className={styles.btn_marker}
 							onClick={() => setSelectedRoom(room)}
 						>
-							<img
-								src={
-									room.generator.profileImage ===
-									`${process.env.NEXT_PUBLIC_IMAGE_URL}NULL`
-										? "/profiles/default.png"
-										: room.generator.profileImage
-								}
-								alt="img"
-							/>
+							<img src="/profiles/default.png" alt="img" />
 						</button>
 					</Marker>
 				))}
