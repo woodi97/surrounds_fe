@@ -17,11 +17,7 @@ export default function ProfileHeader(props: Props): JSX.Element {
 		<div className={classNames(className, styles.profile)}>
 			<div className={styles.image}>
 				<img
-					src={
-						user?.profileImage === `${process.env.NEXT_PUBLIC_IMAGE_URL}NULL`
-							? "/profiles/default.png"
-							: user?.profileImage
-					}
+					src="/profiles/default.png"
 					alt=""
 					onClick={(e) => onClick(user.email, e)}
 				/>
