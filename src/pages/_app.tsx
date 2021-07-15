@@ -1,9 +1,9 @@
 import React from "react";
 import Head from "next/head";
 import type { AppProps } from "next/app";
-
 import axios from "axios";
 
+import "@styles/globals.scss";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 axios.defaults.baseURL = process.env.SERVER_URL;
