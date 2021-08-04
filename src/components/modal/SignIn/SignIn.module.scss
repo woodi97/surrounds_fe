@@ -60,23 +60,22 @@
 		font-size: 16px;
 	}
 	.login_btn {
-		border: none;
-		outline: none;
+		display: block;
 		height: 40px;
-		color: #fff;
+		width: 100%;
 		font-size: 18px;
 		border-radius: 20px;
-		// &:hover {
-		// 	cursor: pointer;
-		// 	background-color: rgba(135, 206, 235, 1);
-		// 	color: #000;
-		// }
+		&:hover {
+			cursor: pointer;
+			background-color: rgba(1, 1, 1, 0.5);
+			color: #000;
+		}
 	}
 	.onLoginBtn {
 		background-color: rgb(35, 157, 205);
 	}
 	.offLoginBtn {
-		background-color: rgba(135, 206, 235, 0.3);
+		background-color: rgb(35, 157, 205, 0.5);
 	}
 	a {
 		text-decoration: none;
