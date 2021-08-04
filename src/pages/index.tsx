@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 // import Interface
 import { UserInfo, Location, RoomInfo } from "@src/core/interface";
-import styles from "./index.module.scss";
+import styles from "@styles/Home.module.scss";
 // API Methods
 import { getMyProfile } from "@src/core/api/user";
 import { getNearChatrooms } from "@src/core/api/chatroom";

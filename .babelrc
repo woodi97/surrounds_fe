@@ -1,25 +1,16 @@
 {
-    "presets": [
-      "next/babel"
-    ],
-    "plugins": [
-      [
-        "styled-components",
-        {
-          "ssr": true,
-          "displayName": true,
-          "preprocess": false
-        }
-      ],
-      [
-        "module-resolver",
-        {
-          "root": ["./"],
-          "alias": {
-          "@src": "./src"
-        },
-        "extensions": [".js", ".jsx", ".tsx"]
-        }
-      ]
-    ]
-  }
+	"presets": ["next/babel"],
+	"plugins": [
+		[
+			"module-resolver",
+			{
+				"root": ["./"],
+				"alias": {
+					"@src": "./src",
+					"@styles": "./src/styles"
+				},
+				"extensions": [".js", ".jsx", ".tsx"]
+			}
+		]
+	]
+}
