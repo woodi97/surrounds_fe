@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { GetServerSidePropsResult } from "next";
 // Custom Hooks
 import { useLocation } from "@src/util/hooks";
 // NextJS
@@ -17,6 +18,7 @@ import {
 	ProfilePage,
 	RoomList,
 } from "@src/components/primary";
+import { SignInModal } from "@src/components/modal";
 
 // import Mapbox By Dynamic
 const MapBox = dynamic(() => import("@src/components/mapbox/Map"), {
@@ -76,7 +78,7 @@ export default function MainPage(): JSX.Element {
 			const data = await getMyProfile();
 			setMe(data);
 		} catch (err) {
-			router.push("/signin");
+			console.log("SignIn Error");
 		}
 	}
 
@@ -96,6 +98,8 @@ export default function MainPage(): JSX.Element {
 	// Return JSX
 	return (
 		<div className={styles.container}>
+			{/* signin modal */}
+			{!me && <SignInModal className={styles.signin} />}
 			{/* rendering mapbox */}
 			{myLocation && (
 				<MapBox
