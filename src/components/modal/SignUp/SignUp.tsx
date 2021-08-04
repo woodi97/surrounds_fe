@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import classNames from "classnames";
 import { SignUp } from "@src/core/api/user";
-import styles from "./index.module.scss";
+import styles from "./SignUp.module.scss";
 
 interface IProps {
 	className?: string;
@@ -14,7 +14,7 @@ interface IInputs {
 	password: string;
 }
 
-export default function SignUpPage(props: IProps): JSX.Element {
+export default function SignUpModal(props: IProps): JSX.Element {
 	const router = useRouter();
 	const { className } = props;
 	const [inputs, setInputs] = useState<IInputs>({

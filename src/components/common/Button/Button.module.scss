@@ -1,0 +1,43 @@
+.btn {
+	// font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family: "Roboto";
+	font-style: normal;
+	font-weight: 400;
+	border: 0;
+	cursor: pointer;
+	display: inline-block;
+	align-items: center;
+	text-align: center;
+}
+.btn_primary {
+	color: #444444;
+	background-color: #ffd951;
+}
+.btn_secondary {
+	color: #333;
+	background-color: transparent;
+	box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
+}
+.btn_small {
+	width: 94px;
+	height: 30px;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 16px;
+	border-radius: 10px;
+}
+.btn_medium {
+	width: 100px;
+	height: 40px;
+	font-size: 20px;
+	font-weight: normal;
+	line-height: 23px;
+	border-radius: 10px;
+}
+.btn_large {
+	width: 468px;
+	height: 60px;
+	font-size: 25px;
+	line-height: 26px;
+	border-radius: 15px;
+}

@@ -3,7 +3,9 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import classNames from "classnames";
 import { SignIn } from "@src/core/api/user";
-import styles from "./index.module.scss";
+import styles from "./SignIn.module.scss";
+
+import Button from "@material-ui/core/Button";
 
 interface IProps {
 	className?: string;
@@ -14,7 +16,7 @@ interface IInputs {
 	password: string;
 }
 
-export default function SignInPage(props: IProps): JSX.Element {
+export default function SignInModal(props: IProps): JSX.Element {
 	const router = useRouter();
 	const { className } = props;
 	const [isBtnActivate, setBtnActivate] = useState<boolean>(false);
@@ -81,16 +83,19 @@ export default function SignInPage(props: IProps): JSX.Element {
 						onKeyUp={btnChangeColor}
 						value={password}
 					/>
-					<input
+					<Button
 						className={classNames(
 							`${styles.login_btn} ${
 								isBtnActivate ? styles.onLoginBtn : styles.offLoginBtn
 							}`,
 						)}
 						type="submit"
-						value="Log In"
+						variant="contained"
+						color="primary"
 						onClick={onSignIn}
-					/>
+					>
+						Log In
+					</Button>
 					<Link href="/intro">Surrounds</Link>
 					<br />
 					<Link href="/signup">회원가입</Link>
