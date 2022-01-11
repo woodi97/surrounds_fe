@@ -3,7 +3,18 @@ const path = require("path");
 
 module.exports = {
 	sassOptions: {
-		includePaths: [path.join(__dirname, "src", "styles")],
+		includePaths: [path.join(__dirname, "./src/styles")],
+	},
+	images: {
+		domains: ["user-images.githubusercontent.com"],
+	},
+	webpack(config) {
+		config.module.rules.push({
+			test: /\.svg$/,
+			use: ["@svgr/webpack"],
+		});
+
+		return config;
 	},
 	// Add Runtime process.env Configuration
 	serverRuntimeConfig: {
@@ -21,5 +32,8 @@ module.exports = {
 		peerDebug: process.env.PEER_DEBUG,
 		peerPath: process.env.PEER_PATH,
 		peerSecure: process.env.PEER_SECURE,
+	},
+	eslint: {
+		ignoreDuringBuilds: true,
 	},
 };

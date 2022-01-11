@@ -7,7 +7,10 @@
 				"root": ["./"],
 				"alias": {
 					"@src": "./src",
-					"@styles": "./src/styles"
+					"@styles": "./src/styles",
+					"@components": "./src/components",
+					"@utils": "./src/utils",
+					"@core": "./src/core"
 				},
 				"extensions": [".js", ".jsx", ".tsx"]
 			}

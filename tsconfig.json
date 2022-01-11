@@ -16,9 +16,12 @@
 		"baseUrl": ".",
 		"paths": {
 			"@src/*": ["./src/*"],
-			"@styles/*": ["./src/styles/*"]
+			"@styles/*": ["./src/styles/*"],
+			"@components/*": ["./src/components/*"],
+			"@utils/*": ["./src/utils/*"],
+			"@core/*": ["./src/core/*"]
 		}
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/util/mongodb.js"],
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/utils/mongodb.js"],
 	"exclude": ["node_modules"]
 }

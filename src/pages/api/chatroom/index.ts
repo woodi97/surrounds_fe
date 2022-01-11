@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 import { User, Room } from "@src/models";
-import connectDB from "@src/util/mongodb";
-import authMiddleware from "@src/util/auth";
+import connectDB from "@src/utils/mongodb";
+import authMiddleware from "@src/utils/auth";
 
 interface Request extends NextApiRequest {
 	params: any;
@@ -20,7 +20,7 @@ api.get(async (req, res) => {
 			//room does not exist
 			throw new Error("Has No Matching Room");
 		}
-		return new Promise(function (resolve, reject) {
+		return new Promise(function (resolve, _) {
 			resolve(rooms);
 		});
 	};

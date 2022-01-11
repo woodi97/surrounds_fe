@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 import { Room } from "@src/models";
-import connectDB from "@src/util/mongodb";
-import authMiddleware from "@src/util/auth";
+import connectDB from "@src/utils/mongodb";
+import authMiddleware from "@src/utils/auth";
 
 interface Request extends NextApiRequest {
 	params: any;

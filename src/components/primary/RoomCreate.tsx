@@ -23,7 +23,6 @@ export default function RoomCreatePage(props: Props): JSX.Element {
 	};
 
 	const tryCreateRoom = async (e) => {
-		e.preventDefault();
 		if (!isBtnActivate) return;
 		else {
 			setBtnActivate(false);

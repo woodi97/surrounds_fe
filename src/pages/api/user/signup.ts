@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
 import User from "@src/models/user";
-import connectDB from "@src/util/mongodb";
+import connectDB from "@src/utils/mongodb";
 
 const api = nextConnect<NextApiRequest, NextApiResponse>();
 

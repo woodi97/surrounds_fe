@@ -4,8 +4,7 @@ import Link from "next/link";
 import classNames from "classnames";
 import { SignIn } from "@src/core/api/user";
 import styles from "./SignIn.module.scss";
-
-import Button from "@material-ui/core/Button";
+import Button from "@src/components/common/Button/Button";
 
 interface IProps {
 	className?: string;
@@ -37,7 +36,6 @@ export default function SignInModal(props: IProps): JSX.Element {
 
 	// SignIn 로직
 	async function onSignIn(e) {
-		e.preventDefault();
 		if (!isBtnActivate) return;
 		try {
 			await SignIn(email, password);
@@ -83,22 +81,10 @@ export default function SignInModal(props: IProps): JSX.Element {
 						onKeyUp={btnChangeColor}
 						value={password}
 					/>
-					<Button
-						className={classNames(
-							`${styles.login_btn} ${
-								isBtnActivate ? styles.onLoginBtn : styles.offLoginBtn
-							}`,
-						)}
-						type="submit"
-						variant="contained"
-						color="primary"
-						onClick={onSignIn}
-					>
+					<Button fullWidth btnSize="large" onClick={onSignIn}>
 						Log In
 					</Button>
-					<Link href="/intro">Surrounds</Link>
-					<br />
-					<Link href="/signup">회원가입</Link>
+					<Link href="/signup">Sign Up</Link>
 				</form>
 			</div>
 		</div>

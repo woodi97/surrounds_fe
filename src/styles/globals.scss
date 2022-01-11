@@ -1,11 +1,24 @@
+@import "mixins";
+
 html,
 body {
 	padding: 0;
 	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-	line-height: 1.6;
-	font-size: 18px;
+	font-family: "Roboto", serif;
+	color: #444444;
+}
+
+input {
+	&::placeholder {
+		color: #999999;
+	}
+}
+
+body {
+	overflow: overlay;
+	@include mobile {
+		overflow: scroll;
+	}
 }
 
 * {
@@ -13,15 +26,44 @@ body {
 }
 
 a {
-	color: #0070f3;
+	color: inherit;
 	text-decoration: none;
+	cursor: pointer;
 }
 
-a:hover {
-	text-decoration: underline;
+button {
+	outline: none;
+	border: none;
 }
 
-img {
-	max-width: 100%;
-	display: block;
+// primary font sizes
+h1 {
+	margin: 0px;
+	font-size: 32px;
+	line-height: 37px;
+}
+h2 {
+	margin: 0px;
+	font-size: 24px;
+	line-height: 28px;
+}
+h3 {
+	margin: 0px;
+	font-size: 20px;
+	line-height: 23px;
+}
+h4 {
+	margin: 0px;
+	font-size: 16px;
+	line-height: 19px;
+}
+h5 {
+	margin: 0px;
+	font-size: 14px;
+	line-height: 16px;
+}
+h6 {
+	margin: 0px;
+	font-size: 12px;
+	line-height: 14px;
 }

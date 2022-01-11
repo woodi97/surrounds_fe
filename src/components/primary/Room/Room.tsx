@@ -2,13 +2,13 @@ import React, { useContext } from "react";
 import router from "next/router";
 // import modules
 import classNames from "classnames";
-import { SocketContext } from "@src/util/socket";
+import { SocketContext } from "@src/utils/socket";
 // import interface
 import { Location, RoomInfo } from "@src/core/interface";
 // import component
 import RoomMedia from "./RoomMedia";
 // import custom hooks
-import { useUserMedia, useRemoteStreams, usePeer } from "@src/util/hooks";
+import { useUserMedia, useRemoteStreams, usePeer } from "@src/utils/hooks";
 // import api
 import { deleteChatroom } from "@src/core/api/chatroom";
 // import styles
@@ -48,8 +48,7 @@ export default function Room(props: IRoomProps): JSX.Element {
 		localStream,
 	);
 
-	const onExitButtonClick = async (e) => {
-		e.preventDefault();
+	const onExitButtonClick = async () => {
 		if (remoteStreams?.length === 0) {
 			try {
 				await deleteChatroom(chatroom.generator.email);

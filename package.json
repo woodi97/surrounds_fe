@@ -10,8 +10,6 @@
 		"build-storybook": "build-storybook"
 	},
 	"dependencies": {
-		"@material-ui/core": "^4.12.1",
-		"@material-ui/icons": "^4.11.2",
 		"axios": "^0.21.1",
 		"classnames": "^2.3.1",
 		"cross-env": "^7.0.3",
@@ -37,12 +35,7 @@
 	},
 	"license": "GPL-2.0",
 	"devDependencies": {
-		"@storybook/addon-actions": "^6.3.4",
-		"@storybook/addon-essentials": "^6.3.4",
-		"@storybook/addon-links": "^6.3.4",
-		"@storybook/builder-webpack5": "^6.3.4",
-		"@storybook/manager-webpack5": "^6.3.4",
-		"@storybook/react": "^6.3.4",
+		"@svgr/webpack": "^6.2.0",
 		"@types/mongoose": "^5.11.97",
 		"@types/node": "^16.3.1",
 		"@types/react": "^17.0.14",

@@ -38,8 +38,7 @@ export default function ProfileHeader(props: Props): JSX.Element {
 	};
 
 	const [isEdit, setEdit] = useState<boolean>(false);
-	const onEditButtonClick = async (e) => {
-		e.preventDefault();
+	const onEditButtonClick = async () => {
 		if (isEdit) {
 			try {
 				await editUserName(inputs.username);

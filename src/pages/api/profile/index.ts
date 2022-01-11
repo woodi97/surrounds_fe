@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nextConnect from "next-connect";
-import connectDB from "@src/util/mongodb";
-import authMiddleware from "@src/util/auth";
+import connectDB from "@src/utils/mongodb";
+import authMiddleware from "@src/utils/auth";
 import multer from "multer";
 import { User } from "@src/models";
 import randomstring from "randomstring";

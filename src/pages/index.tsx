@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { GetServerSidePropsResult } from "next";
-// Custom Hooks
-import { useLocation } from "@src/util/hooks";
-// NextJS
+import { useLocation } from "@src/utils/hooks";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-// import Interface
 import { UserInfo, Location, RoomInfo } from "@src/core/interface";
-import styles from "@styles/Home.module.scss";
-// API Methods
+import styles from "@styles/pages/Home.module.scss";
 import { getMyProfile } from "@src/core/api/user";
 import { getNearChatrooms } from "@src/core/api/chatroom";
-// import Components
+import { Map } from "@components/common";
 import {
 	ProfileHeader,
 	RoomCreatePage,
@@ -20,10 +15,6 @@ import {
 } from "@src/components/primary";
 import { SignInModal } from "@src/components/modal";
 
-// import Mapbox By Dynamic
-const MapBox = dynamic(() => import("@src/components/mapbox/Map"), {
-	ssr: false,
-});
 // import Room By Dynamic
 const Room = dynamic(() => import("@src/components/primary/Room/Room"), {
 	ssr: false,
@@ -39,26 +30,18 @@ export default function MainPage(): JSX.Element {
 	const [chatrooms, setChatrooms] = useState([]);
 	const [selectedRoom, setSelectedRoom] = useState<RoomInfo>(null);
 	const [me, setMe] = useState<UserInfo>(undefined);
-	// Showing Profile
 	const [profile, setProfile] = useState<Profile>({
 		show: false,
 		email: "",
 	});
-	// Using Router
 	const router = useRouter();
 
-	// Open Profile Page When Click
-	function onProfileClick(
-		email: string,
-		e: React.MouseEvent<HTMLInputElement>,
-	) {
-		e.preventDefault();
+	function onProfileClick(email: string) {
 		setProfile({ show: !profile.show, email: email });
 	}
 
 	// Select Room When Click
 	function onRoomClick(room: RoomInfo, e: React.MouseEvent<HTMLInputElement>) {
-		e.preventDefault();
 		setSelectedRoom(room);
 	}
 
@@ -102,7 +85,7 @@ export default function MainPage(): JSX.Element {
 			{!me && <SignInModal className={styles.signin} />}
 			{/* rendering mapbox */}
 			{myLocation && (
-				<MapBox
+				<Map
 					className={styles.map}
 					location={myLocation}
 					chatrooms={chatrooms}

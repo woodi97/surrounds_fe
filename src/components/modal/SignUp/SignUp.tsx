@@ -35,8 +35,7 @@ export default function SignUpModal(props: IProps): JSX.Element {
 	};
 
 	// SignUp 로직
-	async function OnSignUp(e) {
-		e.preventDefault();
+	async function OnSignUp() {
 		if (!isBtnActivate) return;
 		SignUp(username, email, password)
 			.then(() => {
