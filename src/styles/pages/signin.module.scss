@@ -1,0 +1,9 @@
+.blur {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  backdrop-filter: blur(0.25rem);
+}

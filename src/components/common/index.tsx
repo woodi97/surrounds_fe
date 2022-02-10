@@ -1,1 +1,6 @@
-export { default as Error } from "./Error/Error";
+export { default as Button } from './Button/Button'
+export { default as Map } from './Map/Map'
+export { default as ErrorPage } from './ErrorPage'
+export { default as Image } from './Image'
+export { default as Composer } from './Composer'
+export { default as InputBox } from './InputBox'
