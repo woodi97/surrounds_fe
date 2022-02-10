@@ -1,32 +1,41 @@
-import React from "react";
-import Head from "next/head";
-import type { AppProps } from "next/app";
-import axios from "axios";
+import React from 'react'
+import Head from 'next/head'
+import type { AppProps } from 'next/app'
+import axios from 'axios'
 
-import "@styles/globals.scss";
-import "mapbox-gl/dist/mapbox-gl.css";
+import 'normalize.css'
+import '@css/tailwind.scss'
+import '@styles/globals.scss'
+import 'mapbox-gl/dist/mapbox-gl.css'
+import 'react-toastify/dist/ReactToastify.css'
 
-axios.defaults.baseURL = process.env.SERVER_URL;
-axios.defaults.withCredentials = true;
+import { Composer } from '@src/components/common'
+import { UserAuthProvider } from '@src/context/UserAuthContext'
+import { ModalProvider } from '@src/context/ModalContext'
+import { ModalContainer } from '@src/containers'
+import { ToastContainer } from 'react-toastify'
+
+axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
+// axios.defaults.withCredentials =
+// 	process.env.NODE_ENV === "production" ? true : false;
+axios.defaults.withCredentials = true
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
-	return (
-		<>
-			<Head>
-				<title>Surrounds</title>
-				<link rel="icon" href="/images/favicon.ico" />
-				<meta charSet="utf-8" />
-				<meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-				<meta
-					httpEquiv="Content-Security-Policy"
-					content="upgrade-insecure-requests"
-				></meta>
-				<meta
-					name="viewport"
-					content="width=device-width, initial-scale=1, user-scalable=no"
-				/>
-			</Head>
-			<Component {...pageProps} />
-		</>
-	);
+  return (
+    <>
+      <Head>
+        <title>{process.env.NEXT_PUBLIC_APP_TITLE}</title>
+        <link rel="icon" href="/logo.ico" />
+        <meta charSet="utf-8" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+      </Head>
+      <Composer components={[UserAuthProvider, ModalProvider]}>
+        <Component {...pageProps} />
+        <ModalContainer />
+        <ToastContainer />
+      </Composer>
+    </>
+  )
 }

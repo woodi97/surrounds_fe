@@ -1,152 +1,98 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "@src/utils/hooks";
-import dynamic from "next/dynamic";
-import { useRouter } from "next/router";
-import { UserInfo, Location, RoomInfo } from "@src/core/interface";
-import styles from "@styles/pages/Home.module.scss";
-import { getMyProfile } from "@src/core/api/user";
-import { getNearChatrooms } from "@src/core/api/chatroom";
-import { Map } from "@components/common";
-import {
-	ProfileHeader,
-	RoomCreatePage,
-	ProfilePage,
-	RoomList,
-} from "@src/components/primary";
-import { SignInModal } from "@src/components/modal";
-
-// import Room By Dynamic
-const Room = dynamic(() => import("@src/components/primary/Room/Room"), {
-	ssr: false,
-});
+import React, { useEffect, useState, MouseEvent } from 'react'
+import { useLocation } from '@src/hooks'
+import { useRouter } from 'next/router'
+import { UserInfo, Location, RoomInfo } from '@src/core/interface'
+import styles from '@styles/pages/home.module.scss'
+import { Map } from '@components/common'
+import { ProfileHeader, RoomCreatePage, ProfilePage, RoomList, Room } from '@src/components/primary'
+import { withAuthServerSideProps } from '@src/utils/ssr'
+import { validate } from '@src/core/api/auth'
+import { useCloseModal } from '@src/context/ModalContext'
+import { getNearChatrooms } from '@src/core/api/chatroom'
 
 interface Profile {
-	show: boolean;
-	email: string;
+  show: boolean
+  email: string
 }
 
 export default function MainPage(): JSX.Element {
-	const [myLocation] = useLocation();
-	const [chatrooms, setChatrooms] = useState([]);
-	const [selectedRoom, setSelectedRoom] = useState<RoomInfo>(null);
-	const [me, setMe] = useState<UserInfo>(undefined);
-	const [profile, setProfile] = useState<Profile>({
-		show: false,
-		email: "",
-	});
-	const router = useRouter();
+  const [myLocation] = useLocation()
+  const [chatrooms, setChatrooms] = useState([])
+  const [selectedRoom, setSelectedRoom] = useState<RoomInfo>(null)
+  const [me, setMe] = useState<UserInfo>(undefined)
+  const [profile, setProfile] = useState<Profile>({
+    show: false,
+    email: '',
+  })
+  const router = useRouter()
+  const closeModal = useCloseModal()
 
-	function onProfileClick(email: string) {
-		setProfile({ show: !profile.show, email: email });
-	}
+  function onProfileClick(email: string) {
+    setProfile({ show: !profile.show, email: email })
+  }
 
-	// Select Room When Click
-	function onRoomClick(room: RoomInfo, e: React.MouseEvent<HTMLInputElement>) {
-		setSelectedRoom(room);
-	}
+  // Select Room When Click
+  function onRoomClick(room: RoomInfo, e: MouseEvent<HTMLInputElement>) {
+    setSelectedRoom(room)
+  }
 
-	// Get Near Chatrooms
-	async function getChatrooms(location: Location) {
-		try {
-			const data = await getNearChatrooms(location);
-			setChatrooms(data);
-		} catch (err) {
-			window.alert(err);
-		}
-	}
+  // close modal from login page
+  useEffect(() => {
+    closeModal()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-	// Get User Data
-	async function getUserData() {
-		try {
-			const data = await getMyProfile();
-			setMe(data);
-		} catch (err) {
-			console.log("SignIn Error");
-		}
-	}
-
-	// Get User Data
-	// Should be called Once
-	useEffect(() => {
-		getUserData();
-	}, []);
-
-	// Get Chatrooms
-	useEffect(() => {
-		if (myLocation) {
-			getChatrooms(myLocation);
-		}
-	}, [myLocation]);
-
-	// Return JSX
-	return (
-		<div className={styles.container}>
-			{/* signin modal */}
-			{!me && <SignInModal className={styles.signin} />}
-			{/* rendering mapbox */}
-			{myLocation && (
-				<Map
-					className={styles.map}
-					location={myLocation}
-					chatrooms={chatrooms}
-				/>
-			)}
-			{/* rendering profileheader */}
-			{myLocation && (
-				<ProfileHeader
-					className={styles.profile}
-					user={me}
-					onClick={onProfileClick}
-				/>
-			)}
-			{/* rendering joinable rooms */}
-			{myLocation && (
-				<RoomList
-					className={styles.bottombar}
-					chatrooms={chatrooms}
-					onClick={onRoomClick}
-				/>
-			)}
-			{/* rendering profile page */}
-			{profile.show && (
-				<ProfilePage
-					className={styles.detailProfile}
-					emailId={profile.email}
-					onClick={onProfileClick}
-					onProfileUpdate={getUserData}
-				/>
-			)}
-			{/* rendering room create page */}
-			{router.asPath == "/chatroom" && (
-				<RoomCreatePage
-					className={styles.createChatroom}
-					location={myLocation}
-					getChatRooms={getChatrooms}
-				/>
-			)}
-			{/* enter room */}
-			{router.asPath.startsWith("/chatroom/") && (
-				<Room
-					className={styles.currentchatroom}
-					chatroom={selectedRoom}
-					emailId={me.email}
-					profileImage={me.profileImage}
-					currentLocation={myLocation}
-					getChatRooms={getChatrooms}
-					onClick={onProfileClick}
-				/>
-			)}
-		</div>
-	);
+  // Return JSX
+  return (
+    <div className={styles.container}>
+      {/* rendering mapbox */}
+      {myLocation && <Map className={styles.map} location={myLocation} chatrooms={chatrooms} />}
+      {/* rendering profileheader */}
+      {myLocation && (
+        <ProfileHeader className={styles.profile} user={me} onClick={onProfileClick} />
+      )}
+      {/* rendering joinable rooms */}
+      {myLocation && (
+        <RoomList className={styles.bottombar} chatrooms={chatrooms} onClick={onRoomClick} />
+      )}
+      {/* rendering profile page */}
+      {profile.show && (
+        <ProfilePage
+          className={styles.detailProfile}
+          emailId={profile.email}
+          onClick={onProfileClick}
+          onProfileUpdate={() => {}}
+        />
+      )}
+      {/* rendering room create page */}
+      {router.asPath == '/chatroom' && (
+        <RoomCreatePage
+          className={styles.createChatroom}
+          location={myLocation}
+          getChatRooms={() => {}}
+        />
+      )}
+      {/* enter room */}
+      {/* {router.asPath.startsWith('/chatroom/') && (
+        <Room
+          className={styles.currentchatroom}
+          chatroom={selectedRoom}
+          emailId={me.email}
+          profileImage={me.profileImage}
+          currentLocation={myLocation}
+          getChatRooms={getChatrooms}
+          onClick={onProfileClick}
+        />
+      )} */}
+    </div>
+  )
 }
 
-// export async function getServerSideProps(
-// 	ctx,
-// ): Promise<GetServerSidePropsResult<any>> {
-// 	const data = await getMyProfile();
-// 	return {
-// 		props: {
-// 			data,
-// 		},
-// 	};
-// }
+export const getServerSideProps = withAuthServerSideProps(async () => {
+  const userInfo = await validate()
+  return {
+    props: {
+      userInfo,
+    },
+  }
+})

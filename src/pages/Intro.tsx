@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react'
 
 function Intro(): JSX.Element {
-	return <div>Introduction</div>;
+  return <div>Introduction</div>
 }
 
-export default Intro;
+export default Intro
