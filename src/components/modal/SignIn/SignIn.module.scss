@@ -60,23 +60,22 @@
 		font-size: 16px;
 	}
 	.login_btn {
-		border: none;
-		outline: none;
+		display: block;
 		height: 40px;
-		color: #fff;
+		width: 100%;
 		font-size: 18px;
 		border-radius: 20px;
-		// &:hover {
-		// 	cursor: pointer;
-		// 	background-color: rgba(135, 206, 235, 1);
-		// 	color: #000;
-		// }
+		&:hover {
+			cursor: pointer;
+			background-color: rgba(1, 1, 1, 0.5);
+			color: #000;
+		}
 	}
 	.onLoginBtn {
 		background-color: rgb(35, 157, 205);
 	}
 	.offLoginBtn {
-		background-color: rgba(135, 206, 235, 0.3);
+		background-color: rgb(35, 157, 205, 0.5);
 	}
 	a {
 		text-decoration: none;
@@ -88,44 +87,3 @@
 		}
 	}
 }
-
-// .loginbox {
-// 	position: fixed;
-// 	display: flex;
-// 	flex-direction: column;
-// 	justify-content: center;
-// 	left: 0;
-// 	right: 0;
-// 	top: 0;
-// 	bottom: 0;
-// 	background: white;
-// 	margin: auto auto;
-// 	max-width: 400px;
-// 	max-height: 300px;
-// 	border-radius: 10px;
-// 	box-shadow: 0 0px 10px 3px lightgray;
-// }
-
-// .loginbox_label {
-// 	text-align: center;
-// 	font-size: 30px;
-// 	font-weight: bold;
-// 	margin: 0 0 10px 0;
-// 	img {
-// 		width: 80px;
-// 		border-radius: 25%;
-// 	}
-// }
-
-// .field {
-// 	text-align: center;
-
-// 	input {
-// 		display: block;
-// 		height: 20px;
-// 		margin: 10px auto;
-// 		border: none;
-// 		border-radius: 5px;
-// 		// box-shadow: 0 1px 1px 1px lightgray;
-// 	}
-// }

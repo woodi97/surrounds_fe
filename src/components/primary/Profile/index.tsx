@@ -4,7 +4,7 @@ import styles from "./index.module.scss";
 
 import Header from "./Header";
 import Main from "./Main";
-import Error from "@src/components/common/Error";
+import { Error } from "@src/components/common";
 
 import { getProfile } from "@src/core/api/user";
 

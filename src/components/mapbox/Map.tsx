@@ -64,9 +64,9 @@ export default function Map(props: IMapProps): JSX.Element {
 				transitionInterpolator={new FlyToInterpolator()}
 				onViewportChange={(viewport) => setViewPort(viewport)}
 			>
-				<div className={styles.navi_control}>
+				{/* <div className={styles.navi_control}>
 					<NavigationControl />
-				</div>
+				</div> */}
 				{chatrooms.map((room, idx) => (
 					<Marker
 						key={idx}

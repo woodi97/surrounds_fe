@@ -1,9 +1,9 @@
 import React from "react";
 import Head from "next/head";
 import type { AppProps } from "next/app";
-
 import axios from "axios";
 
+import "@styles/globals.scss";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 axios.defaults.baseURL = process.env.SERVER_URL;
@@ -15,6 +15,14 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
 			<Head>
 				<title>Surrounds</title>
 				<link rel="icon" href="/images/favicon.ico" />
+				<link
+					rel="stylesheet"
+					href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+				/>
+				<link
+					rel="stylesheet"
+					href="https://fonts.googleapis.com/icon?family=Material+Icons"
+				/>
 				<meta charSet="utf-8" />
 				<meta httpEquiv="X-UA-Compatible" content="IE=edge" />
 				<meta
