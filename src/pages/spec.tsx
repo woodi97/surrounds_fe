@@ -1,6 +1,5 @@
 import React, { Fragment, useMemo, useState } from 'react'
 import { DraggableSheet, Header } from '@components/common'
-import { motion, useAnimation } from 'framer-motion'
 
 const SpecPage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)

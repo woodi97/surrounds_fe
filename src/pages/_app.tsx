@@ -17,7 +17,7 @@ import { ModalContainer } from '@src/containers'
 import { ToastContainer } from 'react-toastify'
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
-axios.defaults.withCredentials = true
+axios.defaults.withCredentials = false
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {
   return (
