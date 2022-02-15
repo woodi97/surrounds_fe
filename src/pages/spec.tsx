@@ -1,7 +1,9 @@
-import React, { Fragment, useEffect, useMemo, useState } from 'react'
+import React, { Fragment, useMemo, useState } from 'react'
 import { BottomSheet, HeaderNav, Image, HorizontalLine } from '@components/common'
+import Shimmer from 'react-shimmer-effect'
 
 const SpecPage = () => {
+  const [getRoomSuccess, setGetRoomSuccess] = useState<boolean | undefined>(undefined)
   const [chatrooms, setChatrooms] = useState([
     {
       id: 'WhCQI5iWw0GU2dc5ZaEZeyA7t90=',
@@ -27,8 +29,25 @@ const SpecPage = () => {
     setIsOpen(true)
   }
 
+  const ShimmeringSheetContent = () => {
+    return (
+      <>
+        {[...Array(30).keys()].map((_, idx) => {
+          return (
+            <div key={`shimmer-content-${idx}`} className="flex items-center pb-2 space-x-3">
+              <Shimmer>
+                <div className="w-10 h-10 rounded-2xl" />
+                <div className="w-64 h-8 rounded-xl" />
+              </Shimmer>
+            </div>
+          )
+        })}
+      </>
+    )
+  }
+
   const SheetWrapper = useMemo(() => {
-    const SheetContent = ({ chatrooms }) => {
+    const SheetContent = () => {
       return (
         <Fragment>
           {chatrooms?.map((val, idx) => {
@@ -47,7 +66,7 @@ const SpecPage = () => {
                     alt=""
                   />
 
-                  <div>{val.title}</div>
+                  <div className="w-64 h-8">{val.title}</div>
                 </div>
                 <HorizontalLine />
               </div>
@@ -56,21 +75,23 @@ const SpecPage = () => {
         </Fragment>
       )
     }
-    return SheetContent
-  }, [])
+
+    if (getRoomSuccess === undefined) return ShimmeringSheetContent
+    else return SheetContent
+  }, [chatrooms, getRoomSuccess])
 
   return (
     <div className="relative flex flex-grow overflow-hidden">
       <section className="z-20 hidden md:block absolute left-0 border-r-2 w-80 max-w-md h-screen bg-white">
-        <div className=" overflow-y-auto pt-10 children:py-2 children:bg-white">
-          <SheetWrapper chatrooms={chatrooms} />
+        <div className="h-screen pt-10 children:py-2 children:bg-white overflow-x-hidden overflow-y-auto">
+          <SheetWrapper />
         </div>
       </section>
       <div className="relative w-full h-screen bg-slate-500">
         <HeaderNav />
       </div>
       <BottomSheet className="md:hidden" onClose={onClose} onOpen={onOpen}>
-        <SheetWrapper chatrooms={chatrooms} />
+        <SheetWrapper />
       </BottomSheet>
     </div>
   )

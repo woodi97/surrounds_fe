@@ -8,10 +8,17 @@ const defaultOptions = { scrollwheel: false }
 const RegularMap = withScriptjs(
   withGoogleMap((props) => (
     <GoogleMap
-      defaultZoom={8}
+      {...props}
+      defaultZoom={12}
       defaultCenter={defaultCenter}
       defaultOptions={defaultOptions}
-      {...props}
+      options={{
+        fullscreenControl: false,
+        mapTypeControl: false,
+        streetViewControl: false,
+        zoomControl: false,
+        gestureHandling: 'greedy',
+      }}
     >
       <Marker position={defaultCenter} />
     </GoogleMap>
