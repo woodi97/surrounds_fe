@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useState } from 'react'
 import styles from './SignInModal.module.scss'
 import { Button, InputBox } from '@src/components/common'
-import { useCloseModal, useSignUpModal } from '@src/context/ModalContext'
+import { useSignUpModal } from '@src/context/ModalContext'
 import { isValidEmail, isValidPassword } from '@src/utils/check'
 import { useRouter } from 'next/router'
 import { ToastError } from '@src/utils/toast'
@@ -11,7 +11,6 @@ const SignInModal: FC = () => {
   const router = useRouter()
   const login = useLogin()
   const openSignUpModal = useSignUpModal()
-  const closeModal = useCloseModal()
 
   const [Inputs, setInputs] = useState({
     email: '',
@@ -49,12 +48,11 @@ const SignInModal: FC = () => {
     }
     try {
       await login(Inputs.email, Inputs.password)
-      closeModal()
       router.push('/')
     } catch (error) {
       ToastError('로그인에 실패했습니다.')
     }
-  }, [Inputs.email, Inputs.password, closeModal, isValid.email, isValid.password, login, router])
+  }, [Inputs, isValid, login, router])
 
   return (
     <div className={styles.cnt}>

@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react'
 import classNames from 'classnames'
 import styles from './index.module.scss'
 
-import Header from './Header'
 import Main from './Main'
 import { ErrorPage } from '@src/components/common'
 
@@ -48,7 +47,7 @@ export default function ProfilePage(props: IProfilePageProps): JSX.Element {
       <div className={classNames(className, styles.ProfilePage)}>
         <div className={styles.titlebar}>
           <div className={styles.buttons}>
-            <div
+            {/* <div
               className={styles.close}
               onClick={(e) => {
                 onClick(emailId, e)
@@ -59,7 +58,7 @@ export default function ProfilePage(props: IProfilePageProps): JSX.Element {
                   <strong>x</strong>
                 </span>
               </button>
-            </div>
+            </div> */}
             {/* <div className={styles.minimize}>
 							<a className={styles.minimizebutton} href="#">
 								<span>
@@ -80,7 +79,7 @@ export default function ProfilePage(props: IProfilePageProps): JSX.Element {
         {isUserExist === undefined && <></>}
         {isUserExist === true && (
           <>
-            <Header userInfo={profileInfo} onProfileUpdate={onProfileUpdate} />
+            {/* <Header userInfo={profileInfo} onProfileUpdate={onProfileUpdate} /> */}
             <Main />
           </>
         )}

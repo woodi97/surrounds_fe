@@ -4,9 +4,8 @@ import type { AppProps } from 'next/app'
 import axios from 'axios'
 
 import 'normalize.css'
-import '@css/tailwind.scss'
 import '@styles/globals.scss'
-import 'mapbox-gl/dist/mapbox-gl.css'
+import '@css/tailwind.scss'
 import 'react-toastify/dist/ReactToastify.css'
 
 import { Composer } from '@src/components/common'
@@ -16,8 +15,6 @@ import { ModalContainer } from '@src/containers'
 import { ToastContainer } from 'react-toastify'
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
-// axios.defaults.withCredentials =
-// 	process.env.NODE_ENV === "production" ? true : false;
 axios.defaults.withCredentials = true
 
 export default function App({ Component, pageProps }: AppProps): JSX.Element {

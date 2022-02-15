@@ -8,6 +8,7 @@ import { signin } from '@src/core/api/user'
 import { UserInfoShape, UserProfileShape } from '@src/core/interface/user-shape'
 
 const useUserAuth = () => {
+  const [authed, setAuthed] = useState(false)
   const [validationTried, setValidationTried] = useState(false)
   const [userInfo, setUserInfo] = useState<UserInfoShape>(null)
   const [userProfile, setUserProfile] = useState<UserProfileShape>(null)
@@ -31,6 +32,7 @@ const useUserAuth = () => {
     ;(async () => {
       try {
         const userData = await validate()
+        setAuthed(true)
         setUserInfo(userData)
         setUserProfile(userData)
       } catch (err) {
@@ -51,13 +53,14 @@ const useUserAuth = () => {
     [setToken]
   )
 
-  return { userInfo, userProfile, validationTried, login, tokenCookie }
+  return { userInfo, userProfile, authed, validationTried, login, tokenCookie }
 }
 
 const [
   UserAuthProvider,
   useUserInfo,
   useUserProfile,
+  useAuthed,
   useValidationTried,
   useLogin,
   useTokenCookie,
@@ -65,6 +68,7 @@ const [
   useUserAuth,
   (value) => value.userInfo,
   (value) => value.userProfile,
+  (value) => value.authed,
   (value) => value.validationTried,
   (value) => value.login,
   (value) => value.tokenCookie
@@ -74,6 +78,7 @@ export {
   UserAuthProvider,
   useUserInfo,
   useUserProfile,
+  useAuthed,
   useValidationTried,
   useLogin,
   useTokenCookie,

@@ -55,6 +55,18 @@ PEER_SERVER = true
 }
 ```
 
+## `If you need https on localhost env`
+
+````bash
+1. openssl req -x509 -out localhost.crt -keyout localhost.key \
+  -days 365 \
+  -newkey rsa:2048 -nodes -sha256 \
+  -subj '/CN=localhost' -extensions EXT -config <( \
+   printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+2. change to 'secure' branch
+3. write your code
+4. rebase to develop branch
+
 ## POSTMAN 테스트 방법
 
 ```bash
@@ -63,4 +75,4 @@ PEER_SERVER = true
 3. 위에 File/Folder/Link/Raw text/Code Repository중에 Link를 누른다
 4. https://www.getpostman.com/collections/4cf4b9b5ce30cc7a14e0 해당 링크를 붙여넣는다
 5. import를 완료한다
-```
+````

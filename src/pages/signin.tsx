@@ -1,11 +1,9 @@
 import React, { FC, useEffect } from 'react'
-import router from 'next/router'
 import { GetServerSideProps, GetServerSidePropsResult } from 'next'
 import { Image } from '@components/common'
 
 import axios from 'axios'
 import { validate } from '@api/auth'
-import styles from '@styles/pages/signin.module.scss'
 import { useModalInfo, useSignInModal } from '@src/context/ModalContext'
 
 const SignInPage: FC = () => {
@@ -14,11 +12,11 @@ const SignInPage: FC = () => {
 
   useEffect(() => {
     if (!modalInfo) openSignInModal()
-  }, [openSignInModal, modalInfo])
+  }, [modalInfo, openSignInModal])
 
   return (
-    <div className={styles.cnt}>
-      <div className={styles.blur} />
+    <div>
+      <div className="relative w-screen h-screen top-0 left-0 z-10 backdrop-blur-sm" />
       <Image src="/background.svg" layout="fill" alt="bg" />
     </div>
   )
