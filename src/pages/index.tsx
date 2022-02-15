@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo, Fragment } from 'react'
 import { useLocation } from '@src/hooks'
-import { DraggableSheet, Header, Map, HorizontalLine, Image } from '@components/common'
+import { BottomSheet, GoogleMaps, HeaderNav, HorizontalLine, Image } from '@components/common'
 import { withAuthServerSideProps } from '@src/hocs/withSSRAuth'
 import { validate } from '@src/core/api/auth'
 import { getNearChatrooms } from '@src/core/api/chatroom'
@@ -36,26 +36,24 @@ function HomePage(): JSX.Element {
         <Fragment>
           {chatrooms?.map((val, idx) => {
             return (
-              <>
-                <div key={`chatroom-list-${idx}`}>
-                  <div className="flex items-center pb-2 space-x-3 cursor-pointer">
-                    <Image
-                      src={
-                        val.generator.profileImage !== 'NULL'
-                          ? val.generator.profileImage
-                          : '/profiles/default.png'
-                      }
-                      width={40}
-                      height={40}
-                      className="rounded-lg"
-                      alt=""
-                    />
+              <div key={`chatroom-list-${idx}`}>
+                <div className="flex items-center pb-2 space-x-3 cursor-pointer">
+                  <Image
+                    src={
+                      val.generator.profileImage !== 'NULL'
+                        ? val.generator.profileImage
+                        : '/profiles/default.png'
+                    }
+                    width={40}
+                    height={40}
+                    className="rounded-lg"
+                    alt=""
+                  />
 
-                    <div>{val.title}</div>
-                  </div>
-                  <HorizontalLine />
+                  <div>{val.title}</div>
                 </div>
-              </>
+                <HorizontalLine />
+              </div>
             )
           })}
         </Fragment>
@@ -76,17 +74,17 @@ function HomePage(): JSX.Element {
   return (
     <div className="relative flex flex-grow overflow-hidden">
       <section className="z-20 hidden md:block absolute left-0 border-r-2 w-80 max-w-md h-screen bg-white">
-        <div className=" overflow-y-auto pt-10 px-6 children:py-2 children:bg-white">
+        <div className=" overflow-y-auto pt-10 children:py-2 children:bg-white">
           <SheetWrapper chatrooms={chatrooms} />
         </div>
       </section>
       <div className="relative w-full h-screen bg-slate-500">
-        <Header />
-        {myLocation && <Map location={myLocation} chatrooms={chatrooms} />}
+        <HeaderNav />
+        <GoogleMaps />
       </div>
-      <DraggableSheet className="md:hidden" onClose={onClose} onOpen={onOpen}>
+      <BottomSheet className="md:hidden" onClose={onClose} onOpen={onOpen}>
         <SheetWrapper chatrooms={chatrooms} />
-      </DraggableSheet>
+      </BottomSheet>
     </div>
   )
 }

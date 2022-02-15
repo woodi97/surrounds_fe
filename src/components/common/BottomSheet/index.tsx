@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { motion, useAnimation } from 'framer-motion'
-import { SVGPath } from '.'
+import { SVGPath } from '..'
+import BottomSheetHeader from './BottomSheetHeader'
 
 interface DraggableSheetProps {
   className?: string
@@ -25,8 +26,8 @@ const DraggableSheet: FC<DraggableSheetProps> = ({ className, children, onOpen, 
   return (
     <motion.div
       drag="y"
-      onDragEnd={onDragEnd}
       initial="hidden"
+      onDragEnd={onDragEnd}
       animate={controls}
       transition={{
         type: 'spring',
@@ -35,24 +36,14 @@ const DraggableSheet: FC<DraggableSheetProps> = ({ className, children, onOpen, 
       }}
       variants={{
         visible: { y: '30vh' },
-        hidden: { y: '92vh' },
+        hidden: { y: '95vh' },
       }}
+      draggable
       dragConstraints={{ top: 0 }}
-      dragElastic={0.2}
+      dragElastic={0.5}
       className={`z-10 fixed bottom-0 w-screen h-screen rounded-t-lg bg-white ${className}`}
     >
-      <div className="flex justify-center h-[3vh] bg-gray-200">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          className="h-full"
-        >
-          <SVGPath d="M 2 2.5 L 20 2.5" strokeWidth={2} />
-          <SVGPath d="M 2 9.423 L 20 9.423" strokeWidth={2} />
-          <SVGPath d="M 2 16.346 L 20 16.346" strokeWidth={2} />
-        </svg>
-      </div>
+      <BottomSheetHeader />
       <div className="children:p-3">{children}</div>
     </motion.div>
   )
