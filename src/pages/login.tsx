@@ -9,7 +9,7 @@ export const getServerSideProps = ({
   res,
   query,
 }: GetServerSidePropsContext): GetServerSidePropsResult<Record<string, unknown>> => {
-  const { token, redirect, message } = query
+  const { token, redirect } = query
   res.statusCode = 302
 
   if (!token) {
@@ -21,8 +21,6 @@ export const getServerSideProps = ({
   res.setHeader('set-cookie', [`jwt=${token}`])
   if (redirect) {
     res.setHeader('Location', redirect)
-  } else if (message) {
-    res.setHeader('Location', `/?message=${message}`)
   } else {
     res.setHeader('Location', '/')
   }

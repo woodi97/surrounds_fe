@@ -8,6 +8,9 @@ export const withAuthServerSideProps = (
   return async (ctx) => {
     const { req, res, resolvedUrl: url } = ctx
     const token = req.cookies['jwt']
+    if (!token) {
+      res.setHeader('Location', `/signin`)
+    }
     axios.defaults.headers['Authorization'] = `Bearer ${token}`
 
     try {

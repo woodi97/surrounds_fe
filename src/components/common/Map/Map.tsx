@@ -9,13 +9,12 @@ import styles from './Map.module.scss'
 // import interface
 import { Location, RoomInfo } from '@src/core/interface'
 interface IMapProps {
-  className: string
   location: Location
   chatrooms?: RoomInfo[]
 }
 
 export default function Map(props: IMapProps): JSX.Element {
-  const { className, location, chatrooms } = props
+  const { location, chatrooms } = props
   const isClient = typeof window === 'object'
   const [selectedRoom, setSelectedRoom] = useState<RoomInfo>(null)
   const [viewPort, setViewPort] = useState({
@@ -51,7 +50,7 @@ export default function Map(props: IMapProps): JSX.Element {
 
   // return JSX
   return (
-    <div className={classNames(className, styles.Mapbox)}>
+    <div className={styles.Mapbox}>
       <ReactMapGL
         {...viewPort}
         mapStyle="mapbox://styles/mapbox/streets-v11"
