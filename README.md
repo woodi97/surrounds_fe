@@ -1,4 +1,4 @@
-# Voicechat SNS Surrounds
+# GPS based SNS Surrounds
 
 ## How to use
 
