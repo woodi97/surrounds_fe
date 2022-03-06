@@ -6,7 +6,7 @@ import withCSRAuth from '@src/hocs/withCSRAuth'
 import ShimmeringSheetContent from '@src/components/common/BottomSheet/ShimmeringSheetContent'
 import { PageLayout } from '@src/components/layout'
 import { getContentHeight } from '@src/utils/browser'
-import { useRoomCreateModal } from '@src/context/ModalContext'
+import { useJoinRoomModal, useRoomCreateModal } from '@src/context/ModalContext'
 import { useChatroomInfo, useChatroomLoading } from '@src/context/ChatroomContext'
 
 type Props = {
@@ -25,6 +25,7 @@ export const getServerSideProps = withAuthServerSideProps(async () => {
 // CSR
 
 const HomePage: FC<Props> = ({ userInfo }) => {
+  const openJoinRoomModal = useJoinRoomModal()
   const openRoomCreateModal = useRoomCreateModal()
   const mapWrapperRef = useRef<HTMLDivElement>(null)
   const chatrooms = useChatroomInfo()
@@ -34,14 +35,20 @@ const HomePage: FC<Props> = ({ userInfo }) => {
     const SheetContent = () => {
       return (
         <Fragment>
-          {chatrooms?.map((val, idx) => {
+          {chatrooms?.map((chatroom, idx) => {
             return (
-              <div key={`chatroom-list-${idx}`} className="bg-transparent">
+              <div
+                key={`chatroom-list-${idx}`}
+                className="bg-transparent"
+                onClick={() =>
+                  openJoinRoomModal({ modalTitle: chatroom.title, roomInfo: chatroom })
+                }
+              >
                 <div className="flex items-center py-2 space-x-3 cursor-pointer">
                   <Image
                     src={
-                      val.generator.profileImage !== 'NULL'
-                        ? val.generator.profileImage
+                      chatroom.generator.profileImage !== 'NULL'
+                        ? chatroom.generator.profileImage
                         : '/profiles/default.png'
                     }
                     width={40}
@@ -50,7 +57,7 @@ const HomePage: FC<Props> = ({ userInfo }) => {
                     alt=""
                   />
 
-                  <div className="w-64 h-8">{val.title}</div>
+                  <div className="w-64 h-8">{chatroom.title}</div>
                 </div>
                 <HorizontalLine height={2} color="rgb(242,203,113)" />
               </div>
@@ -62,7 +69,7 @@ const HomePage: FC<Props> = ({ userInfo }) => {
 
     if (isChatroomLoading) return ShimmeringSheetContent
     else return SheetContent
-  }, [chatrooms, isChatroomLoading])
+  }, [chatrooms, isChatroomLoading, openJoinRoomModal])
 
   useEffect(() => {
     mapWrapperRef.current?.style.setProperty('height', `${getContentHeight()}px`)
@@ -73,7 +80,7 @@ const HomePage: FC<Props> = ({ userInfo }) => {
       <div className="relative flex flex-grow overflow-hidden">
         <div ref={mapWrapperRef} className="w-full bg-slate-500">
           <HeaderNav />
-          <GoogleMaps />
+          {/* <GoogleMaps /> */}
         </div>
         <div className="fixed left-0 z-20 hidden md:block w-80 h-screen bg-[rgba(255,255,255,0.8)]">
           <div className="flex px-4 justify-between items-center w-full h-[4vh]">
@@ -94,13 +101,3 @@ const HomePage: FC<Props> = ({ userInfo }) => {
 }
 
 export default withCSRAuth(HomePage)
-
-// <Room
-//   className={styles.currentchatroom}
-//   chatroom={selectedRoom}
-//   emailId={me.email}
-//   profileImage={me.profileImage}
-//   currentLocation={myLocation}
-//   getChatRooms={getChatrooms}
-//   onClick={onProfileClick}
-// />

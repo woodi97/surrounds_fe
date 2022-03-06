@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
 
-const ratios = new Map([
-  ['default', { width: 640, height: 480 }],
-  ['portrait', { width: 375, height: 720 }],
-])
+// const ratios = new Map([
+//   ['default', { width: 640, height: 480 }],
+//   ['portrait', { width: 375, height: 720 }],
+// ])
 
 const userMediaConfig = {
   audio: { sampleSize: 4, echoCancellation: true, noiseSuppression: true },
   // video: { facingMode: "user" },
-  video: false,
+  video: true,
 }
 
 export default function useUserMedia() {

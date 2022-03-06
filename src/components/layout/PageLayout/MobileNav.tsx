@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from '@components/common'
+import { Icon, Link } from '@components/common'
 import headerNavLinks from '@data/headerNavLinks'
 import { motion } from 'framer-motion'
 import Path from '@src/components/common/SVG/Path'

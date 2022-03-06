@@ -40,14 +40,14 @@ const peerConfig = {
   config,
 }
 
-export default function usePeer(
+export default function usePeer({
   addRemoteStream,
   removeRemoteStream,
   emailId,
   profileImage,
   chatroom,
-  localStream
-) {
+  localStream,
+}) {
   const peers = {}
   const [myPeer, setPeer] = useState<Peer>(null)
   const [myPeerID, setMyPeerID] = useState<string>(null)

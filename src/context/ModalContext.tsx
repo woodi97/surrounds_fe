@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 import constate from 'constate'
 import { ModalShape } from '@src/core/interface/modal-type'
+import { RoomInfo } from '@src/core/interface/chatroom'
 
 const useModal = () => {
   const [modal, setModal] = useState<ModalShape | null>(null)
@@ -44,6 +45,20 @@ const useModal = () => {
     [openModal]
   )
 
+  const openJoinRoomModal = useCallback(
+    ({ modalTitle, roomInfo }: { modalTitle?: string; roomInfo: RoomInfo }) => {
+      openModal('CHATROOM', modalTitle, { roomInfo })
+    },
+    [openModal]
+  )
+
+  const openProfileModal = useCallback(
+    (modalTitle?: string) => {
+      openModal('PROFILE', modalTitle, {})
+    },
+    [openModal]
+  )
+
   return {
     modal,
     modalTitle,
@@ -51,6 +66,8 @@ const useModal = () => {
     openSignUpModal,
     openSignInModal,
     openRoomCreateModal,
+    openJoinRoomModal,
+    openProfileModal,
     closeModal,
   }
 }
@@ -63,6 +80,8 @@ const [
   useSignUpModal,
   useSignInModal,
   useRoomCreateModal,
+  useJoinRoomModal,
+  useProfileModal,
   useCloseModal,
 ] = constate(
   useModal,
@@ -72,6 +91,8 @@ const [
   (value) => value.openSignUpModal,
   (value) => value.openSignInModal,
   (value) => value.openRoomCreateModal,
+  (value) => value.openJoinRoomModal,
+  (value) => value.openProfileModal,
   (value) => value.closeModal
 )
 
@@ -83,5 +104,7 @@ export {
   useSignUpModal,
   useSignInModal,
   useRoomCreateModal,
+  useJoinRoomModal,
+  useProfileModal,
   useCloseModal,
 }

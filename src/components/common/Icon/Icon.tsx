@@ -1,19 +1,28 @@
+import { motion, MotionProps } from 'framer-motion'
 import React, { FC } from 'react'
+import HamburgerSVG from './assets/Hamburger'
 import PlusSVG from './assets/Plus'
 
-export type SVGTypes = 'plus'
+export type SVGTypes = 'plus' | 'hamburger'
 
-type Props = {
+interface Props extends MotionProps {
   name: SVGTypes
+  type?: 'button' | 'submit' | 'reset'
+  className?: string
   onClick?: () => void
 }
 
-const Icon: FC<Props> = ({ name, onClick }) => {
+const Icon: FC<Props> = ({ name, type = 'button', className, onClick, ...props }) => {
   const IconSelector: { [keys in SVGTypes]: JSX.Element } = {
     plus: <PlusSVG />,
+    hamburger: <HamburgerSVG />,
   }
 
-  return <div onClick={onClick}>{IconSelector[name]}</div>
+  return (
+    <motion.button className={className} type={type} onClick={onClick} {...props}>
+      {IconSelector[name]}
+    </motion.button>
+  )
 }
 
 export default Icon
