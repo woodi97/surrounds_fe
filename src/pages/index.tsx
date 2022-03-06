@@ -90,19 +90,19 @@ function HomePage(): JSX.Element {
   return (
     <PageLayout fixedHeight>
       <div className="relative flex flex-grow overflow-hidden">
-        <section className="z-20 hidden md:block absolute left-0 border-r-2 w-80 max-w-md h-screen bg-white">
-          <div className="h-screen pt-10 overflow-x-hidden overflow-y-auto">
-            <SheetWrapper />
-          </div>
-        </section>
-        <div ref={mapWrapperRef} className="relative w-full h-96 bg-slate-500">
+        <div ref={mapWrapperRef} className="w-full bg-slate-500">
           <HeaderNav />
-          <GoogleMaps />
+          {/* <GoogleMaps /> */}
         </div>
-        <BottomSheet className="md:hidden" onClose={onClose} onOpen={onOpen}>
-          <SheetWrapper />
-        </BottomSheet>
       </div>
+      <section className="absolute left-0 z-20 hidden md:blockleft-0 w-80 max-w-md h-screen bg-white">
+        <div className="pt-4 px-4 overflow-x-hidden overflow-y-auto bg-transparent">
+          <SheetWrapper />
+        </div>
+      </section>
+      <BottomSheet className="md:hidden" onClose={onClose} onOpen={onOpen}>
+        <SheetWrapper />
+      </BottomSheet>
     </PageLayout>
   )
 }

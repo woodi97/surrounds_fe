@@ -1,7 +1,5 @@
 import React, { FC, useEffect, useMemo, useRef } from 'react'
-import Footer from './Footer'
 import Header from './Header'
-import BottomNavigation from './BottomNavigation'
 import classNames from 'classnames'
 import { getContentHeight } from '@src/utils/browser'
 
@@ -32,8 +30,6 @@ const PageLayout: FC<Props> = ({ children, fullWidth = false, fixedHeight = fals
       >
         <div className="w-full flex-grow">{children}</div>
       </main>
-      {!fixedHeight && <Footer className={`${maxWidth}`} />}
-      <BottomNavigation />
     </div>
   )
 }
