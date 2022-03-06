@@ -11,7 +11,7 @@ const HorizontalLine: FC<IHozLineProps> = ({ height = 1, color = '#DDDDDD', marg
     <hr
       style={{
         backgroundColor: color,
-        height: '1px',
+        height,
         border: 0,
         margin,
       }}

@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useMemo, Fragment, useRef } from 'react'
+import React, { useEffect, useState, useMemo, Fragment, useRef, FC } from 'react'
 import { useLocation } from '@src/hooks'
-import { BottomSheet, GoogleMaps, HeaderNav, HorizontalLine, Image } from '@components/common'
+import { BottomSheet, GoogleMaps, HeaderNav, HorizontalLine, Icon, Image } from '@components/common'
 import { withAuthServerSideProps } from '@src/hocs/withSSRAuth'
 import { validate } from '@src/core/api/auth'
 import { getNearChatrooms } from '@src/core/api/chatroom'
@@ -8,6 +8,11 @@ import withCSRAuth from '@src/hocs/withCSRAuth'
 import ShimmeringSheetContent from '@src/components/common/BottomSheet/ShimmeringSheetContent'
 import { PageLayout } from '@src/components/layout'
 import { getContentHeight } from '@src/utils/browser'
+import { useRoomCreateModal } from '@src/context/ModalContext'
+
+type Props = {
+  userInfo: any
+}
 
 export const getServerSideProps = withAuthServerSideProps(async () => {
   const userInfo = await validate()
@@ -20,20 +25,13 @@ export const getServerSideProps = withAuthServerSideProps(async () => {
 
 // CSR
 
-function HomePage(): JSX.Element {
+const HomePage: FC<Props> = ({ userInfo }) => {
+  console.log(userInfo)
+  const openRoomCreateModal = useRoomCreateModal()
   const mapWrapperRef = useRef<HTMLDivElement>(null)
-  const [chatrooms, setChatrooms] = useState([])
-  const [isOpen, setIsOpen] = useState<boolean>(false)
   const [getRoomSuccess, setGetRoomSuccess] = useState<boolean | undefined>(undefined)
   const [myLocation] = useLocation()
-
-  const onClose = () => {
-    setIsOpen(false)
-  }
-
-  const onOpen = () => {
-    setIsOpen(true)
-  }
+  const [chatrooms, setChatrooms] = useState([])
 
   const SheetWrapper = useMemo(() => {
     const SheetContent = () => {
@@ -41,7 +39,7 @@ function HomePage(): JSX.Element {
         <Fragment>
           {chatrooms?.map((val, idx) => {
             return (
-              <div key={`chatroom-list-${idx}`} className="bg-[rgba(255,255,255,0.5)]">
+              <div key={`chatroom-list-${idx}`} className="bg-transparent">
                 <div className="flex items-center py-2 space-x-3 cursor-pointer">
                   <Image
                     src={
@@ -57,7 +55,7 @@ function HomePage(): JSX.Element {
 
                   <div className="w-64 h-8">{val.title}</div>
                 </div>
-                <HorizontalLine />
+                <HorizontalLine height={2} color="rgb(242,203,113)" />
               </div>
             )
           })}
@@ -92,15 +90,20 @@ function HomePage(): JSX.Element {
       <div className="relative flex flex-grow overflow-hidden">
         <div ref={mapWrapperRef} className="w-full bg-slate-500">
           <HeaderNav />
-          {/* <GoogleMaps /> */}
+          <GoogleMaps />
+        </div>
+        <div className="fixed left-0 z-20 hidden md:block w-80 h-screen bg-[rgba(255,255,255,0.8)]">
+          <div className="flex px-4 justify-between items-center w-full h-[4vh]">
+            <div>{userInfo.nickname ?? 'no name'}</div>
+            <Icon name="plus" onClick={() => openRoomCreateModal()} />
+          </div>
+          <HorizontalLine height={2} color="rgb(242,203,113)" />
+          <div className="pt-4 px-4 overflow-x-hidden overflow-y-auto bg-transparent">
+            <SheetWrapper />
+          </div>
         </div>
       </div>
-      <section className="absolute left-0 z-20 hidden md:blockleft-0 w-80 max-w-md h-screen bg-white">
-        <div className="pt-4 px-4 overflow-x-hidden overflow-y-auto bg-transparent">
-          <SheetWrapper />
-        </div>
-      </section>
-      <BottomSheet className="md:hidden" onClose={onClose} onOpen={onOpen}>
+      <BottomSheet className="md:hidden">
         <SheetWrapper />
       </BottomSheet>
     </PageLayout>

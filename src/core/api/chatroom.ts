@@ -2,7 +2,6 @@ import { Location } from '@src/core/interface'
 import axios from 'axios'
 
 export const getNearChatrooms = async (location: Location) => {
-  console.log(location)
   try {
     const { data } = await axios.get('/chatroom', {
       params: {
