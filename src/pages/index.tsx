@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, Fragment } from 'react'
+import React, { useEffect, useState, useMemo, Fragment, useRef } from 'react'
 import { useLocation } from '@src/hooks'
 import { BottomSheet, GoogleMaps, HeaderNav, HorizontalLine, Image } from '@components/common'
 import { withAuthServerSideProps } from '@src/hocs/withSSRAuth'
@@ -6,6 +6,8 @@ import { validate } from '@src/core/api/auth'
 import { getNearChatrooms } from '@src/core/api/chatroom'
 import withCSRAuth from '@src/hocs/withCSRAuth'
 import ShimmeringSheetContent from '@src/components/common/BottomSheet/ShimmeringSheetContent'
+import { PageLayout } from '@src/components/layout'
+import { getContentHeight } from '@src/utils/browser'
 
 export const getServerSideProps = withAuthServerSideProps(async () => {
   const userInfo = await validate()
@@ -19,6 +21,7 @@ export const getServerSideProps = withAuthServerSideProps(async () => {
 // CSR
 
 function HomePage(): JSX.Element {
+  const mapWrapperRef = useRef<HTMLDivElement>(null)
   const [chatrooms, setChatrooms] = useState([])
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [getRoomSuccess, setGetRoomSuccess] = useState<boolean | undefined>(undefined)
@@ -80,21 +83,27 @@ function HomePage(): JSX.Element {
     }
   }, [myLocation])
 
+  useEffect(() => {
+    mapWrapperRef.current?.style.setProperty('height', `${getContentHeight()}px`)
+  }, [])
+
   return (
-    <div className="relative flex flex-grow overflow-hidden">
-      <section className="z-20 hidden md:block absolute left-0 border-r-2 w-80 max-w-md h-screen bg-primary-300">
-        <div className="h-screen pt-10 overflow-x-hidden overflow-y-auto">
-          <SheetWrapper />
+    <PageLayout fixedHeight>
+      <div className="relative flex flex-grow overflow-hidden">
+        <section className="z-20 hidden md:block absolute left-0 border-r-2 w-80 max-w-md h-screen bg-white">
+          <div className="h-screen pt-10 overflow-x-hidden overflow-y-auto">
+            <SheetWrapper />
+          </div>
+        </section>
+        <div ref={mapWrapperRef} className="relative w-full h-96 bg-slate-500">
+          <HeaderNav />
+          <GoogleMaps />
         </div>
-      </section>
-      <div className="relative w-full h-screen bg-slate-500">
-        <HeaderNav />
-        <GoogleMaps />
+        <BottomSheet className="md:hidden" onClose={onClose} onOpen={onOpen}>
+          <SheetWrapper />
+        </BottomSheet>
       </div>
-      <BottomSheet className="md:hidden" onClose={onClose} onOpen={onOpen}>
-        <SheetWrapper />
-      </BottomSheet>
-    </div>
+    </PageLayout>
   )
 }
 

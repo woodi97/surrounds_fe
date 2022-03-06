@@ -6,6 +6,8 @@ export { default as HorizontalLine } from './HorizontalLine'
 export { default as ErrorPage } from './ErrorPage'
 export { default as Image } from './Image'
 export { default as InputBox } from './InputBox'
+export { default as Link } from './Link'
+export { default as LinkWithLogo } from './LinkWithLogo'
 
 export { default as SVGPath } from './SVG/Path'
 export { default as GoogleMaps } from './GoogleMaps'
