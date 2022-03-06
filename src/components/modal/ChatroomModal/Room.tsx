@@ -21,7 +21,6 @@ const ChatroomModal: FC<Props> = ({ modalOption }) => {
   const { email, profileImage } = useUserProfile()
   const updateRoom = useUpdateChatrooms()
   const localStream = useUserMedia()
-  const closeModal = useCloseModal()
   const socket = useContext(SocketContext)
   const [remoteStreams, addRemoteStream, removeRemoteStream] = useRemoteStreams()
   const [myPeer, myPeerID] = usePeer({
