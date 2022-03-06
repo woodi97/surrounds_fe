@@ -13,6 +13,7 @@ import { UserAuthProvider } from '@src/context/UserAuthContext'
 import { ModalProvider } from '@src/context/ModalContext'
 import { ModalContainer } from '@src/containers'
 import { ToastContainer } from 'react-toastify'
+import { ChatroomProvider } from '@src/context/ChatroomContext'
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
 axios.defaults.withCredentials = true
@@ -28,7 +29,7 @@ export default function App({ Component, pageProps, router }: AppProps): JSX.Ele
         <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
       </Head>
-      <Composer components={[UserAuthProvider, ModalProvider]}>
+      <Composer components={[UserAuthProvider, ModalProvider, ChatroomProvider]}>
         <Component {...pageProps} key={router.route} />
         <ModalContainer />
         <ToastContainer />

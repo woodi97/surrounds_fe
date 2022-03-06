@@ -4,7 +4,7 @@ import router from 'next/router'
 import classNames from 'classnames'
 import { SocketContext } from '@src/utils/socket'
 // import interface
-import { Location, RoomInfo } from '@src/core/interface'
+import { Location } from '@src/core/interface'
 // import component
 import RoomMedia from './RoomMedia'
 // import custom hooks
@@ -13,6 +13,7 @@ import { useUserMedia, useRemoteStreams, usePeer } from '@src/hooks'
 import { deleteChatroom } from '@src/core/api/chatroom'
 // import styles
 import styles from './Room.module.scss'
+import { RoomInfo } from '@src/core/interface/chatroom'
 
 interface IRoomProps {
   className?: string

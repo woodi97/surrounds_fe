@@ -1,14 +1,13 @@
-import React, { useEffect, useState, useMemo, Fragment, useRef, FC } from 'react'
-import { useLocation } from '@src/hooks'
+import React, { useEffect, useMemo, Fragment, useRef, FC } from 'react'
 import { BottomSheet, GoogleMaps, HeaderNav, HorizontalLine, Icon, Image } from '@components/common'
 import { withAuthServerSideProps } from '@src/hocs/withSSRAuth'
 import { validate } from '@src/core/api/auth'
-import { getNearChatrooms } from '@src/core/api/chatroom'
 import withCSRAuth from '@src/hocs/withCSRAuth'
 import ShimmeringSheetContent from '@src/components/common/BottomSheet/ShimmeringSheetContent'
 import { PageLayout } from '@src/components/layout'
 import { getContentHeight } from '@src/utils/browser'
 import { useRoomCreateModal } from '@src/context/ModalContext'
+import { useChatroomInfo, useChatroomLoading } from '@src/context/ChatroomContext'
 
 type Props = {
   userInfo: any
@@ -26,12 +25,10 @@ export const getServerSideProps = withAuthServerSideProps(async () => {
 // CSR
 
 const HomePage: FC<Props> = ({ userInfo }) => {
-  console.log(userInfo)
   const openRoomCreateModal = useRoomCreateModal()
   const mapWrapperRef = useRef<HTMLDivElement>(null)
-  const [getRoomSuccess, setGetRoomSuccess] = useState<boolean | undefined>(undefined)
-  const [myLocation] = useLocation()
-  const [chatrooms, setChatrooms] = useState([])
+  const chatrooms = useChatroomInfo()
+  const isChatroomLoading = useChatroomLoading()
 
   const SheetWrapper = useMemo(() => {
     const SheetContent = () => {
@@ -63,30 +60,16 @@ const HomePage: FC<Props> = ({ userInfo }) => {
       )
     }
 
-    if (getRoomSuccess === undefined) return ShimmeringSheetContent
+    if (isChatroomLoading) return ShimmeringSheetContent
     else return SheetContent
-  }, [chatrooms, getRoomSuccess])
-
-  useEffect(() => {
-    if (myLocation) {
-      ;(async () => {
-        try {
-          const result = await getNearChatrooms(myLocation)
-          setChatrooms(result)
-          setGetRoomSuccess(true)
-        } catch (e) {
-          setGetRoomSuccess(false)
-        }
-      })()
-    }
-  }, [myLocation])
+  }, [chatrooms, isChatroomLoading])
 
   useEffect(() => {
     mapWrapperRef.current?.style.setProperty('height', `${getContentHeight()}px`)
   }, [])
 
   return (
-    <PageLayout fixedHeight>
+    <PageLayout fixedHeight fullWidth>
       <div className="relative flex flex-grow overflow-hidden">
         <div ref={mapWrapperRef} className="w-full bg-slate-500">
           <HeaderNav />

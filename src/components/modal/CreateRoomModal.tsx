@@ -1,33 +1,48 @@
-import { createChatroom, getNearChatrooms } from '@src/core/api/chatroom'
-import { motion } from 'framer-motion'
+import { createChatroom } from '@src/core/api/chatroom'
 import React, { FC, useState } from 'react'
-import { useRouter } from 'next/router'
-import { Location } from '@src/core/interface'
+import { isValidRoomName } from '@src/utils/check'
+import { ToastError, ToastSuccess } from '@src/utils/toast'
+import { Button, InputBox } from '../common'
+import { useCloseModal } from '@src/context/ModalContext'
+import { useUpdateChatrooms, useUserLocation } from '@src/context/ChatroomContext'
 
-type Props = {
-  location: Location
-}
-
-const CreateRoomModal: FC<Props> = ({ location }) => {
-  const router = useRouter()
+const CreateRoomModal: FC = () => {
   const [title, setTitle] = useState('')
-  const tryCreateRoom = async (e) => {
-    if (!isBtnActivate) return
-    else {
-      setBtnActivate(false)
+  const closeModal = useCloseModal()
+  const location = useUserLocation()
+  const updateChatrooms = useUpdateChatrooms()
+
+  const tryCreateRoom = async () => {
+    if (!isValidRoomName(title)) {
+      ToastError("채팅방 이름은 '영문자', '숫자', '_', '-'만 가능합니다.")
     }
     try {
-      await createChatroom(title, location)
-      await getNearChatrooms(location)
-      alert('successfully created')
-      router.push('/', undefined, { shallow: true })
+      await Promise.all([createChatroom(title, location), updateChatrooms()])
+      ToastSuccess('채팅방이 생성되었습니다.')
+      closeModal()
     } catch (err) {
-      alert('error occured back to main page')
-      router.push('/', undefined, { shallow: true })
+      ToastError('채팅방 생성에 실패했습니다.')
     }
   }
 
-  return <motion.div>CreateRoom</motion.div>
+  const handleOnChange = (e) => {
+    setTitle(e.target.value)
+  }
+
+  return (
+    <div className="flex flex-col">
+      <InputBox
+        type="id"
+        name={'title'}
+        value={title}
+        label="채팅방 생성"
+        onChange={handleOnChange}
+      />
+      <Button fullWidth onClick={tryCreateRoom}>
+        생성
+      </Button>
+    </div>
+  )
 }
 
 export default CreateRoomModal
