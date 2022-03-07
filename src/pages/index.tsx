@@ -1,11 +1,17 @@
-import React, { useEffect, useState, useMemo, Fragment } from 'react'
-import { useLocation } from '@src/hooks'
-import { BottomSheet, GoogleMaps, HeaderNav, HorizontalLine, Image } from '@components/common'
+import React, { useEffect, useMemo, Fragment, useRef, FC } from 'react'
+import { BottomSheet, GoogleMaps, HeaderNav, HorizontalLine, Icon, Image } from '@components/common'
 import { withAuthServerSideProps } from '@src/hocs/withSSRAuth'
 import { validate } from '@src/core/api/auth'
-import { getNearChatrooms } from '@src/core/api/chatroom'
 import withCSRAuth from '@src/hocs/withCSRAuth'
 import ShimmeringSheetContent from '@src/components/common/BottomSheet/ShimmeringSheetContent'
+import { PageLayout } from '@src/components/layout'
+import { getContentHeight } from '@src/utils/browser'
+import { useJoinRoomModal, useRoomCreateModal } from '@src/context/ModalContext'
+import { useChatroomInfo, useChatroomLoading } from '@src/context/ChatroomContext'
+
+type Props = {
+  userInfo: any
+}
 
 export const getServerSideProps = withAuthServerSideProps(async () => {
   const userInfo = await validate()
@@ -18,32 +24,31 @@ export const getServerSideProps = withAuthServerSideProps(async () => {
 
 // CSR
 
-function HomePage(): JSX.Element {
-  const [chatrooms, setChatrooms] = useState([])
-  const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [getRoomSuccess, setGetRoomSuccess] = useState<boolean | undefined>(undefined)
-  const [myLocation] = useLocation()
-
-  const onClose = () => {
-    setIsOpen(false)
-  }
-
-  const onOpen = () => {
-    setIsOpen(true)
-  }
+const HomePage: FC<Props> = ({ userInfo }) => {
+  const openJoinRoomModal = useJoinRoomModal()
+  const openRoomCreateModal = useRoomCreateModal()
+  const mapWrapperRef = useRef<HTMLDivElement>(null)
+  const chatrooms = useChatroomInfo()
+  const isChatroomLoading = useChatroomLoading()
 
   const SheetWrapper = useMemo(() => {
     const SheetContent = () => {
       return (
         <Fragment>
-          {chatrooms?.map((val, idx) => {
+          {chatrooms?.map((chatroom, idx) => {
             return (
-              <div key={`chatroom-list-${idx}`} className="bg-[rgba(255,255,255,0.5)]">
+              <div
+                key={`chatroom-list-${idx}`}
+                className="bg-transparent"
+                onClick={() =>
+                  openJoinRoomModal({ modalTitle: chatroom.title, roomInfo: chatroom })
+                }
+              >
                 <div className="flex items-center py-2 space-x-3 cursor-pointer">
                   <Image
                     src={
-                      val.generator.profileImage !== 'NULL'
-                        ? val.generator.profileImage
+                      chatroom.generator.profileImage !== 'NULL'
+                        ? chatroom.generator.profileImage
                         : '/profiles/default.png'
                     }
                     width={40}
@@ -51,10 +56,11 @@ function HomePage(): JSX.Element {
                     className="rounded-lg"
                     alt=""
                   />
-
-                  <div className="w-64 h-8">{val.title}</div>
+                  <div className="w-64 h-8">
+                    <span>{chatroom.title}</span>
+                  </div>
                 </div>
-                <HorizontalLine />
+                <HorizontalLine height={2} color="rgb(242,203,113)" />
               </div>
             )
           })}
@@ -62,50 +68,37 @@ function HomePage(): JSX.Element {
       )
     }
 
-    if (getRoomSuccess === undefined) return ShimmeringSheetContent
+    if (isChatroomLoading) return ShimmeringSheetContent
     else return SheetContent
-  }, [chatrooms, getRoomSuccess])
+  }, [chatrooms, isChatroomLoading, openJoinRoomModal])
 
   useEffect(() => {
-    if (myLocation) {
-      ;(async () => {
-        try {
-          const result = await getNearChatrooms(myLocation)
-          setChatrooms(result)
-          setGetRoomSuccess(true)
-        } catch (e) {
-          setGetRoomSuccess(false)
-        }
-      })()
-    }
-  }, [myLocation])
+    mapWrapperRef.current?.style.setProperty('height', `${getContentHeight()}px`)
+  }, [])
 
   return (
-    <div className="relative flex flex-grow overflow-hidden">
-      <section className="z-20 hidden md:block absolute left-0 border-r-2 w-80 max-w-md h-screen bg-primary-300">
-        <div className="h-screen pt-10 overflow-x-hidden overflow-y-auto">
-          <SheetWrapper />
+    <PageLayout fixedHeight fullWidth>
+      <div className="relative flex flex-grow overflow-hidden">
+        <div ref={mapWrapperRef} className="w-full bg-slate-500">
+          <HeaderNav />
+          <GoogleMaps />
         </div>
-      </section>
-      <div className="relative w-full h-screen bg-slate-500">
-        <HeaderNav />
-        <GoogleMaps />
+        <div className="fixed left-0 z-20 hidden md:block w-80 h-screen bg-[rgba(255,255,255,0.8)]">
+          <div className="flex px-4 justify-between items-center w-full h-[4vh]">
+            <div>{userInfo.nickname ?? 'no name'}</div>
+            <Icon name="plus" onClick={() => openRoomCreateModal()} />
+          </div>
+          <HorizontalLine height={2} color="rgb(242,203,113)" />
+          <div className="pt-4 px-4 overflow-x-hidden overflow-y-auto bg-transparent">
+            <SheetWrapper />
+          </div>
+        </div>
       </div>
-      <BottomSheet className="md:hidden" onClose={onClose} onOpen={onOpen}>
+      <BottomSheet className="md:hidden">
         <SheetWrapper />
       </BottomSheet>
-    </div>
+    </PageLayout>
   )
 }
 
 export default withCSRAuth(HomePage)
-
-// <Room
-//   className={styles.currentchatroom}
-//   chatroom={selectedRoom}
-//   emailId={me.email}
-//   profileImage={me.profileImage}
-//   currentLocation={myLocation}
-//   getChatRooms={getChatrooms}
-//   onClick={onProfileClick}
-// />

@@ -2,11 +2,8 @@ import { useState, useEffect, useContext } from 'react'
 import { getRandomId } from '@src/utils/random'
 import { SocketContext } from '@src/utils/socket'
 import Peer from 'peerjs'
-// import nextjs config
 import getConfig from 'next/config'
 
-// Add SSR, CSR Process.env Set
-// Only holds serverRuntimeConfig and publicRuntimeConfig
 const {
   publicRuntimeConfig: {
     stunURL,
@@ -40,53 +37,24 @@ const peerConfig = {
   config,
 }
 
-export default function usePeer(
+export default function usePeer({
   addRemoteStream,
   removeRemoteStream,
   emailId,
   profileImage,
   chatroom,
-  localStream
-) {
+  localStream,
+}) {
   const peers = {}
   const [myPeer, setPeer] = useState<Peer>(null)
   const [myPeerID, setMyPeerID] = useState<string>(null)
   const socket = useContext(SocketContext)
 
-  const cleanUp = () => {
-    if (myPeer) {
-      myPeer.disconnect()
-      // myPeer.destroy();
-      // myPeer.off("call", () => {
-      // 	console.log("call event disarmed");
-      // });
-      // myPeer.off("close", () => {
-      // 	console.log("close event disarmed");
-      // });
-      // myPeer.off("disconnected", () => {
-      // 	console.log("disconnected event disarmed");
-      // });
-      // myPeer.off("error", () => {
-      // 	console.log("error event disarmed");
-      // });
-      // socket.off("user-connected", () => {
-      // 	console.log("user-connected event closed");
-      // });
-      // socket.off("user-disconnected", () => {
-      // 	console.log("user-disconnected event closed");
-      // });
-      // socket.off("user-leave", () => {
-      // 	console.log("user-leave event closed");
-      // });
-    }
-    setPeer(null)
-  }
-
   useEffect(() => {
     if (localStream) {
       import('peerjs')
         .then(({ default: Peer }) => {
-          const peer = myPeer ? myPeer : new Peer(String(getRandomId()), peerConfig)
+          const peer = myPeer ?? new Peer(String(getRandomId()), peerConfig)
 
           peer.on('open', () => {
             setPeer(peer)
@@ -96,10 +64,7 @@ export default function usePeer(
 
           peer.on('call', (call) => {
             const { emailId, profileImage } = call.metadata
-            // Answer the call with an A/V stream.
             call.answer(localStream)
-
-            // Play the remote stream
             call.on('stream', (remoteStream) => {
               addRemoteStream(remoteStream, call.peer, emailId, profileImage)
             })
@@ -117,17 +82,16 @@ export default function usePeer(
 
           peer.on('disconnected', () => {
             console.log('Peer desconnected')
-            cleanUp()
+            peer.reconnect()
           })
 
           peer.on('close', () => {
             console.log('Peer closed remotetly')
-            cleanUp()
           })
 
           peer.on('error', (error) => {
             console.log('peer error', error)
-            cleanUp()
+            peer.disconnect()
           })
 
           socket.on('user-connected', (userId, othersEmail, othersProfileImage) => {
@@ -176,20 +140,14 @@ export default function usePeer(
     }
 
     return () => {
-      cleanUp()
+      if (myPeer) {
+        myPeer.disconnect()
+        myPeer.destroy()
+        setPeer(null)
+      }
     }
-  }, [
-    addRemoteStream,
-    chatroom.id,
-    cleanUp,
-    emailId,
-    localStream,
-    myPeer,
-    peers,
-    profileImage,
-    removeRemoteStream,
-    socket,
-  ])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [localStream])
 
   return [myPeer, myPeerID] as const
 }

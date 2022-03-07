@@ -1,4 +1,4 @@
-# Voicechat SNS Surrounds
+# GPS based SNS Surrounds
 
 ## How to use
 
@@ -30,10 +30,6 @@ PEER_SERVER = true
 1. vscode 설치
 2. vscode market에서 prettier 설치
 3. vscode market에서 eslint 설치
-4. git flow 사용중
-5. git flow feature start "기능이름"
-6. git flow feature finish "기능이름"
-7. 단 develop 브랜치 pull은 주기적으로 할 것
 ```
 
 ## 저장할때마다 코드 자동 prettieerc & eslintrc 적용하는 방법

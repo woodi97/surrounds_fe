@@ -1,19 +1,19 @@
 import React, { FC, useCallback, useState } from 'react'
-import styles from './SignInModal.module.scss'
-import { Button, InputBox } from '@src/components/common'
-import { useSignUpModal } from '@src/context/ModalContext'
+import { Button, InputBox } from '@components/common'
 import { isValidEmail, isValidPassword } from '@src/utils/check'
-import { useRouter } from 'next/router'
-import { ToastError } from '@src/utils/toast'
-import { useLogin } from '@src/context/UserAuthContext'
+import { ToastError, ToastSuccess } from '@src/utils/toast'
+import { signup } from '@src/core/api/user'
+import { motion } from 'framer-motion'
+import { fadeInOut } from '@animations/fadeInOut'
 
-const SignInModal: FC = () => {
-  const router = useRouter()
-  const login = useLogin()
-  const openSignUpModal = useSignUpModal()
+type Props = {
+  onSignInClick: () => void
+}
 
+const SignUpForm: FC<Props> = ({ onSignInClick }) => {
   const [Inputs, setInputs] = useState({
     email: '',
+    username: '',
     password: '',
   })
 
@@ -42,20 +42,29 @@ const SignInModal: FC = () => {
   }, [])
 
   const handleSubmit = useCallback(async () => {
-    if (!isValid.email || !isValid.password) {
+    if (!isValid.email || !isValid.password || Inputs.username === '') {
       ToastError('입력값을 확인해주세요')
       return
     }
     try {
-      await login(Inputs.email, Inputs.password)
-      router.push('/')
+      await signup(Inputs.username, Inputs.email, Inputs.password)
+      ToastSuccess('회원가입 성공 :)')
+      onSignInClick()
     } catch (error) {
-      ToastError('로그인에 실패했습니다.')
+      ToastError('회원가입에 실패했습니다.')
     }
-  }, [Inputs, isValid, login, router])
+  }, [Inputs, isValid, onSignInClick])
 
   return (
-    <div className={styles.cnt}>
+    <motion.div className="space-y-1" variants={fadeInOut} initial="hidden" animate="visible">
+      <InputBox
+        type="id"
+        name="username"
+        label="Username"
+        placeholder="아이디"
+        value={Inputs.username}
+        onChange={handleOnChange}
+      />
       <InputBox
         type="email"
         name="email"
@@ -75,13 +84,13 @@ const SignInModal: FC = () => {
         error={!isValid.password}
       />
       <Button fullWidth btnStyles="primary" type="submit" onClick={handleSubmit}>
-        로그인
-      </Button>
-      <span className=" text-xs text-gray-400" onClick={() => openSignUpModal()}>
         회원가입
+      </Button>
+      <span className=" text-xs text-gray-400" onClick={onSignInClick}>
+        로그인
       </span>
-    </div>
+    </motion.div>
   )
 }
 
-export default SignInModal
+export default SignUpForm

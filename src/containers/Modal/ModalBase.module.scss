@@ -30,19 +30,18 @@
 .con {
   position: relative;
   z-index: 998;
-  max-width: 600px;
-  min-width: 400px;
-  min-height: 200px;
+  max-width: 40rem;
+  min-width: 25rem;
   width: 33%;
-  padding: 20px;
-  border-radius: 5px;
+  padding: 1.25rem;
+  border-radius: 0.25rem;
   box-sizing: border-box;
-  padding: 50px 30px 30px 30px;
+  padding: 2rem;
   background-color: rgba(255, 255, 255, 0.7);
-  transform: translateY(80px);
+  transform: translateY(-80px);
   transition: transform ease 0.3s 0.1s;
   & .contents {
-    padding: 20px 0;
+    padding: 1.25rem 0;
   }
 }
 
@@ -59,7 +58,7 @@
 
 .title {
   margin: 0;
-  padding: 0 0 20px;
+  padding: 0 0 1.25rem;
   text-align: center;
-  font-size: 24px;
+  font-size: 1.5rem;
 }

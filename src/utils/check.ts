@@ -14,3 +14,10 @@ export const isValidPassword = (password: string): boolean => {
 
 export const isValidEmail = (email: string): boolean =>
   /^([\w_\.\-\+])+\@([\w\-]+\.)+([\w]{2,10})+$/.test(email)
+
+export const isValidRoomName = (roomName: string): boolean => {
+  if (!/^[a-zA-Z0-9]{4,16}$/.test(roomName)) {
+    return false
+  }
+  return true
+}

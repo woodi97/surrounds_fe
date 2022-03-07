@@ -3,7 +3,7 @@ import Head from 'next/head'
 import type { AppProps } from 'next/app'
 import axios from 'axios'
 
-import 'normalize.css'
+import '@css/reset.scss'
 import '@styles/globals.scss'
 import '@css/tailwind.scss'
 import 'react-toastify/dist/ReactToastify.css'
@@ -13,11 +13,12 @@ import { UserAuthProvider } from '@src/context/UserAuthContext'
 import { ModalProvider } from '@src/context/ModalContext'
 import { ModalContainer } from '@src/containers'
 import { ToastContainer } from 'react-toastify'
+import { ChatroomProvider } from '@src/context/ChatroomContext'
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
 axios.defaults.withCredentials = true
 
-export default function App({ Component, pageProps }: AppProps): JSX.Element {
+export default function App({ Component, pageProps, router }: AppProps): JSX.Element {
   return (
     <>
       <Head>
@@ -28,8 +29,8 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
         <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
       </Head>
-      <Composer components={[UserAuthProvider, ModalProvider]}>
-        <Component {...pageProps} />
+      <Composer components={[UserAuthProvider, ModalProvider, ChatroomProvider]}>
+        <Component {...pageProps} key={router.route} />
         <ModalContainer />
         <ToastContainer />
       </Composer>

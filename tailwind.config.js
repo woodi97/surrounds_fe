@@ -11,14 +11,9 @@ module.exports = {
       sans: ['Roboto', 'Graphik', 'sans-serif'],
       serif: ['Merriweather', 'serif'],
     },
-    // colors: {},
     extend: {
       colors: {
-        primary: {
-          300: '#ffd284',
-          500: '#ffcc71',
-          700: '#feb638',
-        },
+        primary: 'var(--primary-color)',
         secondary: '#00b1d2',
         main: '#718096',
         background: '#fff',
