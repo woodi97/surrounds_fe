@@ -37,8 +37,6 @@ const peerConfig = {
   config,
 }
 
-console.log(peerConfig)
-
 export default function usePeer({
   addRemoteStream,
   removeRemoteStream,
@@ -56,7 +54,7 @@ export default function usePeer({
     if (localStream) {
       import('peerjs')
         .then(({ default: Peer }) => {
-          const peer = myPeer ? myPeer : new Peer(String(getRandomId()), peerConfig)
+          const peer = myPeer ?? new Peer(String(getRandomId()), peerConfig)
 
           peer.on('open', () => {
             setPeer(peer)
@@ -148,6 +146,7 @@ export default function usePeer({
         setPeer(null)
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localStream])
 
   return [myPeer, myPeerID] as const
