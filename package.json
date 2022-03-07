@@ -4,6 +4,7 @@
   "scripts": {
     "postinstall": "patch-package",
     "prepare": "husky install",
+    "lint-fix-prod": "cross-env NODE_ENV=production eslint --fix",
     "dev": "cross-env NODE_ENV=development node server.js",
     "build": "cross-env NODE_ENV=production next build",
     "start": "next start",
@@ -12,8 +13,11 @@
     "lint-fix": "eslint '**/*.{ts,tsx}' --fix --ext .js,.jsx,.ts,.tsx ."
   },
   "lint-staged": {
-    "**/*.{ts,tsx}": [
-      "eslint --fix"
+    "src/**/*.{js,jsx,ts,tsx}": [
+      "yarn lint-fix-prod"
+    ],
+    "./src/**": [
+      "prettier --write ."
     ]
   },
   "dependencies": {
