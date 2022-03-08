@@ -77,7 +77,7 @@ const SignInForm: FC<Props> = ({ onSignUpClick }) => {
         onChange={handleOnChange}
         error={!isValid.password}
       />
-      <Button fullWidth btnStyles="primary" type="submit" onClick={handleSubmit}>
+      <Button fullWidth type="submit" onClick={handleSubmit}>
         로그인
       </Button>
       <span className=" text-xs text-gray-400" onClick={onSignUpClick}>

@@ -1,4 +1,6 @@
+import { brandColor } from '@src/utils/constants'
 import React, { FC, useEffect, useRef } from 'react'
+import Image from './Image'
 
 interface VideoShape {
   mediaStream: MediaStream
@@ -7,45 +9,50 @@ interface VideoShape {
 
 const Video: FC<VideoShape> = ({ mediaStream, muted }) => {
   const viewRef = useRef<HTMLVideoElement>(null)
+  const divRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!viewRef.current) return
     viewRef.current.srcObject = mediaStream ? mediaStream : null
   }, [mediaStream])
 
-  // useEffect(() => {
-  // 	function drawLoudness() {
-  // 		requestAnimationFrame(drawLoudness);
-  // 		const bufferLength = audioAnalyser.frequencyBinCount;
-  // 		const dataArray = new Uint8Array(bufferLength);
-  // 		audioAnalyser.getByteFrequencyData(dataArray);
-  // 		const audioLevel =
-  // 			dataArray.reduce((p, c) => p + c, 0) / dataArray.length;
-  // 		if (audioLevel > 50) {
-  // 			viewRef.current.style.borderColor = "green";
-  // 		} else {
-  // 			if (viewRef.current) viewRef.current.style.borderColor = "transparent";
-  // 		}
-  // 	}
-  // 	const audioContext = new AudioContext();
-  // 	const audioAnalyser = new AnalyserNode(audioContext, { fftSize: 32 });
-  // 	if (mediaStream) {
-  // 		const audioSource = audioContext.createMediaStreamSource(mediaStream);
-  // 		audioSource.connect(audioAnalyser);
-  // 		audioSource.connect(audioContext.destination);
-  // 		drawLoudness();
-  // 	}
-  // }, [mediaStream]);
+  useEffect(() => {
+    if (!muted) {
+      function drawLoudness() {
+        requestAnimationFrame(drawLoudness)
+        const bufferLength = audioAnalyser.frequencyBinCount
+        const dataArray = new Uint8Array(bufferLength)
+        audioAnalyser.getByteFrequencyData(dataArray)
+        const audioLevel = dataArray.reduce((p, c) => p + c, 0) / dataArray.length
+        if (audioLevel > 40) {
+          divRef.current?.style.setProperty('border-color', brandColor)
+        } else {
+          divRef.current?.style.setProperty('border-color', 'transparent')
+        }
+      }
+
+      const audioContext = new AudioContext()
+      const audioAnalyser = new AnalyserNode(audioContext, { fftSize: 64 })
+      if (mediaStream) {
+        const audioSource = audioContext.createMediaStreamSource(mediaStream)
+        audioSource.connect(audioAnalyser)
+        audioSource.connect(audioContext.destination)
+        drawLoudness()
+      }
+    }
+  }, [mediaStream, muted])
 
   return (
-    <video
-      className="w-24 h-24 rounded-full object-cover"
-      ref={viewRef}
-      autoPlay
-      playsInline
-      muted={muted}
-      poster="/profiles/default.png"
-    />
+    <div ref={divRef} className="border-2 border-primary border-solid w-20 h-20 rounded-full">
+      <video ref={viewRef} className="hidden" autoPlay playsInline muted={muted} />
+      <Image
+        className="rounded-full"
+        src="/profiles/default.png"
+        width="80px"
+        height="80px"
+        alt=""
+      />
+    </div>
   )
 }
 

@@ -8,7 +8,6 @@ import { useState, useEffect } from 'react'
 const userMediaConfig = {
   audio: { sampleSize: 4, echoCancellation: true, noiseSuppression: true },
   // video: { facingMode: "user" },
-  video: true,
 }
 
 export default function useUserMedia() {

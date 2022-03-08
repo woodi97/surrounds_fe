@@ -98,7 +98,9 @@ const HomePage: FC<Props> = ({ userInfo }) => {
           <HeaderNav />
           {process.env.NEXT_PUBLIC_GOOGLE_MAP_ENABLE === 'true' && <GoogleMaps />}
         </div>
-        <div className="fixed left-0 z-20 hidden md:block w-80 h-screen bg-[rgba(255,255,255,0.8)]">
+        <div
+          className={`fixed left-0 z-20 hidden md:block w-80 h-screen bg-[rgba(255,255,255,0.8)]`}
+        >
           <div className="flex px-4 justify-between items-center w-full h-[4vh]">
             <div>{userInfo.nickname ?? 'no name'}</div>
             <Icon name="plus" onClick={() => openRoomCreateModal()} />

@@ -14,7 +14,7 @@ import { ModalProvider } from '@src/context/ModalContext'
 import { ModalContainer } from '@src/containers'
 import { ToastContainer } from 'react-toastify'
 import { ChatroomProvider } from '@src/context/ChatroomContext'
-import dynamic from 'next/dynamic'
+import { PeerJSProvider } from '@src/context/PeerJSContext'
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
 axios.defaults.withCredentials = true
@@ -30,7 +30,7 @@ const App = ({ Component, pageProps, router }: AppProps) => {
         <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
       </Head>
-      <Composer components={[UserAuthProvider, ModalProvider, ChatroomProvider]}>
+      <Composer components={[UserAuthProvider, ModalProvider, ChatroomProvider, PeerJSProvider]}>
         <Component {...pageProps} key={router.route} />
         <ModalContainer />
         <ToastContainer />
@@ -39,4 +39,4 @@ const App = ({ Component, pageProps, router }: AppProps) => {
   )
 }
 
-export default dynamic(() => Promise.resolve(App), { ssr: false })
+export default App

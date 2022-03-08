@@ -4,7 +4,7 @@ import Peer from 'peerjs'
 import { peerConfig } from '@src/config/peerConfig'
 import { SocketContext } from './useSocket'
 
-const usePeer = ({ remoteStreams, addRemoteStream, removeRemoteStream, chatroom, localStream }) => {
+const usePeer = ({ addRemoteStream, removeRemoteStream, chatroom, localStream }) => {
   const peers = {}
 
   const socket = useContext(SocketContext)
@@ -72,7 +72,7 @@ const usePeer = ({ remoteStreams, addRemoteStream, removeRemoteStream, chatroom,
             removeRemoteStream(userId)
             call.close()
           })
-          call.on('error', (error) => {
+          call.on('error', () => {
             removeRemoteStream(userId)
             call.close()
           })

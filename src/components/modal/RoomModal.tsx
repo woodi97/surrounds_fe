@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 import { useUserMedia, useRemoteStreams, usePeer } from '@src/hooks'
 import { Video } from '../common'
-import { Stream } from 'stream'
 
 type Props = {
   // modalOption: {
@@ -16,7 +15,6 @@ const RoomModal: FC<Props> = ({ modalOption }) => {
   const [remoteStreams, addRemoteStream, removeRemoteStream] = useRemoteStreams()
 
   usePeer({
-    remoteStreams,
     addRemoteStream,
     removeRemoteStream,
     chatroom: roomInfo,
