@@ -14,14 +14,16 @@ const CreateRoomModal: FC = () => {
 
   const tryCreateRoom = async () => {
     if (!isValidRoomName(title)) {
-      ToastError("채팅방 이름은 '영문자', '숫자', '_', '-'만 가능합니다.")
+      ToastError('채팅방 이름은 최소 3글자로 입력해주세요.')
     }
     try {
-      await Promise.all([createChatroom(title, location), updateChatrooms()])
+      await createChatroom(title, location)
       ToastSuccess('채팅방이 생성되었습니다.')
-      closeModal()
     } catch (err) {
       ToastError('채팅방 생성에 실패했습니다.')
+    } finally {
+      await updateChatrooms()
+      closeModal()
     }
   }
 

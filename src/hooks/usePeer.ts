@@ -33,6 +33,7 @@ const usePeer = ({ addRemoteStream, removeRemoteStream, chatroom, localStream })
           socket.emit('join-room', chatroom.id, peer.id)
         })
         peer.on('call', (call) => {
+          const { username, profile } = call.metadata
           call.answer(localStream)
           call.on('stream', (remoteStream) => {
             addRemoteStream({ peerId: call.peer, stream: remoteStream })
@@ -60,7 +61,12 @@ const usePeer = ({ addRemoteStream, removeRemoteStream, chatroom, localStream })
         // got new user
         socket.on('user-connected', (userId) => {
           console.log('user-connected', userId)
-          const call = peer.call(userId, localStream)
+          const call = peer.call(userId, localStream, {
+            metadata: {
+              username: 'test',
+              profile: 'test',
+            },
+          })
           peers[userId] = call
           call.on('stream', (remoteStream) => {
             addRemoteStream({ peerId: userId, stream: remoteStream })

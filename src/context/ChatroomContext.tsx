@@ -21,8 +21,8 @@ const useChatroom = () => {
       setChatrooms(result)
       setIsLoading(false)
     } catch (e) {
-      ToastError('채팅방 목록 가져오기 실패')
       setIsLoading(false)
+      setChatrooms(null)
     }
   }
 
