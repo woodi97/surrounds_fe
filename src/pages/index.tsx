@@ -22,8 +22,6 @@ export const getServerSideProps = withAuthServerSideProps(async () => {
   }
 })
 
-// CSR
-
 const HomePage: FC<Props> = ({ userInfo }) => {
   const openJoinRoomModal = useJoinRoomModal()
   const openRoomCreateModal = useRoomCreateModal()
@@ -81,7 +79,7 @@ const HomePage: FC<Props> = ({ userInfo }) => {
       <div className="relative flex flex-grow overflow-hidden">
         <div ref={mapWrapperRef} className="w-full bg-slate-500">
           <HeaderNav />
-          <GoogleMaps />
+          {/* <GoogleMaps /> */}
         </div>
         <div className="fixed left-0 z-20 hidden md:block w-80 h-screen bg-[rgba(255,255,255,0.8)]">
           <div className="flex px-4 justify-between items-center w-full h-[4vh]">

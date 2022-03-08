@@ -1,19 +1,11 @@
-import React, { useEffect, useRef } from 'react'
+import React, { FC, useEffect, useRef } from 'react'
 
-import classNames from 'classnames'
-import styles from './RoomMedia.module.scss'
-
-interface IRoomMediaProps {
-  className?: string
+interface VideoShape {
   mediaStream: MediaStream
-  emailId: string
   muted: boolean
-  profileImage: string
-  onClick(emailId: string, e: any): void
 }
 
-export default function RoomMedia(props: IRoomMediaProps): JSX.Element {
-  const { className, mediaStream, emailId, profileImage, muted, onClick } = props
+const Video: FC<VideoShape> = ({ mediaStream, muted }) => {
   const viewRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
@@ -46,19 +38,15 @@ export default function RoomMedia(props: IRoomMediaProps): JSX.Element {
   // }, [mediaStream]);
 
   return (
-    <div className={classNames(className, styles.container)}>
-      <video
-        className={styles.video}
-        ref={viewRef}
-        autoPlay
-        playsInline
-        muted={muted}
-        poster="/profiles/default.png"
-        onClick={(e) => {
-          onClick(emailId, e)
-        }}
-      />
-      <div className={styles.label}>{emailId ? emailId : 'unknown'}</div>
-    </div>
+    <video
+      className="w-24 h-24 rounded-full object-cover"
+      ref={viewRef}
+      autoPlay
+      playsInline
+      muted={muted}
+      poster="/profiles/default.png"
+    />
   )
 }
+
+export default Video

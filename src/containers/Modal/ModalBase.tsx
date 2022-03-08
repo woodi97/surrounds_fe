@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React, { FC } from 'react'
+import React, { FC, useContext } from 'react'
 import { Image } from '@components/common'
 import styles from './ModalBase.module.scss'
 

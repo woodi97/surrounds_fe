@@ -4,8 +4,11 @@ import { RoomInfo } from '@src/core/interface/chatroom'
 import { getNearChatrooms } from '@src/core/api/chatroom'
 import { useLocation } from '@src/hooks'
 import { ToastError } from '@src/utils/toast'
+import { useAuthed, useValidationTried } from './UserAuthContext'
 
 const useChatroom = () => {
+  const _authed = useAuthed()
+  const _valid_tried = useValidationTried()
   const [location] = useLocation()
   const [joinedChatroom, setJoinedChatroom] = useState<RoomInfo | null>(null)
   const [chatrooms, setChatrooms] = useState<RoomInfo[]>(null)
@@ -17,7 +20,7 @@ const useChatroom = () => {
       const result = await getNearChatrooms(location)
       setChatrooms(result)
       setIsLoading(false)
-    } catch (er) {
+    } catch (e) {
       ToastError('채팅방 목록 가져오기 실패')
       setIsLoading(false)
     }
@@ -32,11 +35,11 @@ const useChatroom = () => {
   }
 
   useEffect(() => {
-    if (location) {
+    if (_authed && _valid_tried && location) {
       updateChatrooms()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location])
+  }, [location, _authed, _valid_tried])
 
   return {
     location,

@@ -47,7 +47,7 @@ const useModal = () => {
 
   const openJoinRoomModal = useCallback(
     ({ modalTitle, roomInfo }: { modalTitle?: string; roomInfo: RoomInfo }) => {
-      openModal('CHATROOM', modalTitle, { roomInfo })
+      openModal('ROOM', modalTitle, { roomInfo })
     },
     [openModal]
   )

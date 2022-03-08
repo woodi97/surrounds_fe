@@ -1,33 +1,29 @@
 import { useState, useCallback } from 'react'
 //import interface
-import { IRemoteMedia } from '@src/core/interface'
+import { RemoteMediaShape } from '@src/core/interface/media-stream'
 
 export default function useRemoteStreams() {
-  const [remoteStreams, setRemoteStreams] = useState<IRemoteMedia[]>([])
+  const [remoteStreams, setRemoteStreams] = useState<RemoteMediaShape[]>([])
 
-  const addRemoteStream = useCallback((stream, peerId, emailId, profileImage) => {
-    setRemoteStreams((remoteStreams) => {
-      if (!stream || !peerId) return [...remoteStreams]
-      if (remoteStreams.some((remoteMediaInfo) => remoteMediaInfo.peerId === peerId))
-        return [...remoteStreams]
+  const addRemoteStream = useCallback(({ peerId, stream }: RemoteMediaShape) => {
+    setRemoteStreams((prev) => {
+      if (prev.some((remoteMediaInfo) => remoteMediaInfo.peerId === peerId)) return [...prev]
       return [
-        ...remoteStreams,
+        ...prev,
         {
-          peerId: peerId,
-          emailId: emailId,
-          stream: stream,
-          profileImage: profileImage,
+          peerId,
+          stream,
         },
       ]
     })
   }, [])
 
   const removeRemoteStream = useCallback((peerId) => {
-    setRemoteStreams((remoteStreams) => {
-      const index = remoteStreams.findIndex((remote) => remote.peerId === peerId)
-      if (index < 0) return [...remoteStreams]
-      remoteStreams.splice(index, 1)
-      return [...remoteStreams]
+    setRemoteStreams((prev) => {
+      const index = prev.findIndex((remote) => remote.peerId === peerId)
+      if (index < 0) return [...prev]
+      prev.splice(index, 1)
+      return [...prev]
     })
   }, [])
 

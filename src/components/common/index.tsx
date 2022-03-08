@@ -8,6 +8,7 @@ export { default as InputBox } from './InputBox'
 export { default as Link } from './Link'
 export { default as LinkWithLogo } from './LinkWithLogo'
 export { default as Icon } from './Icon/Icon'
+export { default as Video } from './Video'
 
 export { default as SVG } from './SVG/Svg'
 export { default as SVGPath } from './SVG/Path'

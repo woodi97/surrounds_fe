@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import ModalPortal from './ModalPortal'
 import {
-  ChatroomModal,
+  RoomModal,
   CreateRoomModal,
   ProfileModal,
   SignInModal,
@@ -26,7 +26,7 @@ const ModalContainer: FC = () => {
     SIGNUP: <SignUpModal />,
     SIGNIN: <SignInModal />,
     CREATEROOM: <CreateRoomModal />,
-    CHATROOM: <ChatroomModal modalOption={modalOption} />,
+    ROOM: <RoomModal modalOption={modalOption} />,
     PROFILE: <ProfileModal modalOption={modalOption} />,
   }
 

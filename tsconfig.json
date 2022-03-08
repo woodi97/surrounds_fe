@@ -18,6 +18,7 @@
     "paths": {
       "@src/*": ["./src/*"],
       "@animations/*": ["./src/animations/*"],
+      "@config/*": ["./src/config/*"],
       "@containers/*": ["./src/containers/*"],
       "@components/*": ["./src/components/*"],
       "@context/*": ["./src/context"],

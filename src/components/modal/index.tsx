@@ -4,4 +4,4 @@ export { default as CreateRoomModal } from './CreateRoomModal'
 
 // Todo
 export { default as ProfileModal } from './ProfileModal'
-export { default as ChatroomModal } from './ChatroomModal/Room'
+export { default as RoomModal } from './RoomModal'

@@ -1,7 +1,8 @@
 import React from 'react'
 import { io } from 'socket.io-client'
+import { socketConfig } from '@src/config/socketConfig'
 
-const socket = io('https://be-surrounds.herokuapp.com/', {
+const socket = io(socketConfig.url, {
   withCredentials: false,
 })
 
