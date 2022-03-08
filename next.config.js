@@ -39,6 +39,7 @@ module.exports = withBundleAnalyzer({
   },
   publicRuntimeConfig: {
     // Will be available on both server and client
+    socketSecure: process.env.SOCKET_SECURE === 'true',
     socketURL: process.env.SOCKET_URL,
     stunURL: process.env.STUN_URL,
     turnURL: process.env.TURN_URL,

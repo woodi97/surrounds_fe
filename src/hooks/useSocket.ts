@@ -3,7 +3,7 @@ import { io } from 'socket.io-client'
 import { socketConfig } from '@src/config/socketConfig'
 
 const socket = io(socketConfig.url, {
-  withCredentials: false,
+  withCredentials: socketConfig.secure,
 })
 
 export const SocketContext = React.createContext(socket)
