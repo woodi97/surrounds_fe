@@ -12,7 +12,7 @@ const userMediaConfig = {
 }
 
 export default function useUserMedia() {
-  const [mediaStream, setMediaStream] = useState(null)
+  const [mediaStream, setMediaStream] = useState<MediaStream>(null)
 
   useEffect(() => {
     const enableStream = async () => {
@@ -26,11 +26,14 @@ export default function useUserMedia() {
 
     if (!mediaStream) {
       enableStream()
-    } else {
-      return () => {
+    }
+
+    return () => {
+      if (mediaStream) {
         mediaStream.getTracks().forEach((track) => {
           track.stop()
         })
+        setMediaStream(null)
       }
     }
   }, [mediaStream])

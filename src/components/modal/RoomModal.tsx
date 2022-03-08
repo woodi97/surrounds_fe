@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { useUserMedia, useRemoteStreams, usePeer } from '@src/hooks'
 import { Video } from '../common'
+import { Stream } from 'stream'
 
 type Props = {
   // modalOption: {
@@ -15,6 +16,7 @@ const RoomModal: FC<Props> = ({ modalOption }) => {
   const [remoteStreams, addRemoteStream, removeRemoteStream] = useRemoteStreams()
 
   usePeer({
+    remoteStreams,
     addRemoteStream,
     removeRemoteStream,
     chatroom: roomInfo,
@@ -24,8 +26,8 @@ const RoomModal: FC<Props> = ({ modalOption }) => {
   return (
     <div className="flex flex-wrap justify-around overflow-auto">
       <Video mediaStream={localStream} muted={true} />
-      {remoteStreams?.map((remoteStream, index) => {
-        return <Video key={index} mediaStream={remoteStream.stream} muted={false} />
+      {Array.from(remoteStreams.values()).map((stream: MediaStream, index) => {
+        return <Video key={`remote-videos-${index}`} mediaStream={stream} muted={false} />
       })}
     </div>
   )

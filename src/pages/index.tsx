@@ -1,9 +1,16 @@
 import React, { useEffect, useMemo, Fragment, useRef, FC } from 'react'
-import { BottomSheet, GoogleMaps, HeaderNav, HorizontalLine, Icon, Image } from '@components/common'
+import {
+  BottomSheet,
+  GoogleMaps,
+  HeaderNav,
+  HorizontalLine,
+  Icon,
+  Image,
+  Shimmer,
+} from '@components/common'
 import { withAuthServerSideProps } from '@src/hocs/withSSRAuth'
 import { validate } from '@src/core/api/auth'
 import withCSRAuth from '@src/hocs/withCSRAuth'
-import ShimmeringSheetContent from '@src/components/common/BottomSheet/ShimmeringSheetContent'
 import { PageLayout } from '@src/components/layout'
 import { getContentHeight } from '@src/utils/browser'
 import { useJoinRoomModal, useRoomCreateModal } from '@src/context/ModalContext'
@@ -66,7 +73,17 @@ const HomePage: FC<Props> = ({ userInfo }) => {
       )
     }
 
-    if (isChatroomLoading) return ShimmeringSheetContent
+    const SheetShimmering = () => {
+      return (
+        <>
+          {[...Array(20).keys()].map((_, idx) => (
+            <Shimmer key={`sheet-shimmering-${idx}`} />
+          ))}
+        </>
+      )
+    }
+
+    if (isChatroomLoading) return SheetShimmering
     else return SheetContent
   }, [chatrooms, isChatroomLoading, openJoinRoomModal])
 

@@ -1,29 +1,19 @@
 import { useState, useCallback } from 'react'
-//import interface
-import { RemoteMediaShape } from '@src/core/interface/media-stream'
 
 export default function useRemoteStreams() {
-  const [remoteStreams, setRemoteStreams] = useState<RemoteMediaShape[]>([])
+  const [remoteStreams, setRemoteStreams] = useState<Map<string, MediaStream>>(new Map())
 
-  const addRemoteStream = useCallback(({ peerId, stream }: RemoteMediaShape) => {
+  const addRemoteStream = ({ peerId, stream }: { peerId: string; stream: MediaStream }) => {
     setRemoteStreams((prev) => {
-      if (prev.some((remoteMediaInfo) => remoteMediaInfo.peerId === peerId)) return [...prev]
-      return [
-        ...prev,
-        {
-          peerId,
-          stream,
-        },
-      ]
+      return new Map(prev).set(peerId, stream)
     })
-  }, [])
+  }
 
   const removeRemoteStream = useCallback((peerId) => {
     setRemoteStreams((prev) => {
-      const index = prev.findIndex((remote) => remote.peerId === peerId)
-      if (index < 0) return [...prev]
-      prev.splice(index, 1)
-      return [...prev]
+      const tempMap = new Map(prev)
+      tempMap.delete(peerId)
+      return tempMap
     })
   }, [])
 

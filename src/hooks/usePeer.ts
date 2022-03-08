@@ -1,30 +1,32 @@
-import { useEffect, useContext, useRef } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { getRandomId } from '@src/utils/random'
 import Peer from 'peerjs'
-import { SocketContext } from './useSocket'
 import { peerConfig } from '@src/config/peerConfig'
+import { SocketContext } from './useSocket'
 
-export default function usePeer({ addRemoteStream, removeRemoteStream, chatroom, localStream }) {
+const usePeer = ({ remoteStreams, addRemoteStream, removeRemoteStream, chatroom, localStream }) => {
   const peers = {}
+
   const socket = useContext(SocketContext)
 
   const peerInstance = useRef<Peer>(null)
   const peerID = useRef<string>(null)
 
   const cleanUp = () => {
-    console.log(peerInstance.current)
     if (peerInstance.current) {
-      socket.emit('leave-room', peerID.current)
-      peerInstance.current.disconnect()
-      peerInstance.current.destroy()
+      peerInstance.current?.disconnect()
+      peerInstance.current?.destroy()
       peerInstance.current = null
+      peerID.current = null
+      socket.off('user-connected')
+      socket.off('leave-room')
     }
   }
 
   useEffect(() => {
     if (localStream) {
       import('peerjs').then(({ default: Peer }) => {
-        const peer = peerInstance.current ?? new Peer(String(getRandomId()), peerConfig)
+        const peer = new Peer(String(getRandomId()), peerConfig)
         peer.on('open', () => {
           peerInstance.current = peer
           peerID.current = peer.id
@@ -33,7 +35,7 @@ export default function usePeer({ addRemoteStream, removeRemoteStream, chatroom,
         peer.on('call', (call) => {
           call.answer(localStream)
           call.on('stream', (remoteStream) => {
-            addRemoteStream(remoteStream, call.peer)
+            addRemoteStream({ peerId: call.peer, stream: remoteStream })
           })
           call.on('close', () => {
             console.log('The call has ended')
@@ -45,54 +47,50 @@ export default function usePeer({ addRemoteStream, removeRemoteStream, chatroom,
           })
         })
         peer.on('disconnected', () => {
-          console.log('Peer disconnected')
-          peer.reconnect()
+          console.log('disconnected with peer server')
+          socket.emit('leave-room', peerID.current, chatroom.id)
         })
         peer.on('close', () => {
-          console.log('Peer closed remotetly')
+          console.log('close connection with peer server')
         })
         peer.on('error', (error) => {
-          console.log('peer error', error)
-          peer.disconnect()
+          console.log('error event from peer server', error)
         })
+
         // got new user
         socket.on('user-connected', (userId) => {
           console.log('user-connected', userId)
           const call = peer.call(userId, localStream)
           peers[userId] = call
           call.on('stream', (remoteStream) => {
-            addRemoteStream(remoteStream, call.peer)
+            addRemoteStream({ peerId: userId, stream: remoteStream })
           })
           call.on('disconnected', () => {
             console.log('disconnected')
           })
           call.on('close', () => {
-            console.log('call closed')
-            removeRemoteStream(call.peer)
+            removeRemoteStream(userId)
             call.close()
           })
           call.on('error', (error) => {
-            console.log('call error', error)
-            removeRemoteStream(call.peer)
+            removeRemoteStream(userId)
             call.close()
           })
         })
-        socket.on('user-disconnected', (userId) => {
-          console.log('user-disconnected to')
+        socket.on('leave-room', (userId) => {
+          console.log(userId)
+          peers[userId]?.close()
           removeRemoteStream(userId)
-          if (peers[userId]) peers[userId].close()
-        })
-        socket.on('user-leave', (userId) => {
-          console.log('user-leave')
-          removeRemoteStream(userId)
-          if (peers[userId]) peers[userId].close()
         })
       })
     }
-
     return () => {
       cleanUp()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localStream])
+
+  return [peerInstance, peers, cleanUp]
 }
+
+export default usePeer

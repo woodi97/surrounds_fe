@@ -14,11 +14,12 @@ import { ModalProvider } from '@src/context/ModalContext'
 import { ModalContainer } from '@src/containers'
 import { ToastContainer } from 'react-toastify'
 import { ChatroomProvider } from '@src/context/ChatroomContext'
+import dynamic from 'next/dynamic'
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
 axios.defaults.withCredentials = true
 
-export default function App({ Component, pageProps, router }: AppProps): JSX.Element {
+const App = ({ Component, pageProps, router }: AppProps) => {
   return (
     <>
       <Head>
@@ -37,3 +38,5 @@ export default function App({ Component, pageProps, router }: AppProps): JSX.Ele
     </>
   )
 }
+
+export default dynamic(() => Promise.resolve(App), { ssr: false })
