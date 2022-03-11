@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 
 export default function useRemoteStreams() {
   const [remoteStreams, setRemoteStreams] = useState<Map<string, MediaStream>>(new Map())
@@ -16,6 +16,19 @@ export default function useRemoteStreams() {
       return tempMap
     })
   }, [])
+
+  useEffect(() => {
+    return () => {
+      if (remoteStreams.size > 0) {
+        remoteStreams.forEach((stream) => {
+          stream.getTracks().forEach((track) => {
+            track.stop()
+          })
+        })
+        setRemoteStreams(new Map())
+      }
+    }
+  })
 
   return [remoteStreams, addRemoteStream, removeRemoteStream] as const
 }

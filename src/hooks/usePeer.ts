@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { getRandomId } from '@src/utils/random'
 import Peer from 'peerjs'
 import { peerConfig } from '@src/config/peerConfig'
@@ -6,7 +6,7 @@ import { SocketContext } from './useSocket'
 
 const usePeer = ({ addRemoteStream, removeRemoteStream, chatroom, localStream }) => {
   const peers = {}
-
+  const [init, setInit] = useState(false)
   const socket = useContext(SocketContext)
 
   const peerInstance = useRef<Peer>(null)
@@ -58,6 +58,7 @@ const usePeer = ({ addRemoteStream, removeRemoteStream, chatroom, localStream })
 
   const addConnectToChatroomEvent = ({ peer }: { peer: Peer }) => {
     peer.on('open', () => {
+      setInit(true)
       peerInstance.current = peer
       peerID.current = peer.id
       socket.emit('join-room', chatroom.id, peer.id)
@@ -67,6 +68,7 @@ const usePeer = ({ addRemoteStream, removeRemoteStream, chatroom, localStream })
   const addConnectToOtherPeersEvent = ({ peer }: { peer: Peer }) => {
     peer.on('call', (call) => {
       const { username, profile } = call.metadata
+      console.log(username, profile)
       call.answer(localStream)
       call.on('stream', (remoteStream) => {
         addRemoteStream({ peerId: call.peer, stream: remoteStream })
@@ -96,7 +98,7 @@ const usePeer = ({ addRemoteStream, removeRemoteStream, chatroom, localStream })
   }
 
   useEffect(() => {
-    if (localStream) {
+    if (localStream && !init) {
       import('peerjs').then(({ default: Peer }) => {
         const peer = new Peer(String(getRandomId()), peerConfig)
         addConnectToChatroomEvent({ peer })
