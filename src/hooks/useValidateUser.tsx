@@ -11,7 +11,7 @@ export default function useValidateUser() {
         await apiValidate()
       } catch (error) {
         // Todo: need to show toast or alert or anything to user
-        await router.push('/login')
+        await router.push('/signin')
       }
     }
 
