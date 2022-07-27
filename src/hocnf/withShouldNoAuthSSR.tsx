@@ -13,6 +13,7 @@ const withShouldNoAuthSSR = () => {
           props: {},
           redirect: {
             destination: '/',
+            permanent: false,
           },
         }
       } else {
@@ -36,6 +37,7 @@ const withShouldNoAuthSSR = () => {
             props: {},
             redirect: {
               destination: '/',
+              permanent: false,
             },
           }
         } catch (error) {

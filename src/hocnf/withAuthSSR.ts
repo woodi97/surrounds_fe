@@ -18,6 +18,7 @@ const withAuthSSR = (getServerSidePropsFunc?: GetServerSideProps): GetServerSide
             props: {},
             redirect: {
               url: '/signin',
+              permanent: false,
             },
           }
         }
@@ -39,6 +40,7 @@ const withAuthSSR = (getServerSidePropsFunc?: GetServerSideProps): GetServerSide
             props: {},
             redirect: {
               destination: '/signin',
+              permanent: false,
             },
           }
         }
