@@ -1,36 +1,65 @@
+import { pageVars } from '@src/animations/page'
+import { useBrowserBackward, useRootDispatch, useRootState, useWindowResize } from '@src/hooks'
+import { pageTransitionForward } from '@src/store/modules/layout'
+import cx from 'classnames'
+import { motion } from 'framer-motion'
 import React, { FC, useEffect, useMemo, useRef } from 'react'
-import Header from './Header'
-import classNames from 'classnames'
-import { getContentHeight } from '@src/utils/browser'
 
-interface Props {
+const PageLayout: FC<{
+  children: React.ReactNode
   fullWidth?: boolean
   fixedHeight?: boolean
-}
+  disableTransition?: boolean
+}> = ({ children, fullWidth = false, fixedHeight = false, disableTransition = false }) => {
+  const mainRef = useRef<HTMLDivElement>(null)
+  const dispatch = useRootDispatch()
+  const layoutState = useRootState((state) => state.layout)
 
-const PageLayout: FC<Props> = ({ children, fullWidth = false, fixedHeight = false }) => {
-  const maxWidth = useMemo(() => 'px-4', [])
-  const layoutRef = useRef<HTMLDivElement>(null)
+  useBrowserBackward()
 
   useEffect(() => {
-    const refinedHeight = getContentHeight()
-    if (fixedHeight) {
-      layoutRef.current.style.setProperty('height', `${refinedHeight}px`)
-    }
-  }, [fixedHeight])
+    dispatch(pageTransitionForward())
+  }, [])
 
+  // to recalculate height when mobile browser search bar appeared and disappeared
+  useWindowResize(() => {
+    if (fixedHeight) {
+      mainRef.current.style.setProperty('height', `${window.innerHeight}px`)
+    } else {
+      mainRef.current.style.setProperty('height', 'h-full')
+    }
+  }, 0)
+
+  // pageDirection is used to determine the direction of the page transition
+  const pageDirectionCustom = useMemo(
+    () => (layoutState.pageTransitionDir === 'forward' ? 1 : -1),
+    [layoutState.pageTransitionDir]
+  )
+
+  // do not remove pt-gb-header pb-bt-nav on motion.main
+  // it is for showing content on the top of bottom nav
+  // it should be pb-0 on desktop size because bottom nav will not be shown
   return (
-    <div ref={layoutRef}>
-      <Header className={`${maxWidth}`} />
+    <motion.div
+      className="relative"
+      variants={disableTransition ? {} : pageVars}
+      custom={pageDirectionCustom}
+      initial="hidden"
+      animate="enter"
+      exit="exit"
+      transition={{ type: 'linear' }}
+    >
       <main
-        className={classNames(
-          'z-30 flex flex-col min-h-full m-auto pt-10',
-          `${fullWidth ? 'w-full' : 'max-w-screen-2xl'}`
+        ref={mainRef}
+        className={cx(
+          'relative m-center w-full py-8',
+          fullWidth ? null : `max-w-mobile-app px-side-padding`,
+          fixedHeight ? 'overflow-hidden h-screen' : 'min-h-screen'
         )}
       >
-        <div className="w-full flex-grow">{children}</div>
+        {children}
       </main>
-    </div>
+    </motion.div>
   )
 }
 

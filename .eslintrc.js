@@ -27,8 +27,6 @@ module.exports = {
     },
   },
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'prettier/prettier': 'error',
     'react/react-in-jsx-scope': 'off',
     'react-hooks/rules-of-hooks': 'error',

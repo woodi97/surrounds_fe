@@ -32,24 +32,21 @@ module.exports = withBundleAnalyzer({
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // Add Runtime process.env Configuration
-  serverRuntimeConfig: {
-    // Will only be available on the server side
-    staticFolder: '/public',
-  },
-  publicRuntimeConfig: {
-    // Will be available on both server and client
-    socketSecure: process.env.SOCKET_SECURE === 'true',
-    socketURL: process.env.SOCKET_URL,
-    stunURL: process.env.STUN_URL,
-    turnURL: process.env.TURN_URL,
-    turnUsername: process.env.TURN_USERNAME,
-    turnCredential: process.env.TURN_CREDENTIAL,
-    peerHost: process.env.PEER_HOST,
-    peerPort: process.env.PEER_PORT,
-    peerDebug: process.env.PEER_DEBUG,
-    peerPath: process.env.PEER_PATH,
-    peerSecure: process.env.PEER_SECURE,
+  env: {
+    APP_TITLE: process.env.APP_TITLE,
+    BASE_API_URL: process.env.BASE_API_URL,
+    GOOGLE_MAP_KEY: process.env.GOOGLE_MAP_KEY,
+    SOCKET_SECURE: process.env.SOCKET_SECURE,
+    SOCKET_URL: process.env.SOCKET_URL,
+    STUN_URL: process.env.STUN_URL,
+    TURN_URL: process.env.TURN_URL,
+    TURN_USERNAME: process.env.TURN_USERNAME,
+    TURN_CREDENTIAL: process.env.TURN_CREDENTIAL,
+    PEER_HOST: process.env.PEER_HOST,
+    PEER_PORT: process.env.PEER_PORT,
+    PEER_DEBUG: process.env.PEER_DEBUG,
+    PEER_PATH: process.env.PEER_PATH,
+    PEER_SECURE: process.env.PEER_SECURE,
   },
   eslint: {
     ignoreDuringBuilds: true,

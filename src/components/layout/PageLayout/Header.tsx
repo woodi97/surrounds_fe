@@ -1,35 +1,35 @@
-import React, { useMemo } from 'react'
-import { LinkWithLogo } from '@components/common'
-import { useCycle } from 'framer-motion'
-import { PopupLayout } from '..'
-import MobileNav from './MobileNav'
+import cx from 'classnames'
+import React, { forwardRef, MutableRefObject } from 'react'
 
-const HeaderPopup = ({ children, isOpen, onToggle }) => {
-  return (
-    <PopupLayout className="top-12" isOpen={isOpen} onToggle={onToggle}>
-      {children}
-    </PopupLayout>
-  )
+type Props = {
+  className?: string
+  fixed?: boolean
+  transparent?: boolean
+  content: React.ReactNode
 }
 
-const Header = ({ className }) => {
-  const [isOpen, toggleOpen] = useCycle(false, true)
-
-  const HeaderContent = useMemo(() => {
-    const HeaderContentMemo = () => {
-      return <div>abc</div>
-    }
-    return HeaderContentMemo
-  }, [])
-
+const Header = (
+  { className, fixed = false, transparent = false, content }: Props,
+  ref: MutableRefObject<HTMLDivElement>
+) => {
   return (
-    <header
-      className={`z-40 flex fixed w-full h-10 top-0 justify-between border-b-2 border-black-500 ${className} bg-primary`}
-    >
-      <LinkWithLogo priority path="/" logoSrc="/logo.svg" alt="logo" width={40} height={40} />
-      <MobileNav />
+    <header className="relative">
+      <div
+        ref={ref}
+        className={cx(
+          'z-20 w-full max-w-mobile-app h-gb-header top-0',
+          'px-side-padding py-2',
+          'flex justify-between items-center align-middle',
+          'font-bold',
+          fixed ? 'fixed' : 'absolute',
+          transparent && 'bg-transparent',
+          className
+        )}
+      >
+        {content}
+      </div>
     </header>
   )
 }
 
-export default Header
+export default forwardRef(Header)

@@ -1,7 +1,7 @@
-import { Location } from '@src/core/interface'
+import { Location } from '@src/core/types'
 import axios from 'axios'
 
-export const getNearChatrooms = async (location: Location) => {
+export const apiGetNearChatrooms = async (location: Location) => {
   try {
     const { data } = await axios.get('/chatroom', {
       params: {
@@ -15,7 +15,7 @@ export const getNearChatrooms = async (location: Location) => {
   }
 }
 
-export const checkChatroom = async (email: string) => {
+export const apiCheckChatroom = async (email: string) => {
   try {
     const { data } = await axios.get('/chatroom/check', {
       params: {
@@ -28,7 +28,7 @@ export const checkChatroom = async (email: string) => {
   }
 }
 
-export const createChatroom = async (title: string, location: Location) => {
+export const apiCreateChatroom = async (title: string, location: Location) => {
   try {
     const { data } = await axios.post('/chatroom', {
       title: title,
@@ -41,7 +41,7 @@ export const createChatroom = async (title: string, location: Location) => {
   }
 }
 
-export const deleteChatroom = async (email: string) => {
+export const apiDeleteChatroom = async (email: string) => {
   try {
     const { data } = await axios.delete('/chatroom', {
       params: {

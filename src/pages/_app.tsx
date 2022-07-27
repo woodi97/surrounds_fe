@@ -3,40 +3,35 @@ import Head from 'next/head'
 import type { AppProps } from 'next/app'
 import axios from 'axios'
 
-import '@css/reset.scss'
-import '@styles/globals.scss'
-import '@css/tailwind.scss'
+import '@src/styles/globals.scss'
 import 'react-toastify/dist/ReactToastify.css'
-
-import { Composer } from '@src/components/common'
-import { UserAuthProvider } from '@src/context/UserAuthContext'
-import { ModalProvider } from '@src/context/ModalContext'
-import { ModalContainer } from '@src/containers'
 import { ToastContainer } from 'react-toastify'
-import { ChatroomProvider } from '@src/context/ChatroomContext'
-import { PeerJSProvider } from '@src/context/PeerJSContext'
+import { wrapper } from '@src/store'
+import { PageCommonLayout } from '@src/components/layout'
+import { ModalContainer } from '@src/components/containers'
+import { envConfig } from '@src/core/config/envConfig'
 
-axios.defaults.baseURL = process.env.NEXT_PUBLIC_API_BASE_URL
+axios.defaults.baseURL = envConfig.apiUrl
 axios.defaults.withCredentials = true
 
 const App = ({ Component, pageProps, router }: AppProps) => {
   return (
     <>
       <Head>
-        <title>{process.env.NEXT_PUBLIC_APP_TITLE}</title>
+        <title>{envConfig.appName}</title>
         <link rel="icon" href="/logo.ico" />
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
       </Head>
-      <Composer components={[UserAuthProvider, ModalProvider, ChatroomProvider, PeerJSProvider]}>
+      <PageCommonLayout>
         <Component {...pageProps} key={router.route} />
-        <ModalContainer />
-        <ToastContainer />
-      </Composer>
+      </PageCommonLayout>
+      <ModalContainer />
+      <ToastContainer />
     </>
   )
 }
 
-export default App
+export default wrapper.withRedux(App)

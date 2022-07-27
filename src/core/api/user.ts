@@ -1,19 +1,26 @@
 import axios from 'axios'
+import { ToastWarn } from '@src/utils/toast'
+import { setAuthToken } from '@src/utils/authUtil'
 
-export const signin = async (email: string, password: string): Promise<any> => {
+export const apiSignIn = async (email: string, password: string): Promise<any> => {
   try {
     const { data } = await axios.post('/signin', {
       email: email,
       password: password,
     })
-    axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
+    setAuthToken(data.token)
     return data
   } catch (err) {
+    ToastWarn('Login Failed. Try Again')
     throw err
   }
 }
 
-export const signup = async (nickname: string, email: string, password: string): Promise<any> => {
+export const apiSignUp = async (
+  nickname: string,
+  email: string,
+  password: string
+): Promise<any> => {
   try {
     const { data } = await axios.post('/signup', {
       nickname,
@@ -26,7 +33,7 @@ export const signup = async (nickname: string, email: string, password: string):
   }
 }
 
-export const getUserProfile = async (email: string): Promise<any> => {
+export const apiGetUserProfile = async (email: string): Promise<any> => {
   try {
     const { data } = await axios.get(`/user/${email}`)
     return data.body
@@ -35,7 +42,7 @@ export const getUserProfile = async (email: string): Promise<any> => {
   }
 }
 
-export const editUserName = async (username: string): Promise<any> => {
+export const apiEditUserName = async (username: string): Promise<any> => {
   try {
     const { data } = await axios.put('/user', {
       username: username,
@@ -46,7 +53,7 @@ export const editUserName = async (username: string): Promise<any> => {
   }
 }
 
-export const editProfileImage = async (image: string): Promise<any> => {
+export const apiEditProfileImage = async (image: string): Promise<any> => {
   try {
     const formData = new FormData()
     formData.append('image', image)

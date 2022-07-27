@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Location } from '@src/core/interface'
+import { Location } from '@src/core/types'
 
 const gpsOptions = {
   enableHighAccuracy: true,
@@ -28,6 +28,7 @@ export default function useLocation() {
     if (!location) {
       getGPS()
     }
+
     async function getGPS() {
       try {
         const result = await getCurrentLocation()

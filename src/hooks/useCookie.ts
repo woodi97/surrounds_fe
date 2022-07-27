@@ -1,4 +1,4 @@
-import { Dispatch, useState } from 'react'
+import { useState } from 'react'
 import Cookies from 'js-cookie'
 
 export function useCookie(

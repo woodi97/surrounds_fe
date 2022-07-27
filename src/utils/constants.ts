@@ -1,6 +1,11 @@
-// for button component
-export type btnSizes = 'large' | 'medium' | 'small' | 'extra-small'
+export type btnSizes = 'large' | 'medium' | 'small' | 'xsmall'
+export type inputBoxSizes = 'large' | 'medium' | 'small'
 
-export type btnStyles = 'default' | 'primary' | 'secondary' | 'danger' | 'link' | 'border'
-
-export const brandColor = '#ffcc71'
+export type btnStyles =
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'link'
+  | 'danger'
+  | 'success'
+  | 'warning'
