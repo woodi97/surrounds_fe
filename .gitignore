@@ -247,6 +247,4 @@ sketch
 # End of https://www.toptal.com/developers/gitignore/api/node,react,macos,linux,yarn,vscode
 
 # config files
-config.js
-src/core/config
 public/profiles
