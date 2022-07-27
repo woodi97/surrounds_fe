@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
 import { Location } from '@src/core/types'
+import { useEffect, useState } from 'react'
 
 const gpsOptions = {
   enableHighAccuracy: true,

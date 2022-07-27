@@ -1,13 +1,13 @@
 import Portal from '@src/components/atom/Portal'
+import SignInModal from '@src/components/containers/modal/content/SignInModal'
+import SignUpModal from '@src/components/containers/modal/content/SignUpModal'
+import { ModalType } from '@src/core/types/modal-type'
 import { useRootDispatch, useRootState } from '@src/hooks/useRootState'
 import { closeModal } from '@src/store/modules/modal'
+import { AnimatePresence } from 'framer-motion'
 import React, { FC } from 'react'
 
-import ModalBase from './Modal/ModalBase'
-import SignUpModal from '@src/components/containers/modal/content/SignUpModal'
-import SignInModal from '@src/components/containers/modal/content/SignInModal'
-import { AnimatePresence } from 'framer-motion'
-import { ModalType } from '@src/core/types/modal-type'
+import ModalBase from './modal/ModalBase'
 
 const _selectModal: { [key in ModalType]: FC } = {
   SIGNUP: SignUpModal,

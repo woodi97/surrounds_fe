@@ -1,5 +1,5 @@
-import React, { FC, Fragment, memo } from 'react'
 import { AnimatePresence } from 'framer-motion'
+import React, { FC, Fragment, memo } from 'react'
 
 const PageCommonLayout: FC<{
   children: React.ReactNode

@@ -1,15 +1,15 @@
-import React from 'react'
-import Head from 'next/head'
-import type { AppProps } from 'next/app'
-import axios from 'axios'
-
 import '@src/styles/globals.scss'
 import 'react-toastify/dist/ReactToastify.css'
-import { ToastContainer } from 'react-toastify'
-import { wrapper } from '@src/store'
-import { PageCommonLayout } from '@src/components/layout'
+
 import { ModalContainer } from '@src/components/containers'
+import { PageCommonLayout } from '@src/components/layout'
 import { envConfig } from '@src/core/config/envConfig'
+import { wrapper } from '@src/store'
+import axios from 'axios'
+import type { AppProps } from 'next/app'
+import Head from 'next/head'
+import React from 'react'
+import { ToastContainer } from 'react-toastify'
 
 axios.defaults.baseURL = envConfig.apiUrl
 axios.defaults.withCredentials = true

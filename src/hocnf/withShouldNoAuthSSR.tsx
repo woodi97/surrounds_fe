@@ -1,8 +1,8 @@
 // Todo clear jwt token on client
 import { apiValidate } from '@src/core/api/auth'
+import { withStoreSSR } from '@src/hocnf/index'
 import { clearUserInfo, setUserInfo } from '@src/store/modules/auth'
 import { setAuthToken } from '@src/utils/authUtil'
-import { withStoreSSR } from '@src/hocnf/index'
 
 const withShouldNoAuthSSR = () => {
   return withStoreSSR((store) => {

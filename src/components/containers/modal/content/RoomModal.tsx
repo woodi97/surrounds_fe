@@ -1,5 +1,6 @@
-import React, { FC } from 'react'
 import { usePeer, useRemoteStreams, useUserMedia } from '@src/hooks'
+import React, { FC } from 'react'
+
 import { Video } from '../../../atom'
 
 type Props = {

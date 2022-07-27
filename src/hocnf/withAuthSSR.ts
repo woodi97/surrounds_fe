@@ -1,9 +1,9 @@
 // Todo clear jwt token on client
 import { apiValidate } from '@src/core/api/auth'
+import { withStoreSSR } from '@src/hocnf/index'
 import { clearUserInfo, setUserInfo } from '@src/store/modules/auth'
 import { setAuthToken } from '@src/utils/authUtil'
 import { GetServerSideProps } from 'next'
-import { withStoreSSR } from '@src/hocnf/index'
 
 const withAuthSSR = (getServerSidePropsFunc?: GetServerSideProps): GetServerSideProps => {
   return withStoreSSR((store) => {
@@ -17,7 +17,7 @@ const withAuthSSR = (getServerSidePropsFunc?: GetServerSideProps): GetServerSide
           return {
             props: {},
             redirect: {
-              url: '/login',
+              url: '/signin',
             },
           }
         }
@@ -38,7 +38,7 @@ const withAuthSSR = (getServerSidePropsFunc?: GetServerSideProps): GetServerSide
           return {
             props: {},
             redirect: {
-              destination: '/login',
+              destination: '/signin',
             },
           }
         }

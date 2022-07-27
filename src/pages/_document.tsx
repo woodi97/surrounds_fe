@@ -1,7 +1,7 @@
-import React from 'react'
-import Document, { Head, Html, Main, NextScript } from 'next/document'
 import siteMetaData from '@src/core/config/appConfig'
 import { portalType } from '@src/core/types/portal-type'
+import Document, { Head, Html, Main, NextScript } from 'next/document'
+import React from 'react'
 
 export default class MyDocument extends Document {
   render() {

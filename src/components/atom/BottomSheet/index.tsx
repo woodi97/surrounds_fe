@@ -1,10 +1,13 @@
-import React, { FC, useEffect, useRef, useState } from 'react'
-import { motion, useAnimation } from 'framer-motion'
-import BottomSheetHeader from './BottomSheetHeader'
 import { bottomSheetVars } from '@src/animations/bottom-sheet'
 import cx from 'classnames'
+import { motion, useAnimation } from 'framer-motion'
+import React, { FC, useEffect, useRef, useState } from 'react'
 
-const DraggableSheet: FC = ({ children }) => {
+import BottomSheetHeader from './BottomSheetHeader'
+
+const DraggableSheet: FC<{
+  children: React.ReactNode
+}> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false)
   const sheetRef = useRef<HTMLDivElement>(null)
   const controls = useAnimation()

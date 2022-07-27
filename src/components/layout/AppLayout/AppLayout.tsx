@@ -1,13 +1,13 @@
-import React, { FC, useMemo, useRef } from 'react'
-import Header from './Header'
 import classNames from 'classnames'
+import React, { FC, useMemo, useRef } from 'react'
 
-interface Props {
+import Header from './Header'
+
+const AppLayout: FC<{
+  children: React.ReactNode
   fullWidth?: boolean
   fixedHeight?: boolean
-}
-
-const AppLayout: FC<Props> = ({ children, fullWidth = false, fixedHeight = false }) => {
+}> = ({ children, fullWidth = false, fixedHeight = false }) => {
   const maxWidth = useMemo(() => 'px-4', [])
   const layoutRef = useRef<HTMLDivElement>(null)
 

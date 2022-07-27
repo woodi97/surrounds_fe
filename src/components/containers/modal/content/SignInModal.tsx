@@ -1,10 +1,10 @@
-import React from 'react'
 import { SignInForm } from '@src/components/molecule'
 import { apiSignIn } from '@src/core/api/user'
-import { useRouter } from 'next/router'
 import { useRootDispatch } from '@src/hooks'
-import { closeModal } from '@src/store/modules/modal'
 import { setUserInfo } from '@src/store/modules/auth'
+import { closeModal } from '@src/store/modules/modal'
+import { useRouter } from 'next/router'
+import React from 'react'
 
 const SignInModal = () => {
   const router = useRouter()

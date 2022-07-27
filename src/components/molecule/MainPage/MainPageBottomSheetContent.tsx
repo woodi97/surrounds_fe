@@ -1,6 +1,6 @@
-import React, { FC } from 'react'
 import { HorizontalLine, ImageWrapper } from '@src/components/atom'
 import { RoomInfo } from '@src/core/types/chatroom'
+import React, { FC } from 'react'
 
 const MainPageBottomSheetContent: FC<{
   chatRooms: RoomInfo[]

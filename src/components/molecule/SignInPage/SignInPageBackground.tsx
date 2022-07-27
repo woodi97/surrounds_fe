@@ -1,5 +1,5 @@
-import React from 'react'
 import { ImageWrapper } from '@src/components/atom'
+import React from 'react'
 
 const SignInPageBackground = () => {
   return (

@@ -1,12 +1,12 @@
 import { AnyAction, CombinedState, combineReducers } from '@reduxjs/toolkit'
 import { UserAuthInfoType } from '@src/core/types/auth-type'
 import { LayoutInfoType } from '@src/core/types/layout-type'
+import { ModalInfoType } from '@src/core/types/modal-type'
 import { HYDRATE } from 'next-redux-wrapper'
 
 import auth from './auth'
-import modal from './modal'
 import layout from './layout'
-import { ModalInfoType } from '@src/core/types/modal-type'
+import modal from './modal'
 
 export type RootStateType = CombinedState<{
   auth: UserAuthInfoType

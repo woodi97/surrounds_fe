@@ -1,7 +1,8 @@
-import { useContext, useEffect, useRef, useState } from 'react'
-import Peer from 'peerjs'
-import { SocketContext } from './useSocket'
 import { peerConfig } from '@src/core/config/envConfig'
+import Peer from 'peerjs'
+import { useContext, useEffect, useRef, useState } from 'react'
+
+import { SocketContext } from './useSocket'
 
 const usePeer = ({ addRemoteStream, removeRemoteStream, chatroom, localStream }) => {
   const peers = {}

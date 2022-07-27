@@ -1,7 +1,7 @@
-import React, { FC } from 'react'
 import { PageLayout } from '@src/components/layout'
 import SignInPageTemplate from '@src/components/template/SignInPageTemplate'
 import { withShouldNoAuthSSR } from '@src/hocnf'
+import React, { FC } from 'react'
 
 export const getServerSideProps = withShouldNoAuthSSR()
 

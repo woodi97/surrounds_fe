@@ -1,6 +1,6 @@
-import { useState } from 'react'
 import { Link } from '@src/components/atom'
 import { motion } from 'framer-motion'
+import { useState } from 'react'
 
 const SideMenuItem = ({ link, onToggleNav }) => {
   return (

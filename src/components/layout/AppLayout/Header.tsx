@@ -1,5 +1,6 @@
-import React from 'react'
 import { useCycle } from 'framer-motion'
+import React from 'react'
+
 import MobileNav from './MobileNav'
 
 const Header = ({ className }) => {

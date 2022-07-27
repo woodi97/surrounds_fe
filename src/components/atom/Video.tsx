@@ -1,5 +1,6 @@
 import appConfig from '@src/core/config/appConfig'
 import React, { FC, useEffect, useRef } from 'react'
+
 import Image from './ImageWrapper'
 
 interface VideoShape {

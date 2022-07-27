@@ -1,5 +1,5 @@
-import React from 'react'
 import { SignUpForm } from '@src/components/molecule'
+import React from 'react'
 
 const SignUpModal = () => {
   const handleSubmit = ({ name, email, password }) => {

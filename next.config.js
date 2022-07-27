@@ -11,7 +11,8 @@ module.exports = withBundleAnalyzer({
     includePaths: [path.join(__dirname, './src/styles')],
   },
   images: {
-    domains: ['user-images.githubusercontent.com', `${process.env.BASE_URL}`],
+    domains: ['unsplash.com'],
+    deviceSizes: [640, 768, 1080, 1200, 1920, 2048, 3840],
   },
   webpack(config) {
     const prod = process.env.NODE_ENV === 'production'
@@ -47,8 +48,5 @@ module.exports = withBundleAnalyzer({
     PEER_DEBUG: process.env.PEER_DEBUG,
     PEER_PATH: process.env.PEER_PATH,
     PEER_SECURE: process.env.PEER_SECURE,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
   },
 })

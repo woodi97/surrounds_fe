@@ -41,12 +41,12 @@ const InputBox: FC<{
           id={name}
           name={name}
           className={cx(
-            'p-2',
-            fullWidth ? 'w-full' : 'w-[280px] md:w-[320px]',
-            sizeSelector[size],
+            'p-2 bg-transparent',
             'border-2 rounded-xl',
-            error ? 'border-red-400' : 'border-none',
             'focus:outline-none',
+            sizeSelector[size],
+            fullWidth ? 'w-full' : 'w-[280px] md:w-[320px]',
+            error ? 'border-red-400' : 'border-none',
             classNames
           )}
           {...props}

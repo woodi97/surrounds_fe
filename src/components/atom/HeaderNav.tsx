@@ -1,6 +1,6 @@
-import React from 'react'
 import { Icon, ImageWrapper } from '@src/components/atom'
 import cx from 'classnames'
+import React from 'react'
 
 const Header = () => {
   return (

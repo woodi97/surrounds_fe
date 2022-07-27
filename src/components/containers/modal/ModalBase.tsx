@@ -1,6 +1,6 @@
-import ModalBaseDesign from '@src/components/containers/Modal/Base/ModalBaseDesign'
-import ModalBaseLayout from '@src/components/containers/Modal/Base/ModalBaseLayout'
-import ModalBaseOverLay from '@src/components/containers/Modal/Base/ModalBaseOverLay'
+import ModalBaseDesign from '@src/components/containers/modal/base/ModalBaseDesign'
+import ModalBaseLayout from '@src/components/containers/modal/base/ModalBaseLayout'
+import ModalBaseOverLay from '@src/components/containers/modal/base/ModalBaseOverLay'
 import React, { FC, ReactNode } from 'react'
 
 export type ModalBaseShape = {

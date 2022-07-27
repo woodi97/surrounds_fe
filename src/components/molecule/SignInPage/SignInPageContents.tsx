@@ -1,7 +1,7 @@
-import React from 'react'
 import { Button } from '@src/components/atom'
-import { openModal } from '@src/store/modules/modal'
 import { useRootDispatch } from '@src/hooks'
+import { openModal } from '@src/store/modules/modal'
+import React from 'react'
 
 const SignInPageButtons = () => {
   const dispatch = useRootDispatch()

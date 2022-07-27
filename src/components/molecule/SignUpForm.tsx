@@ -1,7 +1,7 @@
-import React, { FC } from 'react'
 import { Button, InputBox } from '@src/components/atom'
 import { useValidateInput } from '@src/hooks'
 import { commonRegex } from '@src/utils/regexUtil'
+import React, { FC } from 'react'
 
 const SignUpForm: FC<{
   onSubmit: ({ name, email, password }) => void

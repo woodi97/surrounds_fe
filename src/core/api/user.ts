@@ -1,6 +1,6 @@
-import axios from 'axios'
-import { ToastWarn } from '@src/utils/toast'
 import { setAuthToken } from '@src/utils/authUtil'
+import { ToastWarn } from '@src/utils/toast'
+import axios from 'axios'
 
 export const apiSignIn = async (email: string, password: string): Promise<any> => {
   try {
