@@ -1,9 +1,10 @@
 import { ImageWrapper } from '@src/components/atom'
-import React from 'react'
+import cx from 'classnames'
+import React, { memo } from 'react'
 
 const SignInPageBackground = () => {
   return (
-    <div className="z-0 absolute top-0 left-0 w-full h-full">
+    <div className={cx('z-0 top-0 left-0', 'w-full h-full')}>
       <ImageWrapper
         src={'/static/images/signin.png'}
         layout="fill"
@@ -15,4 +16,4 @@ const SignInPageBackground = () => {
   )
 }
 
-export default SignInPageBackground
+export default memo(SignInPageBackground)

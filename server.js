@@ -22,17 +22,17 @@ app.prepare().then(() => {
     return handle(req, res)
   })
 
-  const unsecureServer = http.createServer(app)
-  unsecureServer.listen(port, (err) => {
-    if (err) throw err
-    console.log(`> Ready on http://localhost:${port}`)
-  })
-
   if (enableHttps) {
     const secureServer = https.createServer(httpsOptions, app)
-    secureServer.listen(port + 1, (err) => {
+    secureServer.listen(port, (err) => {
       if (err) throw err
-      console.log(`> Ready on https://localhost:${port + 1}`)
+      console.log(`> Ready on https://localhost:${port}`)
+    })
+  } else {
+    const unsecureServer = http.createServer(app)
+    unsecureServer.listen(port, (err) => {
+      if (err) throw err
+      console.log(`> Ready on http://localhost:${port}`)
     })
   }
 })

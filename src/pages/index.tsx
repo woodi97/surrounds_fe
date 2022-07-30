@@ -1,6 +1,5 @@
 import { BottomSheet, GoogleMaps } from '@src/components/atom'
 import HeaderNav from '@src/components/atom/HeaderNav'
-// import { validate } from '@src/core/api/auth'
 import { PageLayout } from '@src/components/layout'
 import MainPageBottomSheetContent from '@src/components/molecule/MainPage/MainPageBottomSheetContent'
 import { ExampleRoomData } from '@src/core/data/example/roomData'

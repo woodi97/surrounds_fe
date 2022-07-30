@@ -8,6 +8,7 @@ module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     screens: {
+      sm: '640px',
       md: appConfig.mobileAppMaxWidth,
     },
     extend: {

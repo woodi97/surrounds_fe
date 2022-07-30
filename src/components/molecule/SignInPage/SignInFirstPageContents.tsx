@@ -1,7 +1,8 @@
 import { Button } from '@src/components/atom'
 import { useRootDispatch } from '@src/hooks'
 import { openModal } from '@src/store/modules/modal'
-import React from 'react'
+import cx from 'classnames'
+import React, { memo } from 'react'
 
 const SignInPageButtons = () => {
   const dispatch = useRootDispatch()
@@ -51,13 +52,13 @@ const SignInPagePhrase = () => {
   )
 }
 
-const SignInPageContents = () => {
+const SignInFirstPageContents = () => {
   return (
-    <div className="z-10 relative w-full h-full flex flex-col justify-between">
+    <div className={cx('z-10 relative w-full h-full pb-6', 'flex flex-col justify-between')}>
       <SignInPagePhrase />
       <SignInPageButtons />
     </div>
   )
 }
 
-export default SignInPageContents
+export default memo(SignInFirstPageContents)

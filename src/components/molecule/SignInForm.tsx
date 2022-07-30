@@ -28,7 +28,6 @@ const SignInForm: FC<{
         type="email"
         name="email"
         label="Email"
-        size="small"
         value={email}
         fullWidth
         onChange={handleOnChange}

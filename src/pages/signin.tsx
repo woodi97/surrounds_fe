@@ -7,7 +7,7 @@ export const getServerSideProps = withShouldNoAuthSSR()
 
 const SignInPage: FC = () => {
   return (
-    <PageLayout fixedHeight>
+    <PageLayout fixedHeight disableContentPadding>
       <SignInPageTemplate />
     </PageLayout>
   )

@@ -35,7 +35,6 @@ const SignUpForm: FC<{
         type="id"
         name="username"
         label="Username"
-        size="small"
         value={name as string}
         error={!nameIsValid}
         errorMessage={nameError}
@@ -46,7 +45,6 @@ const SignUpForm: FC<{
         type="email"
         name="email"
         label="Email Address"
-        size="small"
         value={email as string}
         error={!emailIsValid}
         errorMessage={emailError}
@@ -57,7 +55,6 @@ const SignUpForm: FC<{
         type="password"
         name="password"
         label="Password"
-        size="small"
         value={password as string}
         error={!pwValid}
         errorMessage={pwError}

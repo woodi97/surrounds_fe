@@ -110,7 +110,11 @@
   }
 
   .text-shadow-lg {
-    text-shadow: 0 15px 30px rgba(0, 0, 0, 0.11), 0 5px 15px rgba(0, 0, 0, 0.08);
+    text-shadow: 0 16px 32px rgba(0, 0, 0, 0.11), 0 5px 15px rgba(0, 0, 0, 0.08);
+  }
+
+  .text-shadow-2xl {
+    text-shadow: 0 32px 64px rgba(0, 0, 0, 0.11), 0 5px 15px rgba(0, 0, 0, 0.08);
   }
 
   .text-shadow-none {

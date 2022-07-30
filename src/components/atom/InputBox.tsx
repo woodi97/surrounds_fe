@@ -35,14 +35,14 @@ const InputBox: FC<{
     <div>
       <div className="space-y-2">
         <label htmlFor={name}>
-          <p className="text-xs font-bold md:text-base">{label}</p>
+          <p className="font-bold">{label}</p>
         </label>
         <input
           id={name}
           name={name}
           className={cx(
             'p-2 bg-transparent',
-            'border-2 rounded-xl',
+            'border-2 rounded-md',
             'focus:outline-none',
             sizeSelector[size],
             fullWidth ? 'w-full' : 'w-[280px] md:w-[320px]',

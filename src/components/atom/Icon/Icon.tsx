@@ -6,7 +6,7 @@ import { CgProfile } from 'react-icons/cg'
 import { FaSearch } from 'react-icons/fa'
 import { FiSettings } from 'react-icons/fi'
 import { GiHamburgerMenu } from 'react-icons/gi'
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
+import { IoIosArrowBack, IoIosArrowForward, IoIosArrowRoundDown } from 'react-icons/io'
 import { IoAlbumsOutline, IoEllipsisVertical, IoPeopleOutline } from 'react-icons/io5'
 import { RiKakaoTalkFill } from 'react-icons/ri'
 
@@ -23,6 +23,7 @@ export type SVGTypes =
   | 'search'
   | 'leftArrow'
   | 'rightArrow'
+  | 'downArrow'
   | 'ellipsisVertical'
   | 'people'
   | 'google'
@@ -48,6 +49,7 @@ const _Selector: { [key in SVGTypes]: FC<IconProps> } = {
   search: FaSearch,
   leftArrow: IoIosArrowBack,
   rightArrow: IoIosArrowForward,
+  downArrow: IoIosArrowRoundDown,
   ellipsisVertical: IoEllipsisVertical,
   people: IoPeopleOutline,
   google: BsGoogle,

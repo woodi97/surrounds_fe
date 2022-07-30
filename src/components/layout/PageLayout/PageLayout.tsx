@@ -10,7 +10,14 @@ const PageLayout: FC<{
   fullWidth?: boolean
   fixedHeight?: boolean
   disableTransition?: boolean
-}> = ({ children, fullWidth = false, fixedHeight = false, disableTransition = false }) => {
+  disableContentPadding?: boolean
+}> = ({
+  children,
+  fullWidth = false,
+  fixedHeight = false,
+  disableTransition = false,
+  disableContentPadding = false,
+}) => {
   const mainRef = useRef<HTMLDivElement>(null)
   const dispatch = useRootDispatch()
   const layoutState = useRootState((state) => state.layout)
@@ -52,7 +59,8 @@ const PageLayout: FC<{
       <main
         ref={mainRef}
         className={cx(
-          'relative m-center w-full py-8',
+          'relative m-center w-full',
+          disableContentPadding ? 'py-0' : 'py-4',
           fullWidth ? null : `max-w-mobile-app px-side-padding`,
           fixedHeight ? 'overflow-hidden h-screen' : 'min-h-screen'
         )}
