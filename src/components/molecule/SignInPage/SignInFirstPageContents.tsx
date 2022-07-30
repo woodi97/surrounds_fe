@@ -46,8 +46,8 @@ const SignInPageButtons = () => {
 const SignInPagePhrase = () => {
   return (
     <div>
-      <h1 className="text-7xl md:text-8xl font-normal">{"Let's talk"}</h1>
-      <h1 className="text-7xl md:text-8xl">{'With your Surrounds'}</h1>
+      <h1 className="text-6xl md:text-7xl font-normal">{"Let's talk"}</h1>
+      <h1 className="text-6xl md:text-7xl">{'With your Surrounds'}</h1>
     </div>
   )
 }

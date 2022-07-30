@@ -12,17 +12,14 @@ export default class MyDocument extends Document {
         <Head>
           <link
             rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css"
           />
           <link rel="icon" href="logo.ico" />
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests" />
-          {/* <!-- Chrome, Firefox, Opera --> */}
           <meta content={`${notchColor}`} name="theme-color" />
-          {/* <!-- Windows Phone --> */}
           <meta content={`${notchColor}`} name="msapplication-navbutton-color" />
-          {/* <!-- iOS Safari --> */}
           <meta content={`${notchColor}`} name="apple-mobile-web-app-status-bar-style" />
           <meta content="yes" name="apple-mobile-web-app-capable" />
         </Head>
