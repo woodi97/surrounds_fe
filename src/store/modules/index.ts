@@ -1,19 +1,19 @@
-import { AnyAction, CombinedState, combineReducers } from '@reduxjs/toolkit'
-import { UserAuthInfoType } from '@src/core/types/auth-type'
-import { LayoutInfoType } from '@src/core/types/layout-type'
-import { ModalInfoType } from '@src/core/types/modal-type'
-import { HYDRATE } from 'next-redux-wrapper'
+import { AnyAction, CombinedState, combineReducers } from '@reduxjs/toolkit';
+import { UserAuthInfoType } from '@src/core/types/auth-type';
+import { LayoutInfoType } from '@src/core/types/layout-type';
+import { ModalInfoType } from '@src/core/types/modal-type';
+import { HYDRATE } from 'next-redux-wrapper';
 
-import auth from './auth'
-import layout from './layout'
-import modal from './modal'
+import auth from './auth';
+import layout from './layout';
+import modal from './modal';
 
 export type RootStateType = CombinedState<{
-  auth: UserAuthInfoType
-  modal: ModalInfoType
-  layout: LayoutInfoType
-}>
-export type RootDispatchType = ReturnType<typeof reducer>['dispatch']
+  auth: UserAuthInfoType;
+  modal: ModalInfoType;
+  layout: LayoutInfoType;
+}>;
+export type RootDispatchType = ReturnType<typeof reducer>['dispatch'];
 
 const reducer = (state: RootStateType, action: AnyAction) => {
   // connect ssr with csr
@@ -21,13 +21,13 @@ const reducer = (state: RootStateType, action: AnyAction) => {
     return {
       ...state,
       ...action.payload,
-    }
+    };
   }
   return combineReducers({
     auth,
     modal,
     layout,
-  })(state, action)
-}
+  })(state, action);
+};
 
-export default reducer
+export default reducer;

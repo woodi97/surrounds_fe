@@ -1,33 +1,33 @@
-import { Button, InputBox } from '@src/components/atom'
-import { useValidateInput } from '@src/hooks'
-import { commonRegex } from '@src/utils/regexUtil'
-import React, { FC } from 'react'
+import { Button, InputBox } from '@src/components/atom';
+import { useValidateInput } from '@src/hooks';
+import { commonRegex } from '@src/utils/regexUtil';
+import React, { FC } from 'react';
 
 const SignUpForm: FC<{
-  onSubmit: ({ name, email, password }) => void
+  onSubmit: ({ username, email, password }) => void;
 }> = ({ onSubmit }) => {
-  const [name, nameIsValid, nameError, handleNameChange] = useValidateInput(
+  const [username, nameIsValid, nameError, handleNameChange] = useValidateInput(
     '',
     commonRegex.name.regex,
     commonRegex.name.desc
-  )
+  );
 
   const [email, emailIsValid, emailError, handleEmailChange] = useValidateInput(
     '',
     commonRegex.email.regex,
     commonRegex.email.desc
-  )
+  );
 
   const [password, pwValid, pwError, handlePwChange] = useValidateInput(
     '',
     commonRegex.password.regex,
     commonRegex.password.desc
-  )
+  );
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    onSubmit({ name, email, password })
-  }
+    e.preventDefault();
+    onSubmit({ username, email, password });
+  };
 
   return (
     <form className="space-y-3" onSubmit={handleSubmit}>
@@ -35,7 +35,7 @@ const SignUpForm: FC<{
         type="id"
         name="username"
         label="Username"
-        value={name as string}
+        value={username as string}
         error={!nameIsValid}
         errorMessage={nameError}
         fullWidth
@@ -65,7 +65,7 @@ const SignUpForm: FC<{
         Sign Up
       </Button>
     </form>
-  )
-}
+  );
+};
 
-export default SignUpForm
+export default SignUpForm;

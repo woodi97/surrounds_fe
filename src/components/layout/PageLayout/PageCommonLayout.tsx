@@ -1,10 +1,10 @@
-import { AnimatePresence } from 'framer-motion'
-import React, { FC, Fragment, memo } from 'react'
+import { AnimatePresence } from 'framer-motion';
+import React, { FC, Fragment, memo } from 'react';
 
 const PageCommonLayout: FC<{
-  children: React.ReactNode
-  headerTransparent?: boolean
-  headerFixed?: boolean
+  children: React.ReactNode;
+  headerTransparent?: boolean;
+  headerFixed?: boolean;
 }> = ({ children }) => {
   return (
     //  overflow hidden to prevent text on background on transition
@@ -16,7 +16,7 @@ const PageCommonLayout: FC<{
         <Fragment>{children}</Fragment>
       </AnimatePresence>
     </div>
-  )
-}
+  );
+};
 
-export default memo(PageCommonLayout)
+export default memo(PageCommonLayout);

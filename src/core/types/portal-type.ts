@@ -1,2 +1,2 @@
-export type PortalType = 'modal'
-export const portalType = ['modal']
+export type PortalType = 'modal';
+export const portalType = ['modal'];

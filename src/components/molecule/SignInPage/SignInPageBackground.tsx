@@ -1,6 +1,6 @@
-import { ImageWrapper } from '@src/components/atom'
-import cx from 'classnames'
-import React, { memo } from 'react'
+import { ImageWrapper } from '@src/components/atom';
+import cx from 'classnames';
+import React, { memo } from 'react';
 
 const SignInPageBackground = () => {
   return (
@@ -10,10 +10,9 @@ const SignInPageBackground = () => {
         layout="fill"
         objectFit="cover"
         objectPosition="center"
-        priority
       />
     </div>
-  )
-}
+  );
+};
 
-export default memo(SignInPageBackground)
+export default memo(SignInPageBackground);

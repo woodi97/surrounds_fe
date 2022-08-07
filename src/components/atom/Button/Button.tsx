@@ -1,19 +1,19 @@
-import { buttonSettings } from '@src/animations/common'
-import { btnSizes, btnStyles } from '@src/utils/constants'
-import cx from 'classnames'
-import { motion } from 'framer-motion'
-import React, { forwardRef } from 'react'
+import { buttonSettings } from '@src/animations/common';
+import { btnSizes, btnStyles } from '@src/utils/constants';
+import cx from 'classnames';
+import { motion } from 'framer-motion';
+import React, { forwardRef } from 'react';
 
 interface ButtonShape {
-  type?: 'button' | 'submit' | 'reset'
-  size?: btnSizes
-  styles?: btnStyles
-  activeHover?: boolean
-  disabled?: boolean
-  fullWidth?: boolean
-  children?: React.ReactNode
-  className?: string
-  onClick?: () => void
+  type?: 'button' | 'submit' | 'reset';
+  size?: btnSizes;
+  styles?: btnStyles;
+  activeHover?: boolean;
+  disabled?: boolean;
+  fullWidth?: boolean;
+  children?: React.ReactNode;
+  className?: string;
+  onClick?: () => void;
 }
 
 const selectSize: { [keys in btnSizes]: string } = {
@@ -21,7 +21,7 @@ const selectSize: { [keys in btnSizes]: string } = {
   medium: 'px-10 text-lg h-12 rounded-md',
   small: 'px-8 h-8 rounded-md',
   xsmall: 'px-6 h-6 rounded-md',
-}
+};
 
 const selectStyle: { [keys in btnStyles]: string } = {
   primary: 'bg-primary-500 hover:bg-primary-700 focus:bg-primary-900',
@@ -31,7 +31,7 @@ const selectStyle: { [keys in btnStyles]: string } = {
   danger: 'bg-red-700 text-red-100 hover:bg-red-600 focus:bg-red-600',
   success: 'bg-green-700 text-green-100 hover:bg-green-600 focus:bg-green-600',
   warning: 'bg-orange-700 text-orange-100 hover:bg-orange-600 focus:bg-orange-600',
-}
+};
 
 const Button = (
   {
@@ -64,7 +64,7 @@ const Button = (
     >
       {children}
     </motion.button>
-  )
-}
+  );
+};
 
-export default forwardRef(Button)
+export default forwardRef(Button);

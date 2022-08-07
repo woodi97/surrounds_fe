@@ -1,24 +1,24 @@
-import Cookies from 'js-cookie'
-import { useState } from 'react'
+import Cookies from 'js-cookie';
+import { useState } from 'react';
 
 export function useCookie(
   key: string
 ): [string, (value: string, option: Cookies.CookieAttributes) => void] {
   const [item, setInnerValue] = useState<string>(() => {
-    const value = Cookies.get(key)
-    return value
-  })
+    const value = Cookies.get(key);
+    return value;
+  });
 
   const setValue = (value, options) => {
     if (!value) {
-      Cookies.remove(key)
-      return
+      Cookies.remove(key);
+      return;
     }
-    setInnerValue(value)
-    Cookies.set(key, value, options)
-  }
+    setInnerValue(value);
+    Cookies.set(key, value, options);
+  };
 
-  return [item, setValue]
+  return [item, setValue];
 }
 
-export default useCookie
+export default useCookie;

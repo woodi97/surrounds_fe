@@ -1,32 +1,32 @@
-import { bottomSheetVars } from '@src/animations/bottom-sheet'
-import cx from 'classnames'
-import { motion, useAnimation } from 'framer-motion'
-import React, { FC, useEffect, useRef, useState } from 'react'
+import { bottomSheetVars } from '@src/animations/bottom-sheet';
+import cx from 'classnames';
+import { motion, useAnimation } from 'framer-motion';
+import React, { FC, useEffect, useRef, useState } from 'react';
 
-import BottomSheetHeader from './BottomSheetHeader'
+import BottomSheetHeader from './BottomSheetHeader';
 
 const DraggableSheet: FC<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }> = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const sheetRef = useRef<HTMLDivElement>(null)
-  const controls = useAnimation()
+  const [isOpen, setIsOpen] = useState(false);
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const controls = useAnimation();
 
   function onDragEnd(event, info) {
-    const shouldClose = info.velocity.y > 20 || (info.velocity.y >= 0 && info.point.y > 45)
+    const shouldClose = info.velocity.y > 20 || (info.velocity.y >= 0 && info.point.y > 45);
     if (shouldClose) {
-      controls.start('hidden')
-      setIsOpen(false)
+      controls.start('hidden');
+      setIsOpen(false);
     } else {
-      controls.start('visible')
-      setIsOpen(true)
+      controls.start('visible');
+      setIsOpen(true);
     }
   }
 
   useEffect(() => {
-    controls.start('hidden')
+    controls.start('hidden');
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   return (
     <motion.div
@@ -47,7 +47,7 @@ const DraggableSheet: FC<{
       <BottomSheetHeader />
       <div className="children:p-3">{children}</div>
     </motion.div>
-  )
-}
+  );
+};
 
-export default DraggableSheet
+export default DraggableSheet;

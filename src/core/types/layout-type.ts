@@ -1,6 +1,6 @@
-import { PageTransType } from '@src/core/types/page-trans'
+import { PageTransType } from '@src/core/types/page-trans';
 
 export type LayoutInfoType = {
-  isShowBottomNav: boolean
-  pageTransitionDir?: PageTransType
-}
+  isShowBottomNav: boolean;
+  pageTransitionDir?: PageTransType;
+};

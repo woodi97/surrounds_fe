@@ -1,9 +1,9 @@
-import { modalVariants } from '@src/animations/modal'
-import { motion } from 'framer-motion'
-import React, { FC } from 'react'
+import { modalVariants } from '@src/animations/modal';
+import { motion } from 'framer-motion';
+import React, { FC } from 'react';
 
 const ModalBaseDesign: FC<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }> = ({ children }) => {
   return (
     <motion.div
@@ -12,7 +12,7 @@ const ModalBaseDesign: FC<{
     >
       <div className="w-full h-full z-50 px-6 py-10">{children}</div>
     </motion.div>
-  )
-}
+  );
+};
 
-export default ModalBaseDesign
+export default ModalBaseDesign;

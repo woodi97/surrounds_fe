@@ -1,7 +1,7 @@
 export const commonRegex = {
   name: {
-    regex: /^[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/,
-    desc: 'First and last name are required(2-10 characters, separated by space)',
+    regex: /^[a-zA-Z]{4,10}$/,
+    desc: 'name is required(4-10 characters)',
   },
   email: {
     regex:
@@ -12,4 +12,4 @@ export const commonRegex = {
     regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
     desc: 'Password must be at least 8 characters, contain at least one lowercase letter, one uppercase letter, one number and one special character',
   },
-}
+};

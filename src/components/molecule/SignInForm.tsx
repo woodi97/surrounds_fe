@@ -1,26 +1,26 @@
-import { Button, InputBox } from '@src/components/atom'
-import React, { FC, useCallback, useState } from 'react'
+import { Button, InputBox } from '@src/components/atom';
+import React, { FC, useCallback, useState } from 'react';
 
 const SignInForm: FC<{
-  onSubmit: ({ email, password }) => void
+  onSubmit: ({ email, password }) => void;
 }> = ({ onSubmit }) => {
   const [{ email, password }, setInputs] = useState({
     email: '',
     password: '',
-  })
+  });
 
   const handleOnChange = useCallback((e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setInputs((prev) => ({
       ...prev,
       [name]: value,
-    }))
-  }, [])
+    }));
+  }, []);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    onSubmit({ email, password })
-  }
+    e.preventDefault();
+    onSubmit({ email, password });
+  };
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
@@ -45,7 +45,7 @@ const SignInForm: FC<{
         Sign In
       </Button>
     </form>
-  )
-}
+  );
+};
 
-export default SignInForm
+export default SignInForm;

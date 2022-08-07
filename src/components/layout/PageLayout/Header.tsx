@@ -1,12 +1,12 @@
-import cx from 'classnames'
-import React, { forwardRef, MutableRefObject } from 'react'
+import cx from 'classnames';
+import React, { forwardRef, MutableRefObject } from 'react';
 
 type Props = {
-  className?: string
-  fixed?: boolean
-  transparent?: boolean
-  content: React.ReactNode
-}
+  className?: string;
+  fixed?: boolean;
+  transparent?: boolean;
+  content: React.ReactNode;
+};
 
 const Header = (
   { className, fixed = false, transparent = false, content }: Props,
@@ -29,7 +29,7 @@ const Header = (
         {content}
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default forwardRef(Header)
+export default forwardRef(Header);

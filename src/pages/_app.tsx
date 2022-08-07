@@ -1,18 +1,24 @@
-import '@src/styles/globals.scss'
-import 'react-toastify/dist/ReactToastify.css'
+import '@src/styles/globals.scss';
+import 'react-toastify/dist/ReactToastify.css';
 
-import { ModalContainer } from '@src/components/containers'
-import { PageCommonLayout } from '@src/components/layout'
-import { envConfig } from '@src/core/config/envConfig'
-import { wrapper } from '@src/store'
-import axios from 'axios'
-import type { AppProps } from 'next/app'
-import Head from 'next/head'
-import React from 'react'
-import { ToastContainer } from 'react-toastify'
+import { ModalContainer } from '@src/components/containers';
+import { PageCommonLayout } from '@src/components/layout';
+import { envConfig } from '@src/core/config/envConfig';
+import { wrapper } from '@src/store';
+import { getAuthToken } from '@src/utils/authUtil';
+import axios from 'axios';
+import type { AppProps } from 'next/app';
+import Head from 'next/head';
+import qs from 'qs';
+import React from 'react';
+import { ToastContainer } from 'react-toastify';
 
-axios.defaults.baseURL = envConfig.apiUrl
-axios.defaults.withCredentials = true
+axios.defaults.baseURL = envConfig.apiUrl;
+axios.defaults.withCredentials = envConfig.enableAPICredentials;
+axios.defaults.headers.common['Authorization'] = getAuthToken();
+axios.defaults.paramsSerializer = (params) => {
+  return qs.stringify(params);
+};
 
 const App = ({ Component, pageProps, router }: AppProps) => {
   return (
@@ -31,7 +37,7 @@ const App = ({ Component, pageProps, router }: AppProps) => {
       <ModalContainer />
       <ToastContainer />
     </>
-  )
-}
+  );
+};
 
-export default wrapper.withRedux(App)
+export default wrapper.withRedux(App);

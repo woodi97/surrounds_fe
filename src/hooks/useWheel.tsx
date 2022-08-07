@@ -1,16 +1,16 @@
-import { useEffect } from 'react'
+import { useEffect } from 'react';
 
 export default function useWheel({
   cb,
   passive = true,
 }: {
-  cb: (e: WheelEvent) => void
-  passive?: boolean
+  cb: (e: WheelEvent) => void;
+  passive?: boolean;
 }) {
   useEffect(() => {
-    window.addEventListener('wheel', cb, { passive })
+    window.addEventListener('wheel', cb, { passive });
     return () => {
-      window.removeEventListener('wheel', cb)
-    }
-  }, [])
+      window.removeEventListener('wheel', cb);
+    };
+  }, []);
 }

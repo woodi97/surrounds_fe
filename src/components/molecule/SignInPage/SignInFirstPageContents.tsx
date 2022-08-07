@@ -1,11 +1,11 @@
-import { Button } from '@src/components/atom'
-import { useRootDispatch } from '@src/hooks'
-import { openModal } from '@src/store/modules/modal'
-import cx from 'classnames'
-import React, { memo } from 'react'
+import { Button } from '@src/components/atom';
+import { useRootDispatch } from '@src/hooks';
+import { openModal } from '@src/store/modules/modal';
+import cx from 'classnames';
+import React, { memo } from 'react';
 
 const SignInPageButtons = () => {
-  const dispatch = useRootDispatch()
+  const dispatch = useRootDispatch();
 
   const handleSignInClick = () => {
     dispatch(
@@ -13,8 +13,8 @@ const SignInPageButtons = () => {
         type: 'SIGNIN',
         title: 'Sign In',
       })
-    )
-  }
+    );
+  };
 
   const handleSignUpClick = () => {
     dispatch(
@@ -22,8 +22,8 @@ const SignInPageButtons = () => {
         type: 'SIGNUP',
         title: 'Sign Up',
       })
-    )
-  }
+    );
+  };
 
   return (
     <div className="space-y-4">
@@ -40,8 +40,8 @@ const SignInPageButtons = () => {
         Create an account
       </Button>
     </div>
-  )
-}
+  );
+};
 
 const SignInPagePhrase = () => {
   return (
@@ -49,8 +49,8 @@ const SignInPagePhrase = () => {
       <h1 className="text-6xl md:text-7xl font-normal">{"Let's talk"}</h1>
       <h1 className="text-6xl md:text-7xl">{'With your Surrounds'}</h1>
     </div>
-  )
-}
+  );
+};
 
 const SignInFirstPageContents = () => {
   return (
@@ -58,7 +58,7 @@ const SignInFirstPageContents = () => {
       <SignInPagePhrase />
       <SignInPageButtons />
     </div>
-  )
-}
+  );
+};
 
-export default memo(SignInFirstPageContents)
+export default memo(SignInFirstPageContents);

@@ -1,11 +1,11 @@
-import { Button } from '@src/components/atom'
-import { useRootDispatch } from '@src/hooks'
-import { openModal } from '@src/store/modules/modal'
-import cx from 'classnames'
-import React, { memo } from 'react'
+import { Button } from '@src/components/atom';
+import { useRootDispatch } from '@src/hooks';
+import { openModal } from '@src/store/modules/modal';
+import cx from 'classnames';
+import React, { memo } from 'react';
 
 const SignInThirdPageButtons = () => {
-  const dispatch = useRootDispatch()
+  const dispatch = useRootDispatch();
 
   const handleSignUpClick = () => {
     dispatch(
@@ -13,8 +13,8 @@ const SignInThirdPageButtons = () => {
         type: 'SIGNUP',
         title: 'Sign Up',
       })
-    )
-  }
+    );
+  };
 
   return (
     <div>
@@ -28,8 +28,8 @@ const SignInThirdPageButtons = () => {
         Create an account
       </Button>
     </div>
-  )
-}
+  );
+};
 
 const SignInPageFirstPhrase = () => {
   return (
@@ -37,8 +37,8 @@ const SignInPageFirstPhrase = () => {
       <h1 className="text-6xl md:text-7xl font-normal">{'Join us'}</h1>
       <h1 className="text-6xl md:text-7xl">{'Easily'}</h1>
     </div>
-  )
-}
+  );
+};
 
 const SignInPageSecondPhrase = () => {
   return (
@@ -46,8 +46,8 @@ const SignInPageSecondPhrase = () => {
       <h1 className="text-6xl md:text-7xl font-normal">{'Make friend'}</h1>
       <h1 className="text-5xl md:text-6xl">{'Arounds you'}</h1>
     </div>
-  )
-}
+  );
+};
 
 const SignInThirdPageContents = () => {
   return (
@@ -58,7 +58,7 @@ const SignInThirdPageContents = () => {
       </div>
       <SignInThirdPageButtons />
     </div>
-  )
-}
+  );
+};
 
-export default memo(SignInThirdPageContents)
+export default memo(SignInThirdPageContents);

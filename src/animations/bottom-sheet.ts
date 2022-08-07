@@ -1,4 +1,4 @@
-import { Variants } from 'framer-motion'
+import { Variants } from 'framer-motion';
 
 export const bottomSheetVars: Variants = {
   hidden: { y: '80vh' },
@@ -10,4 +10,4 @@ export const bottomSheetVars: Variants = {
       stiffness: 200,
     },
   },
-}
+};

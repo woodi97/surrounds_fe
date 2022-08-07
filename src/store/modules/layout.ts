@@ -1,32 +1,32 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { LayoutInfoType } from '@src/core/types/layout-type'
+import { createSlice } from '@reduxjs/toolkit';
+import { LayoutInfoType } from '@src/core/types/layout-type';
 
 export const layoutInitialState: LayoutInfoType = {
   isShowBottomNav: true,
   pageTransitionDir: 'forward',
-}
+};
 
 const layoutSlice = createSlice({
   name: 'layout',
   initialState: layoutInitialState,
   reducers: {
     showBottomNav: (state) => {
-      state.isShowBottomNav = true
+      state.isShowBottomNav = true;
     },
     hideBottomNav: (state) => {
-      state.isShowBottomNav = false
+      state.isShowBottomNav = false;
     },
     pageTransitionForward: (state) => {
-      state.pageTransitionDir = 'forward'
+      state.pageTransitionDir = 'forward';
     },
     pageTransitionBackward: (state) => {
-      state.pageTransitionDir = 'backward'
+      state.pageTransitionDir = 'backward';
     },
   },
-})
+});
 
 // Create Action
 export const { showBottomNav, hideBottomNav, pageTransitionForward, pageTransitionBackward } =
-  layoutSlice.actions
+  layoutSlice.actions;
 // Reducer
-export default layoutSlice.reducer
+export default layoutSlice.reducer;

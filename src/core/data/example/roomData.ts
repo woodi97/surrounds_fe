@@ -1,30 +1,14 @@
-import { RoomInfo } from '@src/core/types/chatroom'
+import { RoomInfo } from '@src/core/types/chatroom';
 
 export const ExampleRoomData: RoomInfo[] = [
   {
-    id: 'WhCQI5iWw0GU2dc5ZaEZeyA7t90=',
-    title: '스타크래프트 같이 할 사람',
-    location: {
-      latitude: 37.5191835541707,
-      longitude: 126.95894709069921,
-    },
-    generator: {
-      email: 'woodi.daily@gmail.com',
-      nickname: 'woodi',
-      profileImage: 'NULL',
-    },
+    id: '8bbaf6cc-8586-4cf5-bc33-19056f72db55',
+    name: 'testroom',
+    title: 'testroom',
+    author: 'woodi',
+    author_profile_image: '',
+    latitude: 125.232,
+    longitude: 62.232,
+    distance: 111.32844771427,
   },
-  {
-    id: 'WhCQI5iWw0GU2dc5ZaEZeyA70=',
-    title: 'woodi',
-    location: {
-      latitude: 37.5054154,
-      longitude: 126.95649769999999,
-    },
-    generator: {
-      email: 'woogi.daily@gmail.com',
-      nickname: null,
-      profileImage: 'NULL',
-    },
-  },
-]
+];

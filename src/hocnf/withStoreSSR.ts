@@ -1,8 +1,8 @@
-import { AnyAction, EnhancedStore, MiddlewareArray } from '@reduxjs/toolkit'
-import { wrapper } from '@src/store'
-import { RootStateType } from '@src/store/modules'
-import { GetServerSideProps } from 'next'
-import { ThunkMiddleware } from 'redux-thunk'
+import { AnyAction, EnhancedStore, MiddlewareArray } from '@reduxjs/toolkit';
+import { wrapper } from '@src/store';
+import { RootStateType } from '@src/store/modules';
+import { GetServerSideProps } from 'next';
+import { ThunkMiddleware } from 'redux-thunk';
 
 /**
  * @description
@@ -29,8 +29,8 @@ const withStoreSSR = (
   ) => GetServerSideProps<any>
 ) => {
   return wrapper.getServerSideProps((store) => {
-    return callback(store)
-  })
-}
+    return callback(store);
+  });
+};
 
-export default withStoreSSR
+export default withStoreSSR;

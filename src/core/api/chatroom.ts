@@ -1,55 +1,74 @@
-import { Location } from '@src/core/types'
-import axios from 'axios'
+import { Location } from '@src/core/types';
+import axios from 'axios';
+
+export type CommonChatroomResponse = {
+  id: string;
+  name: string;
+  title: string;
+  author: string;
+  author_profile_image: string;
+  latitude: number;
+  longitude: number;
+};
+
+export type GetNearChatroomsResponse = CommonChatroomResponse & {
+  distance: number;
+};
 
 export const apiGetNearChatrooms = async (location: Location) => {
+  const params = {
+    latitude: location.latitude,
+    longitude: location.longitude,
+  };
   try {
-    const { data } = await axios.get('/chatroom', {
-      params: {
-        longitude: location.longitude,
-        latitude: location.latitude,
-      },
-    })
-    return data.body
+    const { data } = await axios.get<GetNearChatroomsResponse[]>('/chatroom/near', { params });
+    return data;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
-export const apiCheckChatroom = async (email: string) => {
+export const apiGetMyChatroom = async (email: string) => {
   try {
-    const { data } = await axios.get('/chatroom/check', {
-      params: {
-        email: email,
-      },
-    })
-    return data.body
-  } catch (error) {
-    throw error
-  }
-}
-
-export const apiCreateChatroom = async (title: string, location: Location) => {
-  try {
-    const { data } = await axios.post('/chatroom', {
-      title: title,
-      longitude: location.longitude,
-      latitude: location.latitude,
-    })
-    return data.body
-  } catch (error) {
-    throw error
-  }
-}
-
-export const apiDeleteChatroom = async (email: string) => {
-  try {
-    const { data } = await axios.delete('/chatroom', {
+    const { data } = await axios.get<CommonChatroomResponse>('/chatroom/check', {
       params: {
         email: email,
       },
-    })
-    return data.body
+    });
+    return data;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
+
+export const apiCreateChatroom = async ({
+  name,
+  title,
+  latitude,
+  longitude,
+}: {
+  name: string;
+  title: string;
+  latitude: number;
+  longitude: number;
+}) => {
+  try {
+    const { data } = await axios.post<CommonChatroomResponse>('/chatroom', {
+      name,
+      title,
+      latitude,
+      longitude,
+    });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const apiDeleteChatroom = async () => {
+  try {
+    await axios.delete('/chatroom');
+  } catch (error) {
+    throw error;
+  }
+};

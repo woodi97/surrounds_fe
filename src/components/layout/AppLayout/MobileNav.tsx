@@ -1,6 +1,6 @@
-import { Link } from '@src/components/atom'
-import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { Link } from '@src/components/atom';
+import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 const SideMenuItem = ({ link, onToggleNav }) => {
   return (
@@ -31,23 +31,23 @@ const SideMenuItem = ({ link, onToggleNav }) => {
         {link.title}
       </Link>
     </motion.div>
-  )
-}
+  );
+};
 
 const MobileNav = () => {
-  const [navShow, setNavShow] = useState(false)
+  const [navShow, setNavShow] = useState(false);
 
   const onToggleNav = () => {
     setNavShow((status) => {
       if (status) {
-        document.body.style.overflow = 'auto'
+        document.body.style.overflow = 'auto';
       } else {
         // Prevent scrolling
-        document.body.style.overflow = 'hidden'
+        document.body.style.overflow = 'hidden';
       }
-      return !status
-    })
-  }
+      return !status;
+    });
+  };
 
   return (
     <div className="lg:hidden">
@@ -100,7 +100,7 @@ const MobileNav = () => {
         ></button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default MobileNav
+export default MobileNav;

@@ -1,43 +1,44 @@
-import { Location } from '@src/core/types'
-import { useEffect, useState } from 'react'
+import { Location } from '@src/core/types';
+import { ToastError } from '@src/utils/toast';
+import { useEffect, useState } from 'react';
 
 const gpsOptions = {
-  enableHighAccuracy: true,
   maximumAge: 30000,
-}
+};
 
 export default function useLocation() {
-  const [location, setLocation] = useState<Location>(null)
+  const [location, setLocation] = useState<Location>(null);
 
   const getCurrentLocation = () => {
     return new Promise<Location>((resolve, reject) => {
       if (!navigator.geolocation) {
-        reject('위치정보 사용이 불가능한 브라우저입니다.')
+        reject('위치정보 사용이 불가능한 브라우저입니다.');
       }
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          resolve(position.coords as Location)
+          resolve({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          });
         },
         reject,
         gpsOptions
-      )
-    })
-  }
+      );
+    });
+  };
 
   useEffect(() => {
-    if (!location) {
-      getGPS()
-    }
-
     async function getGPS() {
       try {
-        const result = await getCurrentLocation()
-        setLocation(result)
+        const result = await getCurrentLocation();
+        setLocation(result);
       } catch (error) {
-        window.alert(error)
+        ToastError(error);
       }
     }
-  }, [location])
 
-  return [location] as const
+    getGPS();
+  }, []);
+
+  return [location] as const;
 }

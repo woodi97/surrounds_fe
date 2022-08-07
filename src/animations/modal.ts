@@ -1,17 +1,17 @@
-import { Variants } from 'framer-motion'
+import { Variants } from 'framer-motion';
 
 const modalTransition = {
   type: 'spring',
   damping: 50,
   mass: 1,
   stiffness: 500,
-}
+};
 
 export const modalVariants: Variants = {
   enter: {
-    y: -200,
+    y: -400,
     opacity: 0,
-    speed: 3,
+    speed: 8,
   },
   center: {
     x: 0,
@@ -20,12 +20,12 @@ export const modalVariants: Variants = {
     transition: modalTransition,
   },
   exit: {
-    y: -200,
+    y: -400,
     opacity: 0,
-    speed: 3,
+    speed: 8,
     transition: modalTransition,
   },
-}
+};
 
 export const modalOverlayVariants: Variants = {
   enter: {
@@ -37,4 +37,4 @@ export const modalOverlayVariants: Variants = {
   exit: {
     opacity: 0,
   },
-}
+};

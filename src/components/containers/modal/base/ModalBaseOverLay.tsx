@@ -1,9 +1,9 @@
-import { modalOverlayVariants } from '@src/animations/modal'
-import { motion } from 'framer-motion'
-import React, { FC } from 'react'
+import { modalOverlayVariants } from '@src/animations/modal';
+import { motion } from 'framer-motion';
+import React, { FC } from 'react';
 
 const ModalBaseOverLay: FC<{
-  onClick: () => void
+  onClick: () => void;
 }> = ({ onClick }) => {
   return (
     <motion.div
@@ -11,7 +11,7 @@ const ModalBaseOverLay: FC<{
       variants={modalOverlayVariants}
       onClick={onClick}
     />
-  )
-}
+  );
+};
 
-export default ModalBaseOverLay
+export default ModalBaseOverLay;

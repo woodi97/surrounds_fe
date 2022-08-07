@@ -1,26 +1,26 @@
-import { inputBoxSizes } from '@src/utils/constants'
-import cx from 'classnames'
-import React, { ChangeEventHandler, FC, memo } from 'react'
+import { inputBoxSizes } from '@src/utils/constants';
+import cx from 'classnames';
+import React, { ChangeEventHandler, FC, memo } from 'react';
 
 const sizeSelector: { [keys in inputBoxSizes] } = {
   small: 'h-12',
   medium: 'h-14',
   large: 'h-16',
-}
+};
 
 const InputBox: FC<{
-  type: 'id' | 'email' | 'password'
-  name: string
-  label: string
-  value: string | number
-  size?: inputBoxSizes
-  placeholder?: string
-  readOnly?: boolean
-  error?: boolean
-  errorMessage?: string
-  fullWidth?: boolean
-  classNames?: string
-  onChange?: ChangeEventHandler<HTMLInputElement>
+  type: 'id' | 'email' | 'password';
+  name: string;
+  label: string;
+  value: string | number;
+  size?: inputBoxSizes;
+  placeholder?: string;
+  readOnly?: boolean;
+  error?: boolean;
+  errorMessage?: string;
+  fullWidth?: boolean;
+  classNames?: string;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
 }> = ({
   name,
   label,
@@ -54,7 +54,7 @@ const InputBox: FC<{
       </div>
       {error && <p className="text-xs md:text-sm text-red-400">{errorMessage}</p>}
     </div>
-  )
-}
+  );
+};
 
-export default memo(InputBox)
+export default memo(InputBox);

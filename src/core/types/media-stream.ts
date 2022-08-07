@@ -1,4 +1,4 @@
 export interface RemoteMediaShape {
-  peerId: string
-  stream: MediaStream
+  peerId: string;
+  stream: MediaStream;
 }

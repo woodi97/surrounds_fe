@@ -1,7 +1,7 @@
-import { Button } from '@src/components/atom'
-import { PageLayout } from '@src/components/layout'
-import Link from 'next/link'
-import React from 'react'
+import { Button } from '@src/components/atom';
+import { PageLayout } from '@src/components/layout';
+import Link from 'next/link';
+import React from 'react';
 
 const FourZeroFourPage = () => {
   return (
@@ -15,7 +15,7 @@ const FourZeroFourPage = () => {
         </Link>
       </div>
     </PageLayout>
-  )
-}
+  );
+};
 
-export default FourZeroFourPage
+export default FourZeroFourPage;

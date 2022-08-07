@@ -2,12 +2,13 @@ export const envConfig = {
   appName: process.env.APP_NAME,
   apiUrl: process.env.BASE_API_URL,
   googleMapKey: process.env.GOOGLE_MAP_KEY,
-}
+  enableAPICredentials: process.env.ENABLE_API_CREDENTIALS === 'true',
+};
 
 export const socketConfig = {
   secure: process.env.SOCKET_SECURE === 'true',
   url: process.env.SOCKET_URL,
-}
+};
 
 export const peerConfig = {
   host: process.env.PEER_HOST,
@@ -23,4 +24,4 @@ export const peerConfig = {
       credential: process.env.TURN_CREDENTIAL,
     },
   ],
-}
+};

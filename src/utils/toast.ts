@@ -1,5 +1,5 @@
-import { ReactText } from 'react'
-import { toast } from 'react-toastify'
+import { ReactText } from 'react';
+import { toast } from 'react-toastify';
 
 export const ToastError = (message: string): ReactText => {
   return toast.error(message, {
@@ -11,8 +11,8 @@ export const ToastError = (message: string): ReactText => {
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-  })
-}
+  });
+};
 
 export const ToastWarn = (message: string): ReactText => {
   return toast.warn(message, {
@@ -24,8 +24,8 @@ export const ToastWarn = (message: string): ReactText => {
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-  })
-}
+  });
+};
 
 export const ToastSuccess = (message: string): ReactText => {
   return toast.success(message, {
@@ -37,8 +37,8 @@ export const ToastSuccess = (message: string): ReactText => {
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-  })
-}
+  });
+};
 
 export const ToastInfo = (message: string): ReactText => {
   return toast.info(message, {
@@ -50,5 +50,5 @@ export const ToastInfo = (message: string): ReactText => {
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-  })
-}
+  });
+};

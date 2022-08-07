@@ -1,10 +1,10 @@
-import classNames from 'classnames'
-import NextImage, { ImageProps } from 'next/image'
-import { Fragment } from 'react'
+import classNames from 'classnames';
+import NextImage, { ImageProps } from 'next/image';
+import { Fragment } from 'react';
 
 type CustomImageType = {
-  bgFilter?: string
-}
+  bgFilter?: string;
+};
 
 /**
  * @param {string} bgFilter - pass bgFilter to add filter to image(parent should be relative)
@@ -17,6 +17,6 @@ const Image = ({ bgFilter, ...rest }: ImageProps & CustomImageType) => (
     />
     <NextImage {...rest} />
   </Fragment>
-)
+);
 
-export default Image
+export default Image;

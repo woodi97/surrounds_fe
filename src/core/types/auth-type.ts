@@ -1,6 +1,6 @@
 export type UserAuthInfoType = {
-  email: string
-  nickname: string
-  profileImage: string
-  isLogin: boolean
-}
+  email: string;
+  username: string;
+  profile_image: string;
+  isLogin: boolean;
+};

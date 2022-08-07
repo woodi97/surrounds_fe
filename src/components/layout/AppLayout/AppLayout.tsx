@@ -1,15 +1,15 @@
-import classNames from 'classnames'
-import React, { FC, useMemo, useRef } from 'react'
+import classNames from 'classnames';
+import React, { FC, useMemo, useRef } from 'react';
 
-import Header from './Header'
+import Header from './Header';
 
 const AppLayout: FC<{
-  children: React.ReactNode
-  fullWidth?: boolean
-  fixedHeight?: boolean
+  children: React.ReactNode;
+  fullWidth?: boolean;
+  fixedHeight?: boolean;
 }> = ({ children, fullWidth = false, fixedHeight = false }) => {
-  const maxWidth = useMemo(() => 'px-4', [])
-  const layoutRef = useRef<HTMLDivElement>(null)
+  const maxWidth = useMemo(() => 'px-4', []);
+  const layoutRef = useRef<HTMLDivElement>(null);
 
   // useEffect(() => {
   //   const refinedHeight = getContentHeight()
@@ -30,7 +30,7 @@ const AppLayout: FC<{
         <div className="w-full flex-grow">{children}</div>
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default AppLayout
+export default AppLayout;

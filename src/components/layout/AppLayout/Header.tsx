@@ -1,10 +1,10 @@
-import { useCycle } from 'framer-motion'
-import React from 'react'
+import { useCycle } from 'framer-motion';
+import React from 'react';
 
-import MobileNav from './MobileNav'
+import MobileNav from './MobileNav';
 
 const Header = ({ className }) => {
-  const [isOpen, toggleOpen] = useCycle(false, true)
+  const [isOpen, toggleOpen] = useCycle(false, true);
 
   return (
     <header
@@ -12,7 +12,7 @@ const Header = ({ className }) => {
     >
       <MobileNav />
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

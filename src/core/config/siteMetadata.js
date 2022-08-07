@@ -12,6 +12,6 @@ const siteMetadata = {
     email: 'sample@sample.com',
     github: 'https://github.com/woodi97',
   },
-}
+};
 
-module.exports = siteMetadata
+module.exports = siteMetadata;

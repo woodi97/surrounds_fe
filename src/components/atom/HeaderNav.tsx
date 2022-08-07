@@ -1,6 +1,6 @@
-import { Icon, ImageWrapper } from '@src/components/atom'
-import cx from 'classnames'
-import React from 'react'
+import { Icon, ImageWrapper } from '@src/components/atom';
+import cx from 'classnames';
+import React from 'react';
 
 const Header = () => {
   return (
@@ -28,7 +28,7 @@ const Header = () => {
         <Icon name="plus" />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

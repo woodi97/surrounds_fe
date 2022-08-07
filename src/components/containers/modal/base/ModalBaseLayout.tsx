@@ -1,13 +1,12 @@
-import cx from 'classnames'
-import { motion } from 'framer-motion'
-import React, { FC } from 'react'
+import cx from 'classnames';
+import { motion } from 'framer-motion';
+import React, { FC } from 'react';
 
 const ModalBaseLayout: FC<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }> = ({ children }) => {
   return (
     <motion.div
-      id={`modal-base-${Math.random()}`}
       className={cx(
         'z-[1000] w-full h-full',
         'fixed top-0 left-0',
@@ -19,7 +18,7 @@ const ModalBaseLayout: FC<{
     >
       {children}
     </motion.div>
-  )
-}
+  );
+};
 
-export default ModalBaseLayout
+export default ModalBaseLayout;
