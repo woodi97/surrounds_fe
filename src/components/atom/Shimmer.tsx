@@ -1,12 +1,12 @@
-import React from 'react'
+import React from 'react';
 
 const Shimmer = () => {
   return (
-    <>
-      <div className="w-8 h-8 mr-2 rounded-2xl" />
-      <div className="w-[calc(100%-3rem)] h-8 rounded-xl" />
-    </>
-  )
-}
+    <div className="animate-pulse flex space-x-4">
+      <div className="w-12 h-10 mr-2 rounded-full bg-slate-400" />
+      <div className="w-full h-10 rounded-xl bg-slate-400" />
+    </div>
+  );
+};
 
-export default Shimmer
+export default Shimmer;

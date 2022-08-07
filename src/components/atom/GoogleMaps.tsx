@@ -1,10 +1,9 @@
-import { envConfig } from '@src/core/config/envConfig'
-import { RoomInfo } from '@src/core/types/chatroom'
-import React from 'react'
-import { GoogleMap, Marker, withGoogleMap, withScriptjs } from 'react-google-maps'
+import { envConfig } from '@src/core/config/envConfig';
+import React from 'react';
+import { GoogleMap, withGoogleMap, withScriptjs } from 'react-google-maps';
 
-const defaultCenter = { lat: 37.52974, lng: 126.962721 }
-const defaultOptions = { scrollwheel: false }
+const defaultCenter = { lat: 37.52974, lng: 126.962721 };
+const defaultOptions = { scrollwheel: false };
 
 const RegularMap = withScriptjs(
   withGoogleMap((props) => (
@@ -20,19 +19,13 @@ const RegularMap = withScriptjs(
         zoomControl: false,
         gestureHandling: 'greedy',
       }}
-    >
-      {Centers?.map((info, idx) => {
-        const { latitude, longitude } = info.location
-        return <Marker key={`marker-${idx}`} position={{ lat: latitude, lng: longitude }}></Marker>
-      })}
-    </GoogleMap>
+    ></GoogleMap>
   ))
-)
+);
 
-const Centers: RoomInfo[] = []
-const loadingElementStyle = { height: '100%' }
-const containerElementStyle = { height: '100%' }
-const mapElementStyle = { height: '100%' }
+const loadingElementStyle = { height: '100%' };
+const containerElementStyle = { height: '100%' };
+const mapElementStyle = { height: '100%' };
 
 export default function GoogleMaps() {
   return (
@@ -42,5 +35,5 @@ export default function GoogleMaps() {
       containerElement={<div style={containerElementStyle} />}
       mapElement={<div style={mapElementStyle} />}
     />
-  )
+  );
 }

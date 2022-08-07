@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path')
+const path = require('path');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
-})
-const CompressionPlugin = require('compression-webpack-plugin')
+});
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = withBundleAnalyzer({
   compress: true,
@@ -15,20 +15,20 @@ module.exports = withBundleAnalyzer({
     deviceSizes: [640, 768, 1080, 1200, 1920, 2048, 3840],
   },
   webpack(config) {
-    const prod = process.env.NODE_ENV === 'production'
+    const prod = process.env.NODE_ENV === 'production';
     config.module.rules.push({
       test: /\.svg$/,
       use: ['@svgr/webpack'],
-    })
-    const plugins = [...config.plugins]
+    });
+    const plugins = [...config.plugins];
     if (prod) {
-      plugins.push(new CompressionPlugin())
+      plugins.push(new CompressionPlugin());
     }
     return {
       ...config,
       mode: prod ? 'production' : 'development',
       plugins: plugins,
-    }
+    };
   },
   eslint: {
     ignoreDuringBuilds: true,
@@ -37,6 +37,7 @@ module.exports = withBundleAnalyzer({
     APP_TITLE: process.env.APP_TITLE,
     BASE_API_URL: process.env.BASE_API_URL,
     GOOGLE_MAP_KEY: process.env.GOOGLE_MAP_KEY,
+    ENABLE_API_CREDENTIALS: process.env.ENABLE_API_CREDENTIALS,
     SOCKET_SECURE: process.env.SOCKET_SECURE,
     SOCKET_URL: process.env.SOCKET_URL,
     STUN_URL: process.env.STUN_URL,
@@ -49,4 +50,4 @@ module.exports = withBundleAnalyzer({
     PEER_PATH: process.env.PEER_PATH,
     PEER_SECURE: process.env.PEER_SECURE,
   },
-})
+});

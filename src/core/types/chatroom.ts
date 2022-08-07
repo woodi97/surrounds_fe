@@ -1,8 +1,10 @@
-import { Location, UserInfo } from '.'
-
-export interface RoomInfo {
-  id: string
-  title: string
-  location: Location
-  generator: UserInfo
-}
+export type RoomInfo = {
+  id: string;
+  name: string;
+  title: string;
+  author: string;
+  author_profile_image: string;
+  latitude: number;
+  longitude: number;
+  distance: number;
+};

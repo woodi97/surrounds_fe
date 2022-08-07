@@ -1,7 +1,7 @@
 /** @type {import("tailwindcss").Config} */
 // generate custom color using https://tailwindcolorgenerator.com/
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const appConfig = require('./src/core/config/appConfig')
+const appConfig = require('./src/core/config/appConfig');
 
 module.exports = {
   mod: 'jit',
@@ -64,4 +64,4 @@ module.exports = {
     },
   },
   plugins: [],
-}
+};

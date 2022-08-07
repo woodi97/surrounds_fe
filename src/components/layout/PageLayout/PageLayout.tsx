@@ -1,47 +1,49 @@
-import { pageVars } from '@src/animations/page'
-import { useBrowserBackward, useRootDispatch, useRootState, useWindowResize } from '@src/hooks'
-import { pageTransitionForward } from '@src/store/modules/layout'
-import cx from 'classnames'
-import { motion } from 'framer-motion'
-import React, { FC, useEffect, useMemo, useRef } from 'react'
+import { pageVars } from '@src/animations/page';
+import { useBrowserBackward, useRootDispatch, useRootState, useWindowResize } from '@src/hooks';
+import { pageTransitionForward } from '@src/store/modules/layout';
+import cx from 'classnames';
+import { motion } from 'framer-motion';
+import React, { FC, useEffect, useMemo, useRef } from 'react';
 
 const PageLayout: FC<{
-  children: React.ReactNode
-  fullWidth?: boolean
-  fixedHeight?: boolean
-  disableTransition?: boolean
-  disableContentPadding?: boolean
+  children: React.ReactNode;
+  fullWidth?: boolean;
+  fixedHeight?: boolean;
+  enableAppBar?: boolean;
+  disableTransition?: boolean;
+  disableContentPadding?: boolean;
 }> = ({
   children,
   fullWidth = false,
   fixedHeight = false,
+  enableAppBar = false,
   disableTransition = false,
   disableContentPadding = false,
 }) => {
-  const mainRef = useRef<HTMLDivElement>(null)
-  const dispatch = useRootDispatch()
-  const layoutState = useRootState((state) => state.layout)
+  const mainRef = useRef<HTMLDivElement>(null);
+  const dispatch = useRootDispatch();
+  const layoutState = useRootState((state) => state.layout);
 
-  useBrowserBackward()
+  useBrowserBackward();
 
   useEffect(() => {
-    dispatch(pageTransitionForward())
-  }, [])
+    dispatch(pageTransitionForward());
+  }, []);
 
   // to recalculate height when mobile browser search bar appeared and disappeared
   useWindowResize(() => {
     if (fixedHeight) {
-      mainRef.current.style.setProperty('height', `${window.innerHeight}px`)
+      mainRef.current.style.setProperty('height', `${window.innerHeight}px`);
     } else {
-      mainRef.current.style.setProperty('height', 'h-full')
+      mainRef.current.style.setProperty('height', 'h-full');
     }
-  }, 0)
+  }, 0);
 
   // pageDirection is used to determine the direction of the page transition
   const pageDirectionCustom = useMemo(
     () => (layoutState.pageTransitionDir === 'forward' ? 1 : -1),
     [layoutState.pageTransitionDir]
-  )
+  );
 
   // do not remove pt-gb-header pb-bt-nav on motion.main
   // it is for showing content on the top of bottom nav
@@ -60,7 +62,8 @@ const PageLayout: FC<{
         ref={mainRef}
         className={cx(
           'relative m-center w-full',
-          disableContentPadding ? 'py-0' : 'py-4',
+          enableAppBar && 'pt-gb-header',
+          disableContentPadding || fullWidth ? 'py-0' : 'py-4',
           fullWidth ? null : `max-w-mobile-app px-side-padding`,
           fixedHeight ? 'overflow-hidden h-screen' : 'min-h-screen'
         )}
@@ -68,7 +71,7 @@ const PageLayout: FC<{
         {children}
       </main>
     </motion.div>
-  )
-}
+  );
+};
 
-export default PageLayout
+export default PageLayout;
