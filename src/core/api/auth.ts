@@ -1,4 +1,4 @@
-import { isAxiosError } from '@src/core/types/axios-error';
+import { CommonApiError, isAxiosError } from '@src/core/types/axios-error';
 import { setClientAuthToken } from '@src/utils/authUtil';
 import { ToastError, ToastSuccess, ToastWarn } from '@src/utils/toast';
 import axios from 'axios';
@@ -32,15 +32,15 @@ export const apiSignIn = async (email: string, password: string) => {
     setClientAuthToken(data.access_token);
     return data;
   } catch (err) {
-    ToastWarn('Login Failed. Try Again');
-    throw err;
+    if (isAxiosError<CommonApiError>(err)) {
+      const { message, error } = err.response.data;
+      ToastWarn(message);
+      throw new Error(error);
+    } else {
+      ToastError('error occured during signin process');
+      throw err;
+    }
   }
-};
-
-type SignUpError = {
-  statusCode: number;
-  message: string;
-  error: string;
 };
 
 export const apiSignUp = async (
@@ -56,11 +56,13 @@ export const apiSignUp = async (
     });
     ToastSuccess('Sign Up Success');
   } catch (err) {
-    if (isAxiosError<SignUpError>(err)) {
-      ToastWarn(err.response.data.message);
+    if (isAxiosError<CommonApiError>(err)) {
+      const { message, error } = err.response.data;
+      ToastWarn(message);
+      throw new Error(error);
     } else {
       ToastWarn('Signup Failed. Try Again');
+      throw err;
     }
-    throw err;
   }
 };
