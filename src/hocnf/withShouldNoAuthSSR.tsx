@@ -2,7 +2,6 @@
 import { apiValidate } from '@src/core/api/auth';
 import { withStoreSSR } from '@src/hocnf/index';
 import { clearUserInfo, setUserInfo } from '@src/store/modules/auth';
-import { setServerAuthToken } from '@src/utils/authUtil';
 
 const withShouldNoAuthSSR = () => {
   return withStoreSSR((store) => {
@@ -23,7 +22,6 @@ const withShouldNoAuthSSR = () => {
             props: {},
           };
         }
-        setServerAuthToken(token);
         try {
           const result = await apiValidate();
           store.dispatch(

@@ -1,50 +1,38 @@
-import { Button, InputBox } from '@src/components/atom';
-import React, { FC, useCallback, useState } from 'react';
+import {
+  AppleLoginButton,
+  GoogleLoginButton,
+  KakaoLoginButton,
+  NaverLoginButton,
+} from '@src/components/atom';
+import { SocialAuthHookType } from '@src/core/types/auth-type';
+import React, { FC } from 'react';
 
-const SignInForm: FC<{
-  onSubmit: ({ email, password }) => void;
-}> = ({ onSubmit }) => {
-  const [{ email, password }, setInputs] = useState({
-    email: '',
-    password: '',
-  });
-
-  const handleOnChange = useCallback((e) => {
-    const { name, value } = e.target;
-    setInputs((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  }, []);
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    onSubmit({ email, password });
-  };
-
+const SignInForm: FC<SocialAuthHookType> = ({ ...props }) => {
   return (
-    <form className="space-y-6" onSubmit={handleSubmit}>
-      <InputBox
-        type="email"
-        name="email"
-        label="Email"
-        value={email}
-        fullWidth
-        onChange={handleOnChange}
-      />
-      <InputBox
-        type="password"
-        name="password"
-        label="Password"
-        size="small"
-        value={password}
-        fullWidth
-        onChange={handleOnChange}
-      />
-      <Button className="text-white font-bold" fullWidth styles="primary" type="submit">
-        Sign In
-      </Button>
-    </form>
+    <div className="w-full">
+      <div className="flex justify-center w-80 m-center flex-wrap basis-1/9">
+        <KakaoLoginButton
+          router={props.router}
+          dispatch={props.dispatch}
+          onSuccess={props.onSuccess}
+        />
+        <NaverLoginButton
+          router={props.router}
+          dispatch={props.dispatch}
+          onSuccess={props.onSuccess}
+        />
+        <GoogleLoginButton
+          router={props.router}
+          dispatch={props.dispatch}
+          onSuccess={props.onSuccess}
+        />
+        <AppleLoginButton
+          router={props.router}
+          dispatch={props.dispatch}
+          onSuccess={props.onSuccess}
+        />
+      </div>
+    </div>
   );
 };
 

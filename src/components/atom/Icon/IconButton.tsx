@@ -1,18 +1,15 @@
-import React, { FC } from 'react';
+import React, { ButtonHTMLAttributes, FC } from 'react';
 
 import Icon, { SVGTypes } from './Icon';
 
 export type IconButtonProps = {
-  classNames?: string;
   name: SVGTypes;
-  type?: 'button' | 'submit' | 'reset';
   size?: number;
-  onClick: (e?) => void;
-};
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
-const IconButton: FC<IconButtonProps> = ({ classNames, name, type = 'button', size, onClick }) => {
+const IconButton: FC<IconButtonProps> = ({ name, type = 'button', size, ...props }) => {
   return (
-    <button className={classNames} name={name} type={type} onClick={onClick}>
+    <button name={name} type={type} {...props}>
       <Icon name={name} size={size} />
     </button>
   );

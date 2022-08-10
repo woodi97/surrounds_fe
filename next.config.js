@@ -34,10 +34,11 @@ module.exports = withBundleAnalyzer({
     ignoreDuringBuilds: true,
   },
   env: {
-    APP_TITLE: process.env.APP_TITLE,
+    APP_NAME: process.env.APP_NAME,
     BASE_API_URL: process.env.BASE_API_URL,
+    BASE_APP_URL: process.env.BASE_APP_URL,
+    KAKAO_CLIENT_ID: process.env.KAKAO_CLIENT_ID,
     GOOGLE_MAP_KEY: process.env.GOOGLE_MAP_KEY,
-    ENABLE_API_CREDENTIALS: process.env.ENABLE_API_CREDENTIALS,
     SOCKET_SECURE: process.env.SOCKET_SECURE,
     SOCKET_URL: process.env.SOCKET_URL,
     STUN_URL: process.env.STUN_URL,

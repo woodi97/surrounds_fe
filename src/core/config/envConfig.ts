@@ -1,8 +1,8 @@
 export const envConfig = {
+  googleMapKey: process.env.GOOGLE_MAP_KEY,
   appName: process.env.APP_NAME,
   apiUrl: process.env.BASE_API_URL,
-  googleMapKey: process.env.GOOGLE_MAP_KEY,
-  enableAPICredentials: process.env.ENABLE_API_CREDENTIALS === 'true',
+  kakaoClientId: process.env.KAKAO_CLIENT_ID,
 };
 
 export const socketConfig = {

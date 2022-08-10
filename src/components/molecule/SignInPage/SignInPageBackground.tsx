@@ -10,6 +10,7 @@ const SignInPageBackground = () => {
         layout="fill"
         objectFit="cover"
         objectPosition="center"
+        priority
       />
     </div>
   );

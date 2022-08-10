@@ -8,7 +8,9 @@ import { FiSettings } from 'react-icons/fi';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { IoIosArrowBack, IoIosArrowForward, IoIosArrowRoundDown } from 'react-icons/io';
 import { IoAlbumsOutline, IoEllipsisVertical, IoPeopleOutline } from 'react-icons/io5';
+import { MdEmail } from 'react-icons/md';
 import { RiKakaoTalkFill } from 'react-icons/ri';
+import { SiNaver } from 'react-icons/si';
 
 export type SVGTypes =
   | 'house'
@@ -28,7 +30,9 @@ export type SVGTypes =
   | 'people'
   | 'google'
   | 'apple'
-  | 'kakao';
+  | 'kakao'
+  | 'naver'
+  | 'email';
 
 type IconProps = {
   name: SVGTypes;
@@ -55,6 +59,8 @@ const _Selector: { [key in SVGTypes]: FC<IconProps> } = {
   google: BsGoogle,
   apple: BsApple,
   kakao: RiKakaoTalkFill,
+  naver: SiNaver,
+  email: MdEmail,
 };
 
 const Icon: FC<IconProps> = ({ name, ...props }) => {

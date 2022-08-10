@@ -23,6 +23,32 @@ export const apiValidate = async () => {
   }
 };
 
+export const apiKakaoSignIn = async ({
+  access_token,
+  refresh_token,
+}: {
+  access_token: string;
+  refresh_token: string;
+}) => {
+  try {
+    const { data } = await axios.post<SignInResult>('/auth/signin/kakao', {
+      access_token,
+      refresh_token,
+    });
+    setClientAuthToken(data.access_token);
+    return data;
+  } catch (err) {
+    if (isAxiosError<CommonApiError>(err)) {
+      const { message, error } = err.response.data;
+      ToastWarn(message);
+      throw new Error(error);
+    } else {
+      ToastError('error occured during kakao signin process');
+      throw err;
+    }
+  }
+};
+
 export const apiSignIn = async (email: string, password: string) => {
   try {
     const { data } = await axios.post<SignInResult>('/auth/signin', {

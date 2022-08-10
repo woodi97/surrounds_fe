@@ -14,7 +14,7 @@ import React from 'react';
 import { ToastContainer } from 'react-toastify';
 
 axios.defaults.baseURL = envConfig.apiUrl;
-axios.defaults.withCredentials = envConfig.enableAPICredentials;
+axios.defaults.withCredentials = true;
 axios.defaults.headers.common['Authorization'] = getAuthToken();
 axios.defaults.paramsSerializer = (params) => {
   return qs.stringify(params);

@@ -9,9 +9,9 @@ const modalTransition = {
 
 export const modalVariants: Variants = {
   enter: {
-    y: -400,
+    y: -300,
     opacity: 0,
-    speed: 8,
+    speed: 2,
   },
   center: {
     x: 0,
@@ -20,9 +20,9 @@ export const modalVariants: Variants = {
     transition: modalTransition,
   },
   exit: {
-    y: -400,
+    y: -300,
     opacity: 0,
-    speed: 8,
+    speed: 2,
     transition: modalTransition,
   },
 };
