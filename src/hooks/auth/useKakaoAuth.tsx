@@ -21,10 +21,10 @@ export default function useKakaoAuth({
     }
     Kakao.Auth.login({
       success: async function (authObj) {
-        const { access_token, refresh_token } = authObj;
+        const { access_token } = authObj;
         try {
           // Todo: setting userinfo on redux store
-          const result = await apiKakaoSignIn({ access_token, refresh_token });
+          const result = await apiKakaoSignIn({ access_token });
           dispatch(
             setUserInfo({
               email: result.email,

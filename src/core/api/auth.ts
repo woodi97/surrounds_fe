@@ -23,17 +23,10 @@ export const apiValidate = async () => {
   }
 };
 
-export const apiKakaoSignIn = async ({
-  access_token,
-  refresh_token,
-}: {
-  access_token: string;
-  refresh_token: string;
-}) => {
+export const apiKakaoSignIn = async ({ access_token }: { access_token: string }) => {
   try {
     const { data } = await axios.post<SignInResult>('/auth/signin/kakao', {
       access_token,
-      refresh_token,
     });
     setClientAuthToken(data.access_token);
     return data;
