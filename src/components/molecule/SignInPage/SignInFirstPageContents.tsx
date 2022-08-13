@@ -2,42 +2,30 @@ import { Button } from '@src/components/atom';
 import { useRootDispatch } from '@src/hooks';
 import { openModal } from '@src/store/modules/modal';
 import cx from 'classnames';
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 
 const SignInPageButtons = () => {
   const dispatch = useRootDispatch();
 
-  const handleSignInClick = () => {
+  const handleSignInClick = useCallback(() => {
     dispatch(
       openModal({
         type: 'SIGNIN',
         title: 'Sign In',
       })
     );
-  };
-
-  const handleSignUpClick = () => {
-    dispatch(
-      openModal({
-        type: 'SIGNUP',
-        title: 'Sign Up',
-      })
-    );
-  };
+  }, []);
 
   return (
     <div className="space-y-4">
-      <Button className="text-white font-bold" size="large" fullWidth onClick={handleSignInClick}>
-        Sign In
-      </Button>
       <Button
         className="text-white font-bold"
         size="large"
-        styles="secondary"
+        styles="link"
         fullWidth
-        onClick={handleSignUpClick}
+        onClick={handleSignInClick}
       >
-        Create an account
+        Start
       </Button>
     </div>
   );

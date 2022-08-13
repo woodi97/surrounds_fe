@@ -12,7 +12,7 @@ const SignInPageFirstPhrase = () => {
 
 const SignInPageSecondPhrase = () => {
   return (
-    <div className="text-secondary-600">
+    <div className="text-link-500">
       <h1 className="text-6xl md:text-7xl font-normal">{'Voice Chat'}</h1>
       <h1 className="text-5xl md:text-6xl">{'Social Network'}</h1>
     </div>
@@ -22,8 +22,8 @@ const SignInPageSecondPhrase = () => {
 const SignInPageThirdPhrase = () => {
   return (
     <div className="text-white">
-      <h1 className="text-6xl md:text-7xl font-normal">{'Where we can talk with'}</h1>
-      <h1 className="text-7xl md:text-8xl">{'Surrounds'}</h1>
+      <h1 className="text-6xl md:text-7xl font-normal">{'Where we can talk'}</h1>
+      <h1 className="text-7xl md:text-8xl">{'with Surrounds'}</h1>
     </div>
   );
 };
