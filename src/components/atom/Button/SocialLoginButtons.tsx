@@ -10,15 +10,17 @@ import { useKakaoAuth } from '@src/hooks';
 import useAppleAuth from '@src/hooks/auth/useAppleAuth';
 import useGoogleAuth from '@src/hooks/auth/useGoogleAuth';
 import useNaverAuth from '@src/hooks/auth/useNaverAuth';
+import cx from 'classnames';
 import React, { FC } from 'react';
 
 const SocialLoginButtonWrapper: FC<{
   isLoaded: boolean;
   name: SVGTypes;
+  className?: string;
   onClick: () => void;
-}> = ({ isLoaded, name, onClick }) => (
+}> = ({ isLoaded, name, className, onClick }) => (
   <IconButton
-    className="m-4 p-4 border-2 rounded-xl border-0 disabled:opacity-50"
+    className={cx('p-4 flex justify-center disabled:opacity-50', className)}
     size={50}
     name={name}
     disabled={!isLoaded}
@@ -26,28 +28,54 @@ const SocialLoginButtonWrapper: FC<{
   />
 );
 
-export const KakaoLoginButton: FC<KakaoAuthHookType> = ({ ...props }) => {
+export const KakaoLoginButton: FC<KakaoAuthHookType> = ({ className, ...props }) => {
   const [isKakaoScriptLoaded, useKakaoLogin] = useKakaoAuth({ ...props });
 
   return (
-    <SocialLoginButtonWrapper isLoaded={isKakaoScriptLoaded} name="kakao" onClick={useKakaoLogin} />
+    <SocialLoginButtonWrapper
+      isLoaded={isKakaoScriptLoaded}
+      className={className}
+      name="kakao"
+      onClick={useKakaoLogin}
+    />
   );
 };
 
-export const NaverLoginButton: FC<NaverAuthHookType> = ({ ...props }) => {
+export const NaverLoginButton: FC<NaverAuthHookType> = ({ className, ...props }) => {
   const [isNaverScriptLoading, useNaverLogin] = useNaverAuth({ ...props });
 
-  return <SocialLoginButtonWrapper isLoaded={false} name="naver" onClick={useNaverLogin} />;
+  return (
+    <SocialLoginButtonWrapper
+      isLoaded={false}
+      className={className}
+      name="naver"
+      onClick={useNaverLogin}
+    />
+  );
 };
 
-export const GoogleLoginButton: FC<GoogleAuthHookType> = ({ ...props }) => {
+export const GoogleLoginButton: FC<GoogleAuthHookType> = ({ className, ...props }) => {
   const [isGoogleScriptLoading, useGoogleLogin] = useGoogleAuth({ ...props });
 
-  return <SocialLoginButtonWrapper isLoaded={false} name="google" onClick={useGoogleLogin} />;
+  return (
+    <SocialLoginButtonWrapper
+      isLoaded={false}
+      className={className}
+      name="google"
+      onClick={useGoogleLogin}
+    />
+  );
 };
 
-export const AppleLoginButton: FC<AppleAuthHookType> = ({ ...props }) => {
+export const AppleLoginButton: FC<AppleAuthHookType> = ({ className, ...props }) => {
   const [isAppleScriptLoading, useAppleLogin] = useAppleAuth({ ...props });
 
-  return <SocialLoginButtonWrapper isLoaded={false} name="apple" onClick={useAppleLogin} />;
+  return (
+    <SocialLoginButtonWrapper
+      isLoaded={false}
+      className={className}
+      name="apple"
+      onClick={useAppleLogin}
+    />
+  );
 };

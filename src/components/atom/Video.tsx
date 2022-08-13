@@ -1,8 +1,6 @@
 import appConfig from '@src/core/config/appConfig';
 import React, { FC, useEffect, useRef } from 'react';
 
-import Image from './ImageWrapper';
-
 interface VideoShape {
   mediaStream: MediaStream;
   muted: boolean;
@@ -46,13 +44,13 @@ const Video: FC<VideoShape> = ({ mediaStream, muted }) => {
   return (
     <div ref={divRef} className="border-2 border-primary border-solid w-20 h-20 rounded-full">
       <video ref={viewRef} className="hidden" autoPlay playsInline muted={muted} />
-      <Image
-        className="rounded-full"
-        src="/profiles/default.png"
-        width="80px"
-        height="80px"
-        alt=""
-      />
+      {/*<Image*/}
+      {/*  className="rounded-full"*/}
+      {/*  src="/profiles/default.png"*/}
+      {/*  width="80px"*/}
+      {/*  height="80px"*/}
+      {/*  alt=""*/}
+      {/*/>*/}
     </div>
   );
 };

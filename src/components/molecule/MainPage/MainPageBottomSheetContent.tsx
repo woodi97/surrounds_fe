@@ -1,9 +1,10 @@
-import { HorizontalLine, ImageWrapper, Shimmer } from '@src/components/atom';
-import { RoomInfo } from '@src/core/types/chatroom';
+import { HorizontalLine, Shimmer } from '@src/components/atom';
+import { UserProfileSelector } from '@src/components/molecule';
+import { RoomInfoType } from '@src/core/types/chatroom';
 import React, { FC } from 'react';
 
 const MainPageBottomSheetContent: FC<{
-  chatRooms: RoomInfo[];
+  chatRooms: RoomInfoType[];
   isLoading: boolean;
 }> = ({ chatRooms, isLoading }) => {
   if (isLoading) {
@@ -22,12 +23,9 @@ const MainPageBottomSheetContent: FC<{
         return (
           <div key={`chatroom-list-${idx}`} className="bg-transparent">
             <div className="flex items-center py-2 space-x-3 cursor-pointer">
-              <ImageWrapper
-                src={chatroom.author_profile_image || '/profiles/default.png'}
-                width={40}
-                height={40}
-                className="rounded-lg"
-                alt=""
+              <UserProfileSelector
+                profile_image={chatroom.author_profile_image}
+                username={chatroom.author}
               />
               <div className="w-64 h-8">
                 <span>{chatroom.title}</span>

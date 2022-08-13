@@ -25,7 +25,6 @@ const DraggableSheet: FC<{
 
   useEffect(() => {
     controls.start('hidden');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -39,7 +38,7 @@ const DraggableSheet: FC<{
       dragConstraints={{ top: 0 }}
       dragElastic={isOpen ? 0 : 0.2}
       className={cx(
-        `z-10 fixed bottom-0 px-side-padding`,
+        `z-10 fixed top-0 px-side-padding`,
         'max-w-mobile-app w-full h-full',
         'rounded-t-lg bg-white'
       )}

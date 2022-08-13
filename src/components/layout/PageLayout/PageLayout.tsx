@@ -1,24 +1,34 @@
 import { pageVars } from '@src/animations/page';
-import { useBrowserBackward, useRootDispatch, useRootState, useWindowResize } from '@src/hooks';
+import { envConfig } from '@src/core/config/envConfig';
+import { useBrowserBackward, useRootDispatch, useRootState } from '@src/hooks';
+import useWindowResize from '@src/hooks/useWindowResize';
 import { pageTransitionForward } from '@src/store/modules/layout';
 import cx from 'classnames';
 import { motion } from 'framer-motion';
 import React, { FC, useEffect, useMemo, useRef } from 'react';
 
+import Header from './Header';
+
 const PageLayout: FC<{
   children: React.ReactNode;
   fullWidth?: boolean;
   fixedHeight?: boolean;
-  enableAppBar?: boolean;
+  disableHeader?: boolean;
   disableTransition?: boolean;
-  disableContentPadding?: boolean;
+  headerFixed?: boolean;
+  headerTransparent?: boolean;
+  headerBackgroundColor?: string;
+  headerContent?: React.ReactNode;
 }> = ({
   children,
   fullWidth = false,
   fixedHeight = false,
-  enableAppBar = false,
+  disableHeader = false,
   disableTransition = false,
-  disableContentPadding = false,
+  headerFixed = false,
+  headerTransparent = false,
+  headerBackgroundColor,
+  headerContent = <h2 className="uppercase text-center w-full">{envConfig.appName}</h2>,
 }) => {
   const mainRef = useRef<HTMLDivElement>(null);
   const dispatch = useRootDispatch();
@@ -58,14 +68,21 @@ const PageLayout: FC<{
       exit="exit"
       transition={{ type: 'linear' }}
     >
+      {!disableHeader && (
+        <Header
+          fixed={headerFixed}
+          transparent={headerTransparent}
+          className={headerBackgroundColor}
+          content={headerContent}
+        />
+      )}
       <main
         ref={mainRef}
         className={cx(
-          'relative m-center w-full',
-          enableAppBar && 'pt-gb-header',
-          disableContentPadding || fullWidth ? 'py-0' : 'py-4',
+          'relative m-center w-full pb-bt-nav',
           fullWidth ? null : `max-w-mobile-app px-side-padding`,
-          fixedHeight ? 'overflow-hidden h-screen' : 'min-h-screen'
+          fixedHeight ? 'overflow-hidden h-screen' : 'min-h-screen',
+          disableHeader ? 'pt-0' : 'pt-gb-header'
         )}
       >
         {children}

@@ -18,13 +18,7 @@ const SignInThirdPageButtons = () => {
 
   return (
     <div>
-      <Button
-        className="text-white font-bold"
-        size="large"
-        styles="link"
-        fullWidth
-        onClick={handleSignUpClick}
-      >
+      <Button className="text-white font-bold" size="large" fullWidth onClick={handleSignUpClick}>
         Create an account
       </Button>
     </div>
@@ -42,7 +36,7 @@ const SignInPageFirstPhrase = () => {
 
 const SignInPageSecondPhrase = () => {
   return (
-    <div className="text-link-500 drop-shadow-xl">
+    <div className="text-primary-500 drop-shadow-xl">
       <h1 className="text-6xl md:text-7xl font-normal">{'Make friend'}</h1>
       <h1 className="text-5xl md:text-6xl">{'Arounds you'}</h1>
     </div>

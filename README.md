@@ -48,6 +48,8 @@ const appConfig = {
 
 - 서버와 api call을 할시 Authorization 토큰을 저장하는 곳은 axios.default.headers.common["Authorizaton"]이며 브라우저 cookie값에 jwt로
   저장됩니다(`해당부분은 백앤드 부분이 개발되면서 변경될 수 있습니다`)
+- 어플리케이션과 관련된 Navigator 요소들(ex. GPS, Camera)로 부터 불러온 정보는 Redux Store에서 관리됩니다. 관련된 Hooks도 Redux Store에 Dispatch하는 형식으로
+  사용됩니다
 
 ## Husky Hook 설정 방법
 

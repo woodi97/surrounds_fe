@@ -1,6 +1,8 @@
 import Portal from '@src/components/atom/Portal';
-import SignInModal from '@src/components/containers/modal/content/SignInModal';
-import SignUpModal from '@src/components/containers/modal/content/SignUpModal';
+import {
+  RoomCreateModalContent,
+  SignInModalContent,
+} from '@src/components/containers/modal/content';
 import { ModalType } from '@src/core/types/modal-type';
 import { useRootDispatch, useRootState } from '@src/hooks/useRootState';
 import { closeModal } from '@src/store/modules/modal';
@@ -9,9 +11,9 @@ import React, { FC } from 'react';
 
 import ModalBase from './modal/ModalBase';
 
-const _selectModal: { [key in ModalType]: FC } = {
-  SIGNUP: SignUpModal,
-  SIGNIN: SignInModal,
+const _selectModal: { [key in ModalType]: FC<unknown> } = {
+  SIGNIN: SignInModalContent,
+  ROOMCREATE: RoomCreateModalContent,
 };
 
 const ModalContainer: FC = () => {

@@ -1,16 +1,18 @@
-import { Location } from '@src/core/types';
+import { LocationType } from '@src/core/types/navigator-type';
+import { useRootDispatch } from '@src/hooks/useRootState';
+import { setLocationInfo } from '@src/store/modules/device';
 import { ToastError } from '@src/utils/toast';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const gpsOptions = {
   maximumAge: 30000,
 };
 
 export default function useLocation() {
-  const [location, setLocation] = useState<Location>(null);
+  const dispatch = useRootDispatch();
 
   const getCurrentLocation = () => {
-    return new Promise<Location>((resolve, reject) => {
+    return new Promise<LocationType>((resolve, reject) => {
       if (!navigator.geolocation) {
         reject('위치정보 사용이 불가능한 브라우저입니다.');
       }
@@ -31,7 +33,7 @@ export default function useLocation() {
     async function getGPS() {
       try {
         const result = await getCurrentLocation();
-        setLocation(result);
+        dispatch(setLocationInfo(result));
       } catch (error) {
         ToastError(error);
       }
@@ -39,6 +41,4 @@ export default function useLocation() {
 
     getGPS();
   }, []);
-
-  return [location] as const;
 }

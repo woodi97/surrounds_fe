@@ -7,7 +7,9 @@ export { default as Icon } from './Icon/Icon';
 export { default as IconButton } from './Icon/IconButton';
 export { default as ImageWrapper } from './ImageWrapper';
 export { default as InputBox } from './InputBox';
-export { default as Link } from './Link';
 export { default as Portal } from './Portal';
 export { default as Shimmer } from './Shimmer';
 export { default as Video } from './Video';
+
+// about user
+export { default as UserProfile } from './UserProfile';

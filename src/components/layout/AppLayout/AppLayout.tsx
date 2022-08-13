@@ -1,36 +1,55 @@
-import classNames from 'classnames';
-import React, { FC, useMemo, useRef } from 'react';
+import { pageVars } from '@src/animations/page';
+import { useBrowserBackward, useRootDispatch, useRootState, useWindowResize } from '@src/hooks';
+import { pageTransitionForward } from '@src/store/modules/layout';
+import cx from 'classnames';
+import { motion } from 'framer-motion';
+import React, { FC, useEffect, useMemo, useRef } from 'react';
 
-import Header from './Header';
+import AppHeader from './AppHeader';
 
-const AppLayout: FC<{
+const PageLayout: FC<{
   children: React.ReactNode;
-  fullWidth?: boolean;
-  fixedHeight?: boolean;
-}> = ({ children, fullWidth = false, fixedHeight = false }) => {
-  const maxWidth = useMemo(() => 'px-4', []);
-  const layoutRef = useRef<HTMLDivElement>(null);
+  disableTransition?: boolean;
+  disableContentPadding?: boolean;
+}> = ({ children, disableTransition = false, disableContentPadding = false }) => {
+  const mainRef = useRef<HTMLDivElement>(null);
+  const dispatch = useRootDispatch();
+  const layoutState = useRootState((state) => state.layout);
 
-  // useEffect(() => {
-  //   const refinedHeight = getContentHeight()
-  //   if (fixedHeight) {
-  //     layoutRef.current.style.setProperty('height', `${refinedHeight}px`)
-  //   }
-  // }, [fixedHeight])
+  useBrowserBackward();
+
+  useEffect(() => {
+    dispatch(pageTransitionForward());
+  }, []);
+
+  useWindowResize(() => {
+    mainRef.current.style.setProperty('height', `${window.innerHeight}px`);
+  }, 0);
+
+  const pageDirectionCustom = useMemo(
+    () => (layoutState.pageTransitionDir === 'forward' ? 1 : -1),
+    [layoutState.pageTransitionDir]
+  );
 
   return (
-    <div ref={layoutRef}>
-      <Header className={`${maxWidth}`} />
+    <motion.div
+      className="relative"
+      variants={disableTransition ? {} : pageVars}
+      custom={pageDirectionCustom}
+      initial="hidden"
+      animate="enter"
+      exit="exit"
+      transition={{ type: 'linear' }}
+    >
+      <AppHeader />
       <main
-        className={classNames(
-          'z-30 flex flex-col min-h-full m-auto pt-10',
-          `${fullWidth ? 'w-full' : 'max-w-screen-2xl'}`
-        )}
+        ref={mainRef}
+        className={cx('relative m-center w-full', 'py-0', 'overflow-hidden h-screen')}
       >
-        <div className="w-full flex-grow">{children}</div>
+        {children}
       </main>
-    </div>
+    </motion.div>
   );
 };
 
-export default AppLayout;
+export default PageLayout;

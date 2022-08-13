@@ -1,9 +1,10 @@
+import appConfig from '@src/core/config/appConfig';
 import { Variants } from 'framer-motion';
 
 export const bottomSheetVars: Variants = {
-  hidden: { y: '80vh' },
+  hidden: { y: 'calc(100% - 100px)' },
   visible: {
-    y: '20vh',
+    y: appConfig.headerHeight,
     transition: {
       type: 'spring',
       damping: 40,

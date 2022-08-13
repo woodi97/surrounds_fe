@@ -17,14 +17,14 @@ const modalSlice = createSlice({
       state.title = action.payload.title;
       state.option = action.payload.option;
     },
-    openSignUpModal: (state) => {
-      state.type = 'SIGNUP';
-      state.title = 'Sign Up';
-      state.option = null;
-    },
     openSignInModal: (state) => {
       state.type = 'SIGNIN';
       state.title = 'Sign In';
+      state.option = null;
+    },
+    openRoomCreateModal: (state) => {
+      state.type = 'ROOMCREATE';
+      state.title = 'Create Room';
       state.option = null;
     },
     closeModal: (state) => {
@@ -36,6 +36,6 @@ const modalSlice = createSlice({
 });
 
 // Create Action
-export const { openModal, openSignUpModal, openSignInModal, closeModal } = modalSlice.actions;
+export const { openModal, openSignInModal, openRoomCreateModal, closeModal } = modalSlice.actions;
 // Reducer
 export default modalSlice.reducer;

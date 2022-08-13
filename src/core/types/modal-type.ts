@@ -1,7 +1,7 @@
 export type SignInModal = 'SIGNIN';
-export type SignUpModal = 'SIGNUP';
+export type RoomCreateModal = 'ROOMCREATE';
 
-export type ModalType = SignInModal | SignUpModal;
+export type ModalType = SignInModal | RoomCreateModal;
 
 export type ModalInfoType = {
   type: ModalType | null;

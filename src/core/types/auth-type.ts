@@ -9,6 +9,7 @@ export type UserAuthInfoType = {
 };
 
 export type SocialAuthHookType = {
+  className?: string;
   router: NextRouter;
   dispatch: RootDispatchType;
   onSuccess?: () => void;

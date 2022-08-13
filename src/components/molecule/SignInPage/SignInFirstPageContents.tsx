@@ -18,13 +18,7 @@ const SignInPageButtons = () => {
 
   return (
     <div className="space-y-4">
-      <Button
-        className="text-white font-bold"
-        size="large"
-        styles="link"
-        fullWidth
-        onClick={handleSignInClick}
-      >
+      <Button className="text-white font-bold" size="large" fullWidth onClick={handleSignInClick}>
         Start
       </Button>
     </div>
