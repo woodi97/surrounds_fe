@@ -1,4 +1,5 @@
-import { IconButton, ImageWrapper, UserProfile } from '@src/components/atom';
+import { IconButton } from '@src/components/atom';
+import { UserProfileSelector } from '@src/components/molecule';
 import { useRootDispatch, useRootState } from '@src/hooks';
 import { openRoomCreateModal } from '@src/store/modules/modal';
 import cx from 'classnames';
@@ -36,16 +37,7 @@ const AppHeader = ({ className }: Props, ref: MutableRefObject<HTMLDivElement>) 
           )}
         >
           <div className="relative w-12 h-full">
-            {profile_image ? (
-              <ImageWrapper
-                className="rounded-3xl"
-                src={profile_image}
-                layout="fill"
-                alt="profile"
-              />
-            ) : (
-              <UserProfile username={username} />
-            )}
+            <UserProfileSelector profile_image={profile_image} username={username} />
           </div>
           <div className="flex items-center space-x-2">
             <IconButton name="setting" size={24} />

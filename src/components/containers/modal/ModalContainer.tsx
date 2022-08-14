@@ -3,13 +3,12 @@ import {
   RoomCreateModalContent,
   SignInModalContent,
 } from '@src/components/containers/modal/content';
+import { ModalLayout } from '@src/components/layout';
 import { ModalType } from '@src/core/types/modal-type';
 import { useRootDispatch, useRootState } from '@src/hooks/useRootState';
 import { closeModal } from '@src/store/modules/modal';
 import { AnimatePresence } from 'framer-motion';
 import React, { FC } from 'react';
-
-import ModalBase from './modal/ModalBase';
 
 const _selectModal: { [key in ModalType]: FC<unknown> } = {
   SIGNIN: SignInModalContent,
@@ -26,14 +25,14 @@ const ModalContainer: FC = () => {
     <Portal selectorId="modal">
       <AnimatePresence exitBeforeEnter>
         {modal.type && (
-          <ModalBase
+          <ModalLayout
             key={`modal-base-${Math.floor(Math.random() * 1000)}`}
             onClose={() => {
               dispatch(closeModal());
             }}
           >
             {ModalComponent && <ModalComponent />}
-          </ModalBase>
+          </ModalLayout>
         )}
       </AnimatePresence>
     </Portal>
