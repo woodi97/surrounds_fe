@@ -52,7 +52,6 @@ const ChatroomSheetRow: FC<RoomInfoType> = ({
 };
 
 const ChatroomSheetContent: FC<ChatroomSheetContentProps> = ({ chatRooms, isLoading }) => {
-  console.log(isLoading);
   if (isLoading) {
     return (
       <div className="space-y-4">

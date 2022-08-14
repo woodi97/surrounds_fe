@@ -1,3 +1,4 @@
+import { GoogleMapsWrapper } from '@src/components/atom';
 import { ChatroomSheetContent } from '@src/components/containers/sheet/content';
 import SheetContainer from '@src/components/containers/sheet/SheetContainer';
 import { apiGetNearChatrooms } from '@src/core/api/chatroom';
@@ -47,7 +48,7 @@ const MainPageTemplate = () => {
 
   return (
     <div className="w-full h-full">
-      {/*<GoogleMaps />*/}
+      <GoogleMapsWrapper chatRooms={chatRooms} />
       <SheetContainer>
         <ChatroomSheetContent chatRooms={chatRooms} isLoading={isLoading} />
       </SheetContainer>
