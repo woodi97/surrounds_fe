@@ -1,14 +1,14 @@
+import { GoogleMaps } from '@src/components/atom';
 import { ChatroomSheetContent } from '@src/components/containers/sheet/content';
 import SheetContainer from '@src/components/containers/sheet/SheetContainer';
 import { apiGetNearChatrooms } from '@src/core/api/chatroom';
 import { RoomInfoType } from '@src/core/types/chatroom';
-import { useLocation, useRootDispatch, useRootState } from '@src/hooks';
+import { useLocation, useRootState } from '@src/hooks';
 import { ToastError } from '@src/utils/toast';
 import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
 
 const MainPageTemplate = () => {
-  const dispatch = useRootDispatch();
   const { location } = useRootState((state) => state.device);
   const [isLoading, setIsLoading] = useState(true);
   const [chatRooms, setChatRooms] = useState<RoomInfoType[]>([]);
@@ -34,7 +34,7 @@ const MainPageTemplate = () => {
 
   return (
     <div className="w-full h-full">
-      {/*<GoogleMaps />*/}
+      <GoogleMaps />
       <SheetContainer>
         <ChatroomSheetContent chatRooms={chatRooms} isLoading={isLoading} />
       </SheetContainer>

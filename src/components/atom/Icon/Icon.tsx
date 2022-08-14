@@ -6,7 +6,12 @@ import { CgProfile } from 'react-icons/cg';
 import { FaSearch } from 'react-icons/fa';
 import { FiSettings } from 'react-icons/fi';
 import { GiHamburgerMenu } from 'react-icons/gi';
-import { IoIosArrowBack, IoIosArrowForward, IoIosArrowRoundDown } from 'react-icons/io';
+import {
+  IoIosArrowBack,
+  IoIosArrowDropleftCircle,
+  IoIosArrowForward,
+  IoIosArrowRoundDown,
+} from 'react-icons/io';
 import { IoAlbumsOutline, IoEllipsisVertical, IoPeopleOutline } from 'react-icons/io5';
 import { MdEmail } from 'react-icons/md';
 import { RiKakaoTalkFill } from 'react-icons/ri';
@@ -26,6 +31,7 @@ export type SVGTypes =
   | 'leftArrow'
   | 'rightArrow'
   | 'downArrow'
+  | 'leftDropArrow'
   | 'ellipsisVertical'
   | 'people'
   | 'google'
@@ -54,6 +60,7 @@ const _Selector: { [key in SVGTypes]: FC<IconProps> } = {
   leftArrow: IoIosArrowBack,
   rightArrow: IoIosArrowForward,
   downArrow: IoIosArrowRoundDown,
+  leftDropArrow: IoIosArrowDropleftCircle,
   ellipsisVertical: IoEllipsisVertical,
   people: IoPeopleOutline,
   google: BsGoogle,

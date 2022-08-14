@@ -12,6 +12,10 @@ const SheetBaseLayout: FC<{
   // this hook is used to give smooth transition while drag the sheet
   const dragControls = useDragControls();
 
+  function onDragStart(event, info) {
+    event.stopPropagation();
+  }
+
   function onDragEnd(event, info) {
     const shouldClose = info.velocity.y > 20 || (info.velocity.y >= 0 && info.point.y > 45);
     if (shouldClose) {
@@ -38,6 +42,7 @@ const SheetBaseLayout: FC<{
       }}
       drag="y"
       dragControls={dragControls}
+      onDragStart={onDragStart}
       onDragEnd={onDragEnd}
       dragConstraints={{ top: 0 }}
       dragElastic={0.1}
