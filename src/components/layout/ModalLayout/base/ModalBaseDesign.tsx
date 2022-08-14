@@ -19,9 +19,9 @@ const ModalBaseDesign: FC<{
       variants={fullScreen ? modalFullScreenVariants : modalVariants}
     >
       <div className="absolute top-0 w-full bg-primary-500 text-end">
-        <IconButton name="close" size={40} onClick={onClose} />
+        <IconButton name="close" size={36} onClick={onClose} />
       </div>
-      <div className="px-side-padding">{children}</div>
+      <div className="w-full px-side-padding">{children}</div>
     </motion.div>
   );
 };
