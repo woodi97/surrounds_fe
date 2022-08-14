@@ -1,16 +1,27 @@
-import { modalVariants } from '@src/animations/modal';
+import { modalFullScreenVariants, modalVariants } from '@src/animations/modal';
+import { IconButton } from '@src/components/atom';
+import cx from 'classnames';
 import { motion } from 'framer-motion';
 import React, { FC } from 'react';
 
 const ModalBaseDesign: FC<{
+  fullScreen: boolean;
   children: React.ReactNode;
-}> = ({ children }) => {
+  onClose: () => void;
+}> = ({ fullScreen, children, onClose }) => {
   return (
     <motion.div
-      className="relative w-full max-w-[500px] bg-primary-bg rounded-md"
-      variants={modalVariants}
+      className={cx(
+        'relative z-50 py-10 flex items-center',
+        fullScreen ? 'w-full h-full' : 'w-full h-auto max-w-mobile-app min-h-[400px]',
+        'bg-primary-bg rounded-md'
+      )}
+      variants={fullScreen ? modalFullScreenVariants : modalVariants}
     >
-      <div className="w-full h-full z-50 px-6 py-10">{children}</div>
+      <div className="absolute top-0 w-full bg-primary-500 text-end">
+        <IconButton name="close" size={40} onClick={onClose} />
+      </div>
+      <div className="px-side-padding">{children}</div>
     </motion.div>
   );
 };

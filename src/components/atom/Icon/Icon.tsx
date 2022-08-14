@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import { AiOutlinePlusCircle } from 'react-icons/ai';
 import { BiVideo } from 'react-icons/bi';
 import { BsApple, BsCamera, BsGoogle, BsHouseDoor, BsPlus } from 'react-icons/bs';
-import { CgProfile } from 'react-icons/cg';
+import { CgClose, CgProfile } from 'react-icons/cg';
 import { FaSearch } from 'react-icons/fa';
 import { FiSettings } from 'react-icons/fi';
 import { GiHamburgerMenu } from 'react-icons/gi';
@@ -18,6 +18,7 @@ import { RiKakaoTalkFill } from 'react-icons/ri';
 import { SiNaver } from 'react-icons/si';
 
 export type SVGTypes =
+  | 'close'
   | 'house'
   | 'setting'
   | 'plus'
@@ -47,6 +48,7 @@ type IconProps = {
 };
 
 const _Selector: { [key in SVGTypes]: FC<IconProps> } = {
+  close: CgClose,
   house: BsHouseDoor,
   setting: FiSettings,
   plus: BsPlus,

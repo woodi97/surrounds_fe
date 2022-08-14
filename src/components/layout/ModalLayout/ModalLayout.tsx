@@ -5,15 +5,18 @@ import ModalBaseLayout from './base/ModalBaseLayout';
 import ModalBaseOverLay from './base/ModalBaseOverLay';
 
 export type ModalBaseShape = {
+  fullScreen: boolean;
   children?: ReactNode;
   onClose: () => void;
 };
 
-const ModalLayout: FC<ModalBaseShape> = ({ children, onClose }) => {
+const ModalLayout: FC<ModalBaseShape> = ({ fullScreen, children, onClose }) => {
   return (
     <ModalBaseLayout>
       <ModalBaseOverLay onClick={onClose} />
-      <ModalBaseDesign>{children}</ModalBaseDesign>
+      <ModalBaseDesign onClose={onClose} fullScreen={fullScreen}>
+        {children}
+      </ModalBaseDesign>
     </ModalBaseLayout>
   );
 };

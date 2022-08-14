@@ -1,7 +1,7 @@
 export { default as useBackward } from './useBackward';
 export { default as useCookie } from './useCookie';
+export { default as useGPSLocation } from './useGPSLocation';
 export { default as useLazyScript } from './useLazyScript';
-export { default as useLocation } from './useLocation';
 export { default as useRemoteStreams } from './useRemoteStream';
 export { default as useSocketIo } from './useSocketIo';
 export { default as useTouch } from './useTouch';

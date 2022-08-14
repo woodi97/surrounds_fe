@@ -8,7 +8,7 @@ const gpsOptions = {
   maximumAge: 30000,
 };
 
-export default function useLocation() {
+export default function useGPSLocation() {
   const dispatch = useRootDispatch();
 
   const getCurrentLocation = () => {

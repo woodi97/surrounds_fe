@@ -14,7 +14,7 @@ const AppHeader = ({ className }: Props, ref: MutableRefObject<HTMLDivElement>) 
   const dispatch = useRootDispatch();
 
   const handleRoomCreate = useCallback(() => {
-    dispatch(openRoomCreateModal());
+    dispatch(openRoomCreateModal({}));
   }, []);
 
   return (

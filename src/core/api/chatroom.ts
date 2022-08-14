@@ -32,8 +32,15 @@ export const apiGetMyChatroom = async (email: string) => {
       },
     });
     return data;
-  } catch (error) {
-    throw error;
+  } catch (err) {
+    if (isAxiosError<CommonApiError>(err)) {
+      const { message, error } = err.response.data;
+      ToastWarn(message);
+      throw new Error(error);
+    } else {
+      ToastError('error occured while getting chatroom');
+      throw err;
+    }
   }
 };
 

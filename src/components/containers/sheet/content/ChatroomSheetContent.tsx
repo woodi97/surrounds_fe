@@ -17,6 +17,8 @@ const ChatroomSheetRow: FC<RoomInfoType> = ({
   author,
   author_profile_image,
 }) => {
+  const distanceText = Math.ceil(distance) < 5 ? 5 : Math.ceil(distance);
+
   return (
     <Link
       href={{
@@ -40,7 +42,7 @@ const ChatroomSheetRow: FC<RoomInfoType> = ({
           </div>
           <div className="flex items-end">
             <Icon size={24} name="leftDropArrow" />
-            <p>{Math.ceil(distance)}km</p>
+            <p>{distanceText}km</p>
           </div>
         </div>
         <HorizontalLine className="bg-primary-500 h-0.5 rounded-lg" />
@@ -50,6 +52,7 @@ const ChatroomSheetRow: FC<RoomInfoType> = ({
 };
 
 const ChatroomSheetContent: FC<ChatroomSheetContentProps> = ({ chatRooms, isLoading }) => {
+  console.log(isLoading);
   if (isLoading) {
     return (
       <div className="space-y-4">
