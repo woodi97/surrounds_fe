@@ -1,3 +1,5 @@
+import { PeerJSOption } from 'peerjs';
+
 export const envConfig = {
   googleMapKey: process.env.GOOGLE_MAP_KEY,
   appName: process.env.APP_NAME,
@@ -10,18 +12,19 @@ export const socketConfig = {
   url: process.env.SOCKET_URL,
 };
 
-export const peerConfig = {
+export const peerConfig: PeerJSOption = {
   host: process.env.PEER_HOST,
   port: Number(process.env.PEER_PORT),
   debug: Number(process.env.PEER_DEBUG),
   path: process.env.PEER_PATH,
   secure: process.env.PEER_SECURE === 'true',
-  iceServers: [
-    { urls: [process.env.STUN_URL] },
-    {
-      urls: process.env.TURN_URL,
-      username: process.env.TURN_USERNAME,
-      credential: process.env.TURN_CREDENTIAL,
-    },
-  ],
+  config: {
+    iceServers: [
+      {
+        urls: process.env.TURN_URL,
+        username: process.env.TURN_USERNAME,
+        credential: process.env.TURN_CREDENTIAL,
+      },
+    ],
+  },
 };
