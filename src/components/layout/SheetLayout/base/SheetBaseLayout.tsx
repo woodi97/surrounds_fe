@@ -17,6 +17,7 @@ const SheetBaseLayout: FC<{
   }
 
   function onDragEnd(event, info) {
+    event.stopPropagation();
     const shouldClose = info.velocity.y > 20 || (info.velocity.y >= 0 && info.point.y > 45);
     if (shouldClose) {
       controls.start('hidden');
@@ -26,7 +27,11 @@ const SheetBaseLayout: FC<{
   }
 
   useEffect(() => {
+    document.body.style.overflow = 'hidden';
     controls.start('hidden');
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
   }, []);
 
   return (

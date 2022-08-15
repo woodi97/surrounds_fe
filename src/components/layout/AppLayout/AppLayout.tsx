@@ -7,7 +7,7 @@ import React, { FC, useEffect, useMemo, useRef } from 'react';
 
 import AppHeader from './AppHeader';
 
-const PageLayout: FC<{
+const AppLayout: FC<{
   children: React.ReactNode;
   disableTransition?: boolean;
   disableContentPadding?: boolean;
@@ -52,4 +52,4 @@ const PageLayout: FC<{
   );
 };
 
-export default PageLayout;
+export default AppLayout;

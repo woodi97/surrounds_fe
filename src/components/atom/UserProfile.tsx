@@ -12,7 +12,7 @@ const UserProfile: FC<{
         className
       )}
     >
-      <h2 className="text-white">{username.charAt(0)}</h2>
+      <h2 className="text-white">{username ? username.charAt(0) : 'X'}</h2>
     </div>
   );
 };
