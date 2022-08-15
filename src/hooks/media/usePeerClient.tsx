@@ -9,6 +9,8 @@ export type PeerClientHookProps = {
   removeRemoteStream: RemoveRemoteStreamType;
   sendJoinMessage: (peerId: string) => void;
   recvJoinMessage: (callback: ({ peerId }: SocketJoinReceiveType) => void) => void;
+  recvLeaveMessage: (callback: ({ peerId }: SocketJoinReceiveType) => void) => void;
+  recvErrorMessage: (callback: (error: string) => void) => void;
   disconnectSocket: () => void;
 };
 
@@ -18,6 +20,8 @@ function usePeerClient({
   removeRemoteStream,
   sendJoinMessage,
   recvJoinMessage,
+  recvLeaveMessage,
+  recvErrorMessage,
   disconnectSocket,
 }: PeerClientHookProps) {
   const peerRef = useRef<Peer>(null);
@@ -84,7 +88,12 @@ function usePeerClient({
     });
   };
 
-  const disconnectFromPeer = (peerObj: Peer) => {
+  const disconnectFromPeerServer = (peerObj: Peer) => {
+    // if get error from peer server(ex. over max connection), disconnect from peer server
+    recvErrorMessage((error) => {
+      cleanupPeerConnection();
+      disconnectSocket();
+    });
     peerObj.on('disconnected', () => {
       cleanupPeerConnection();
       disconnectSocket();
@@ -99,11 +108,18 @@ function usePeerClient({
     });
   };
 
+  const someOneLeave = () => {
+    recvLeaveMessage(({ peerId }) => {
+      removeRemoteStream(peerId);
+    });
+  };
+
   const handlePeerConnection = (peerObj: Peer) => {
     initPeerConnection(peerObj);
     callFromPeer(peerObj);
     callToPeer(peerObj);
-    disconnectFromPeer(peerObj);
+    disconnectFromPeerServer(peerObj);
+    someOneLeave();
   };
 
   useEffect(() => {

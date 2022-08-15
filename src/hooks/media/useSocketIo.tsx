@@ -57,6 +57,28 @@ export default function useSocketIo(url: string) {
     [socket]
   );
 
+  // receive someone leave message from server
+  const recvLeaveMessage = useCallback(
+    (callback: ({ peerId }: SocketJoinReceiveType) => void) => {
+      if (socket == null || socket.connected == false) {
+        initSocket();
+      }
+      socket.on('leaveToClient', callback);
+    },
+    [socket]
+  );
+
+  // receive error message from server
+  const recvErrorMessage = useCallback(
+    (callback: (error: string) => void) => {
+      if (socket == null || socket.connected == false) {
+        initSocket();
+      }
+      socket.on('errorToClient', callback);
+    },
+    [socket]
+  );
+
   const disconnectSocket = useCallback(() => {
     if (socket == null || socket.connected == false) {
       return;
@@ -73,6 +95,8 @@ export default function useSocketIo(url: string) {
     recvSocketMessage,
     sendJoinMessage,
     recvJoinMessage,
+    recvLeaveMessage,
+    recvErrorMessage,
     disconnectSocket,
   ] as const;
 }

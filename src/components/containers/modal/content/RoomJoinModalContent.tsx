@@ -31,6 +31,8 @@ const RoomJoinModalContent: FunctionComponent<ModalContentType> = ({ option }) =
     recvSocketMessage,
     sendJoinMessage,
     recvJoinMessage,
+    recvLeaveMessage,
+    recvErrorMessage,
     disconnectSocket,
   ] = useSocketIo(socketConfig.url + roomOption.roomId);
 
@@ -43,6 +45,8 @@ const RoomJoinModalContent: FunctionComponent<ModalContentType> = ({ option }) =
     removeRemoteStream,
     sendJoinMessage,
     recvJoinMessage,
+    recvLeaveMessage,
+    recvErrorMessage,
     disconnectSocket,
   });
 
