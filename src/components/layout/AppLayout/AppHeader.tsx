@@ -1,5 +1,4 @@
-import { IconButton } from '@src/components/atom';
-import { UserProfileSelector } from '@src/components/molecule';
+import { IconButton, UserProfile } from '@src/components/atom';
 import { useRootDispatch, useRootState } from '@src/hooks';
 import { openRoomCreateModal } from '@src/store/modules/modal';
 import cx from 'classnames';
@@ -37,7 +36,7 @@ const AppHeader = ({ className }: Props, ref: MutableRefObject<HTMLDivElement>) 
           )}
         >
           <div className="relative w-12 h-full">
-            <UserProfileSelector profile_image={profile_image} username={username} />
+            <UserProfile profile_image={profile_image} username={username} />
           </div>
           <div className="flex items-center space-x-2">
             <IconButton name="setting" size={24} />

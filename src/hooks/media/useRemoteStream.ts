@@ -1,9 +1,18 @@
 import { useCallback, useEffect, useState } from 'react';
 
-export default function useRemoteStreams() {
-  const [remoteStreams, setRemoteStreams] = useState<Map<string, MediaStream>>(new Map());
+type AddRemoteCallback = {
+  peerId: string;
+  stream: MediaStream;
+};
 
-  const addRemoteStream = ({ peerId, stream }: { peerId: string; stream: MediaStream }) => {
+export type RemoteStreamsType = Map<string, MediaStream>;
+export type AddRemoteStreamType = ({ peerId, stream }: AddRemoteCallback) => void;
+export type RemoveRemoteStreamType = (peerId: string) => void;
+
+export default function useRemoteStreams() {
+  const [remoteStreams, setRemoteStreams] = useState<RemoteStreamsType>(new Map());
+
+  const addRemoteStream = ({ peerId, stream }: AddRemoteCallback) => {
     setRemoteStreams((prev) => {
       return new Map(prev).set(peerId, stream);
     });

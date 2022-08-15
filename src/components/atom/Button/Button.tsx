@@ -2,7 +2,7 @@ import { buttonSettings } from '@src/animations/common';
 import { btnSizes, btnStyles } from '@src/utils/constants';
 import cx from 'classnames';
 import { motion } from 'framer-motion';
-import React, { forwardRef } from 'react';
+import React, { forwardRef, ForwardRefRenderFunction } from 'react';
 
 interface ButtonShape {
   type?: 'button' | 'submit' | 'reset';
@@ -33,7 +33,7 @@ const selectStyle: { [keys in btnStyles]: string } = {
   warning: 'bg-orange-700 text-orange-100 hover:bg-orange-600 focus:bg-orange-600',
 };
 
-const Button = (
+const Button: ForwardRefRenderFunction<HTMLButtonElement, ButtonShape> = (
   {
     type = 'button',
     size = 'medium',
@@ -44,8 +44,8 @@ const Button = (
     children,
     className,
     onClick,
-  }: ButtonShape,
-  ref: React.Ref<HTMLButtonElement>
+  },
+  ref
 ) => {
   return (
     <motion.button

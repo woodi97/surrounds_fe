@@ -1,5 +1,5 @@
-import { HorizontalLine, Icon, Shimmer } from '@src/components/atom';
-import { InputBoxWithIcon, UserProfileSelector } from '@src/components/molecule';
+import { HorizontalLine, Icon, Shimmer, UserProfile } from '@src/components/atom';
+import { InputBoxWithIcon } from '@src/components/molecule';
 import { RoomInfoType } from '@src/core/types/chatroom';
 import Link from 'next/link';
 import React, { FC, SyntheticEvent, useState } from 'react';
@@ -31,7 +31,7 @@ const ChatroomSheetRow: FC<RoomInfoType> = ({
         <div className="py-2 cursor-pointer flex justify-between">
           <div className="flex space-x-2 items-center">
             <div className="w-10 h-10">
-              <UserProfileSelector profile_image={author_profile_image} username={author} />
+              <UserProfile profile_image={author_profile_image} username={author} />
             </div>
             <div>
               <h2>{title}</h2>

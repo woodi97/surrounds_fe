@@ -1,53 +1,33 @@
-import { UserProfileSelector } from '@src/components/molecule/index';
+import UserProfileWithMedia from '@src/components/molecule/Selector/UserProfileWithMedia';
+import { RemoteStreamsType } from '@src/hooks/media/useRemoteStream';
+import cx from 'classnames';
 import React, { FunctionComponent, memo } from 'react';
 
 const UserJoinView: FunctionComponent<{
   myProfile: string;
   myUserName: string;
-}> = ({ myProfile, myUserName }) => {
+  localStream: MediaStream;
+  remoteStreams: RemoteStreamsType;
+}> = ({ myProfile, myUserName, localStream, remoteStreams }) => {
   return (
-    <div className="relative w-24 h-24 flex justify-center items-center mx-auto my-28 flex-shrink">
-      <div className="w-24 h-24">
-        <UserProfileSelector profile_image={myProfile} username={myUserName} />
-      </div>
-      <div className="absolute translate-center-xy -top-12">
-        <div className="w-16 h-16">
-          <UserProfileSelector
-            profileClassName="bg-secondary-500"
-            roundness="rounded-full"
-            profile_image={''}
-            username={''}
-          />
-        </div>
-      </div>
-      <div className="absolute translate-center-xy top-36">
-        <div className="w-16 h-16">
-          <UserProfileSelector
-            profileClassName="bg-secondary-500"
-            roundness="rounded-full"
-            profile_image={''}
-            username={''}
-          />
-        </div>
-      </div>
-      <div className="absolute translate-center-xy left-36">
-        <div className="w-16 h-16">
-          <UserProfileSelector
-            profileClassName="bg-secondary-500"
-            roundness="rounded-full"
-            profile_image={''}
-            username={''}
-          />
-        </div>
-      </div>
-      <div className="absolute translate-center-xy -left-12">
-        <div className="w-16 h-16">
-          <UserProfileSelector
-            profileClassName="bg-secondary-500"
-            roundness="rounded-full"
-            profile_image={''}
-            username={''}
-          />
+    <div className="w-full">
+      <div className={cx('relative', 'flex flex-col justify-center items-center', 'space-y-2')}>
+        <UserProfileWithMedia
+          mediaStream={localStream}
+          profile_image={myProfile}
+          username={myUserName}
+          muted
+        />
+        <div className="flex h-16 space-x-2">
+          {Array.from(remoteStreams.values()).map((stream) => (
+            <UserProfileWithMedia
+              key={stream.id}
+              className="w-16 h-16"
+              mediaStream={stream}
+              profile_image={''}
+              username={''}
+            />
+          ))}
         </div>
       </div>
     </div>
