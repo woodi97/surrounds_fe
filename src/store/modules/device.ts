@@ -3,10 +3,7 @@ import { DeviceInfoType } from '@src/core/types/device-info-type';
 import { LocationType } from '@src/core/types/navigator-type';
 
 export const deviceInitialState: DeviceInfoType = {
-  location: {
-    latitude: null,
-    longitude: null,
-  },
+  location: null,
 };
 
 const deviceInfoSlice = createSlice({
@@ -14,8 +11,7 @@ const deviceInfoSlice = createSlice({
   initialState: deviceInitialState,
   reducers: {
     setLocationInfo: (state, action: PayloadAction<LocationType>) => {
-      state.location.longitude = action.payload.longitude;
-      state.location.latitude = action.payload.latitude;
+      state.location = action.payload;
     },
     clearLocationInfo: (state) => {
       state.location = null;

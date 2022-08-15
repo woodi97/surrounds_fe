@@ -31,22 +31,19 @@ const MainPageTemplate = () => {
 
   useEffect(() => {
     const { roomId } = router.query;
-    if (roomId) {
-      dispatch(
-        openRoomJoinModal({
-          fullScreen: true,
-        })
-      );
-    } else {
-      getNearChatrooms();
-    }
-  }, [router.asPath]);
-
-  useEffect(() => {
     if (location) {
-      getNearChatrooms();
+      if (!roomId) {
+        setIsLoading(true);
+        getNearChatrooms();
+      } else {
+        dispatch(
+          openRoomJoinModal({
+            fullScreen: true,
+          })
+        );
+      }
     }
-  }, [location]);
+  }, [location, router.asPath]);
 
   return (
     <div className="w-full h-full">
