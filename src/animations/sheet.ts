@@ -3,7 +3,7 @@ import { Variants } from 'framer-motion';
 
 export const sheetVars: Variants = {
   enter: { y: 1000 },
-  hidden: { y: 'calc(100% - 160px)' },
+  hidden: { y: 'calc(100% - 200px)' },
   visible: {
     y: appConfig.headerHeightInt,
   },

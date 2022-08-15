@@ -14,12 +14,19 @@ const ModalBaseDesign: FC<{
       className={cx(
         'relative z-50 py-10 flex items-center',
         fullScreen ? 'w-full h-full' : 'w-full h-auto max-w-mobile-app min-h-[400px]',
-        'bg-primary-bg rounded-md'
+        'bg-primary-bg rounded-xl'
       )}
       variants={fullScreen ? modalFullScreenVariants : modalVariants}
     >
-      <div className="absolute top-0 w-full bg-primary-500 text-end">
-        <IconButton name="close" size={36} onClick={onClose} />
+      <div
+        className={cx(
+          'absolute top-0 w-full flex',
+          'py-2 px-1 rounded-t-xl',
+          'justify-end items-center',
+          'bg-primary-500 text-white'
+        )}
+      >
+        <IconButton name="close" size={32} onClick={onClose} />
       </div>
       <div className="w-full px-side-padding">{children}</div>
     </motion.div>

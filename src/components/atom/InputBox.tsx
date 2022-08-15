@@ -19,6 +19,7 @@ const InputBox: FC<{
   error?: boolean;
   errorMessage?: string;
   fullWidth?: boolean;
+  removeLabelText?: boolean;
   classNames?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
 }> = ({
@@ -28,24 +29,24 @@ const InputBox: FC<{
   error,
   errorMessage = 'wrong input',
   fullWidth = false,
+  removeLabelText = false,
   classNames,
   ...props
 }) => {
   return (
-    <div>
-      <div className="space-y-2">
-        <label htmlFor={name}>
-          <p className="font-bold">{label}</p>
+    <div className={fullWidth ? 'w-full' : 'w-[280px] md:w-[320px]'}>
+      <div className="w-full">
+        <label htmlFor={name} className={removeLabelText ? 'invisible' : 'mb-2'}>
+          {!removeLabelText && <p className="font-bold">{label}</p>}
         </label>
         <input
           id={name}
           name={name}
           className={cx(
-            'p-2 bg-transparent',
+            'p-2 w-full bg-transparent',
             'border-2 rounded-md',
             'focus:outline-none',
             sizeSelector[size],
-            fullWidth ? 'w-full' : 'w-[280px] md:w-[320px]',
             error ? 'border-red-400' : 'border-none',
             classNames
           )}

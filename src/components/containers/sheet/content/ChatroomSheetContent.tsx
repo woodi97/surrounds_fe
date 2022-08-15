@@ -1,8 +1,8 @@
-import { HorizontalLine, Icon, Shimmer } from '@src/components/atom';
+import { HorizontalLine, Icon, InputBox, Shimmer } from '@src/components/atom';
 import { UserProfileSelector } from '@src/components/molecule';
 import { RoomInfoType } from '@src/core/types/chatroom';
 import Link from 'next/link';
-import React, { FC } from 'react';
+import React, { FC, SyntheticEvent, useState } from 'react';
 
 export type ChatroomSheetContentProps = {
   chatRooms: RoomInfoType[];
@@ -52,6 +52,9 @@ const ChatroomSheetRow: FC<RoomInfoType> = ({
 };
 
 const ChatroomSheetContent: FC<ChatroomSheetContentProps> = ({ chatRooms, isLoading }) => {
+  // Todo: add filtering
+  const [searchInput, setSearchInput] = useState('');
+
   if (isLoading) {
     return (
       <div className="space-y-4">
@@ -62,8 +65,27 @@ const ChatroomSheetContent: FC<ChatroomSheetContentProps> = ({ chatRooms, isLoad
     );
   }
 
+  const onSearch = (e: SyntheticEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
+    setSearchInput(value);
+  };
+
   return (
-    <div className="w-full px-side-padding">
+    <div className="w-full">
+      <div className="w-full flex items-center px-2 rounded-xl bg-gray-200">
+        <Icon name="search" className="w-8" />
+        <InputBox
+          classNames="bg-transparent w-full"
+          fullWidth
+          removeLabelText
+          size="small"
+          type={'id'}
+          name="search"
+          label="search"
+          value={searchInput}
+          onChange={onSearch}
+        />
+      </div>
       {chatRooms &&
         chatRooms.length > 0 &&
         chatRooms.map((chatroom, idx) => {

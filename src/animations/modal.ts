@@ -41,12 +41,20 @@ export const modalOverlayVariants: Variants = {
 
 export const modalFullScreenVariants: Variants = {
   enter: {
+    y: 1000,
     opacity: 0,
+    speed: 5,
   },
   center: {
+    x: 0,
+    y: 0,
     opacity: 1,
+    transition: modalTransition,
   },
   exit: {
+    y: 1000,
     opacity: 0,
+    speed: 5,
+    transition: modalTransition,
   },
 };

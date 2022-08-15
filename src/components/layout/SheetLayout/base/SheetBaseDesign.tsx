@@ -9,7 +9,8 @@ const SheetBaseDesign: FC<{
     <div
       className={cx(
         'w-full h-full overflow-y-scroll overflow-x-hidden',
-        'rounded-t-xl border-x-2 border-t-2 border-gray-300 bg-white'
+        'rounded-t-xl border-x-2 border-t-2 border-gray-300 bg-white',
+        'px-side-padding'
       )}
     >
       <SheetBaseHeader />

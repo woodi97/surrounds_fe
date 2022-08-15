@@ -37,6 +37,8 @@ const MainPageTemplate = () => {
           fullScreen: true,
         })
       );
+    } else {
+      getNearChatrooms();
     }
   }, [router.asPath]);
 
@@ -48,7 +50,7 @@ const MainPageTemplate = () => {
 
   return (
     <div className="w-full h-full">
-      <GoogleMapsWrapper chatRooms={chatRooms} />
+      <GoogleMapsWrapper myLocation={location} chatRooms={chatRooms} />
       <SheetContainer>
         <ChatroomSheetContent chatRooms={chatRooms} isLoading={isLoading} />
       </SheetContainer>
