@@ -1,5 +1,5 @@
-import { HorizontalLine, Icon, InputBox, Shimmer } from '@src/components/atom';
-import { UserProfileSelector } from '@src/components/molecule';
+import { HorizontalLine, Icon, Shimmer } from '@src/components/atom';
+import { InputBoxWithIcon, UserProfileSelector } from '@src/components/molecule';
 import { RoomInfoType } from '@src/core/types/chatroom';
 import Link from 'next/link';
 import React, { FC, SyntheticEvent, useState } from 'react';
@@ -30,11 +30,9 @@ const ChatroomSheetRow: FC<RoomInfoType> = ({
       <div className="bg-transparent">
         <div className="py-2 cursor-pointer flex justify-between">
           <div className="flex space-x-2 items-center">
-            <UserProfileSelector
-              profileClassName="w-10 h-10"
-              profile_image={author_profile_image}
-              username={author}
-            />
+            <div className="w-10 h-10">
+              <UserProfileSelector profile_image={author_profile_image} username={author} />
+            </div>
             <div>
               <h2>{title}</h2>
               <p>{description}</p>
@@ -72,20 +70,7 @@ const ChatroomSheetContent: FC<ChatroomSheetContentProps> = ({ chatRooms, isLoad
 
   return (
     <div className="w-full">
-      <div className="w-full flex items-center px-2 rounded-xl bg-gray-200">
-        <Icon name="search" className="w-8" />
-        <InputBox
-          classNames="bg-transparent w-full"
-          fullWidth
-          removeLabelText
-          size="small"
-          type={'id'}
-          name="search"
-          label="search"
-          value={searchInput}
-          onChange={onSearch}
-        />
-      </div>
+      <InputBoxWithIcon iconName="search" name="search" value={searchInput} onChange={onSearch} />
       {chatRooms &&
         chatRooms.length > 0 &&
         chatRooms.map((chatroom, idx) => {

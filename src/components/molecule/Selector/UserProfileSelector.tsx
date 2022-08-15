@@ -4,14 +4,15 @@ import React, { FC } from 'react';
 const UserProfileSelector: FC<{
   profile_image: string;
   username: string;
+  roundness?: string;
   profileClassName?: string;
-}> = ({ profile_image, username, profileClassName }) => {
+}> = ({ profile_image, username, roundness = 'rounded-3xl', profileClassName }) => {
   return (
     <>
       {profile_image ? (
-        <ImageWrapper className="rounded-3xl" src={profile_image} layout="fill" alt="profile" />
+        <ImageWrapper className={roundness} src={profile_image} layout="fill" alt="profile" />
       ) : (
-        <UserProfile className={profileClassName} username={username} />
+        <UserProfile className={profileClassName} username={username} roundness={roundness} />
       )}
     </>
   );

@@ -1,11 +1,12 @@
 import { RoomCreateForm } from '@src/components/molecule';
 import { apiCreateChatroom } from '@src/core/api/chatroom';
 import { envConfig } from '@src/core/config/envConfig';
+import { ModalContentType } from '@src/core/types/modal-type';
 import { useRootDispatch, useRootState } from '@src/hooks';
 import { closeModal } from '@src/store/modules/modal';
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 
-const RoomCreateModalContent = () => {
+const RoomCreateModalContent: FunctionComponent<ModalContentType> = ({ option }) => {
   const dispatch = useRootDispatch();
   const { location } = useRootState((state) => state.device);
 

@@ -1,6 +1,6 @@
 import { inputBoxSizes } from '@src/utils/constants';
 import cx from 'classnames';
-import React, { ChangeEventHandler, FC, memo } from 'react';
+import React, { ChangeEventHandler, FunctionComponent, HTMLAttributes, memo } from 'react';
 
 const sizeSelector: { [keys in inputBoxSizes] } = {
   small: 'h-12',
@@ -8,7 +8,7 @@ const sizeSelector: { [keys in inputBoxSizes] } = {
   large: 'h-16',
 };
 
-const InputBox: FC<{
+export type InputBoxProps = {
   type: 'id' | 'email' | 'password';
   name: string;
   label: string;
@@ -22,7 +22,9 @@ const InputBox: FC<{
   removeLabelText?: boolean;
   classNames?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
-}> = ({
+} & HTMLAttributes<HTMLInputElement>;
+
+const InputBox: FunctionComponent<InputBoxProps> = ({
   name,
   label,
   size = 'medium',

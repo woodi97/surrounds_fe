@@ -5,14 +5,14 @@ import {
   SignInModalContent,
 } from '@src/components/containers/modal/content';
 import { ModalLayout } from '@src/components/layout';
-import { ModalType } from '@src/core/types/modal-type';
+import { ModalContentType, ModalType } from '@src/core/types/modal-type';
 import { useRootDispatch, useRootState } from '@src/hooks/useRootState';
 import { closeModal } from '@src/store/modules/modal';
 import { AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
 import React, { FC } from 'react';
 
-const _selectModal: { [key in ModalType]: FC<unknown> } = {
+const _selectModal: { [key in ModalType]: FC<ModalContentType> } = {
   SIGNIN: SignInModalContent,
   ROOMCREATE: RoomCreateModalContent,
   ROOMJOIN: RoomJoinModalContent,
@@ -37,7 +37,7 @@ const ModalContainer: FC = () => {
               router.push(router.pathname, undefined, { shallow: true });
             }}
           >
-            {ModalComponent && <ModalComponent />}
+            {ModalComponent && <ModalComponent option={modal.option} />}
           </ModalLayout>
         )}
       </AnimatePresence>

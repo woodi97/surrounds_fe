@@ -10,6 +10,9 @@ export { default as useValidateInput } from './useValidateInput';
 export { default as useWheel } from './useWheel';
 export { default as useWindowResize } from './useWindowResize';
 
+// scroll
+export * from './useScroll';
+
 // Hooks using Single Hook
 export { default as useBrowserBackward } from './useBrowserBackward';
 export { default as useFullPageScroll } from './useFullPageScroll';

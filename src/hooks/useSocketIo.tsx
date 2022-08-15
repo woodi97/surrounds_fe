@@ -1,3 +1,4 @@
+import { SocketMessageReceiveType } from '@src/core/types/message';
 import { useCallback, useMemo } from 'react';
 import { io } from 'socket.io-client';
 
@@ -9,7 +10,7 @@ export default function useSocketIo(url: string) {
     socket.connect();
   };
 
-  const sendSocketMessage = useCallback(({ name, text }: { name: string; text: string }) => {
+  const sendSocketMessage = useCallback(({ name, text }: SocketMessageReceiveType) => {
     if (socket == null || socket.connected == false) {
       initSocket();
     }

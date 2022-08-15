@@ -12,15 +12,15 @@ const ModalBaseDesign: FC<{
   return (
     <motion.div
       className={cx(
-        'relative z-50 py-10 flex items-center',
-        fullScreen ? 'w-full h-full' : 'w-full h-auto max-w-mobile-app min-h-[400px]',
+        'relative z-50 flex items-center max-w-mobile-app',
+        fullScreen ? 'w-full h-full' : 'w-full h-auto min-h-[400px]',
         'bg-primary-bg rounded-xl'
       )}
       variants={fullScreen ? modalFullScreenVariants : modalVariants}
     >
       <div
         className={cx(
-          'absolute top-0 w-full flex',
+          'absolute top-0 w-full h-header-modal flex',
           'py-2 px-1 rounded-t-xl',
           'justify-end items-center',
           'bg-primary-500 text-white'
@@ -28,7 +28,7 @@ const ModalBaseDesign: FC<{
       >
         <IconButton name="close" size={32} onClick={onClose} />
       </div>
-      <div className="w-full px-side-padding">{children}</div>
+      <div className="w-full h-full pt-header-modal px-side-padding">{children}</div>
     </motion.div>
   );
 };

@@ -1,10 +1,10 @@
 import React, { FC, memo } from 'react';
-import { AiOutlinePlusCircle } from 'react-icons/ai';
+import { AiOutlineMessage, AiOutlinePlusCircle } from 'react-icons/ai';
 import { BiVideo } from 'react-icons/bi';
 import { BsApple, BsCamera, BsGoogle, BsHouseDoor, BsPlus } from 'react-icons/bs';
 import { CgClose, CgProfile } from 'react-icons/cg';
 import { FaSearch } from 'react-icons/fa';
-import { FiSettings } from 'react-icons/fi';
+import { FiSend, FiSettings } from 'react-icons/fi';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import {
   IoIosArrowBack,
@@ -39,7 +39,9 @@ export type SVGTypes =
   | 'apple'
   | 'kakao'
   | 'naver'
-  | 'email';
+  | 'email'
+  | 'send'
+  | 'message';
 
 type IconProps = {
   name: SVGTypes;
@@ -70,6 +72,8 @@ const _Selector: { [key in SVGTypes]: FC<IconProps> } = {
   kakao: RiKakaoTalkFill,
   naver: SiNaver,
   email: MdEmail,
+  send: FiSend,
+  message: AiOutlineMessage,
 };
 
 const Icon: FC<IconProps> = ({ name, ...props }) => {

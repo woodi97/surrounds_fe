@@ -39,6 +39,9 @@ const MainPageTemplate = () => {
         dispatch(
           openRoomJoinModal({
             fullScreen: true,
+            option: {
+              roomId: roomId as string,
+            },
           })
         );
       }

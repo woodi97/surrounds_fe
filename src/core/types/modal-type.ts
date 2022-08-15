@@ -10,3 +10,11 @@ export type ModalInfoType = {
   fullScreen?: boolean;
   option?: unknown;
 };
+
+export type ModalContentType = {
+  option?: unknown;
+};
+
+export type RoomJoinModalContentOption = {
+  roomId: string;
+};

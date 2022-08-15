@@ -18,6 +18,7 @@ module.exports = {
       spacing: {
         'gb-header': appConfig.headerHeight,
         'side-padding': appConfig.sidePadding,
+        'header-modal': appConfig.headerModalHeight,
       },
       maxWidth: {
         'mobile-app': appConfig.mobileAppMaxWidth,
