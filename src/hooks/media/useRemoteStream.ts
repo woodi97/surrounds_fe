@@ -6,28 +6,27 @@ type AddRemoteCallback = {
 };
 
 export type RemoteStreamsType = {
-  [key: string]: MediaStream;
+  peerId: string;
+  stream: MediaStream;
 };
 export type AddRemoteStreamType = ({ peerId, stream }: AddRemoteCallback) => void;
 export type RemoveRemoteStreamType = (peerId: string) => void;
 
 export default function useRemoteStreams() {
-  const [remoteStreams, setRemoteStreams] = useState<RemoteStreamsType>({});
+  const [remoteStreams, setRemoteStreams] = useState<RemoteStreamsType[]>([]);
 
   const addRemoteStream = ({ peerId, stream }: AddRemoteCallback) => {
-    setRemoteStreams({ ...remoteStreams, [peerId]: stream });
+    setRemoteStreams((prev) => [...prev, { peerId, stream }]);
   };
 
   const removeRemoteStream = useCallback((peerId) => {
-    const newRemoteStreams = { ...remoteStreams };
-    delete newRemoteStreams[peerId];
-    setRemoteStreams(newRemoteStreams);
+    setRemoteStreams((prev) => prev.filter(({ peerId: prevPeerId }) => prevPeerId !== peerId));
   }, []);
 
   useEffect(() => {
     return () => {
-      Object.values(remoteStreams).forEach((stream) => {
-        stream.getTracks().forEach((track) => {
+      remoteStreams.forEach((stream) => {
+        stream.stream.getTracks().forEach((track) => {
           track.stop();
         });
       });

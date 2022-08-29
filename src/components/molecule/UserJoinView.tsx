@@ -7,7 +7,7 @@ const UserJoinView: FunctionComponent<{
   myProfile: string;
   myUserName: string;
   localStream: MediaStream;
-  remoteStreams: RemoteStreamsType;
+  remoteStreams: RemoteStreamsType[];
 }> = ({ myProfile, myUserName, localStream, remoteStreams }) => {
   return (
     <div className="w-full">
@@ -19,15 +19,16 @@ const UserJoinView: FunctionComponent<{
           muted
         />
         <div className="flex h-16 space-x-2">
-          {Object.values(remoteStreams).map((remoteStream) => (
-            <UserProfileWithMedia
-              key={remoteStream.id}
-              className="w-16 h-16"
-              mediaStream={remoteStream}
-              profile_image={''}
-              username={''}
-            />
-          ))}
+          {remoteStreams.length > 0 &&
+            remoteStreams.map((remoteStream) => (
+              <UserProfileWithMedia
+                key={remoteStream.peerId}
+                className="w-16 h-16"
+                mediaStream={remoteStream.stream}
+                profile_image={''}
+                username={''}
+              />
+            ))}
         </div>
       </div>
     </div>
