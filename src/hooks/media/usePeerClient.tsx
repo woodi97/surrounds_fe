@@ -59,7 +59,6 @@ function usePeerClient({
       });
       // error call
       call.on('error', (err) => {
-        console.error(err);
         removeRemoteStream(call.peer);
       });
     });

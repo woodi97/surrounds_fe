@@ -62,26 +62,12 @@
   }
 
   .translate-center-x {
-    top: 50%;
-    left: 0%;
+    left: 50%;
     transform: translateX(-50%);
-  }
-
-  .-translate-center-x {
-    top: 0%;
-    right: 50%;
-    transform: translateX(50%);
   }
 
   .translate-center-y {
     top: 50%;
-    left: 0%;
-    transform: translateY(-50%);
-  }
-
-  .-translate-center-y {
-    top: 50%;
-    right: 0%;
     transform: translateY(-50%);
   }
 

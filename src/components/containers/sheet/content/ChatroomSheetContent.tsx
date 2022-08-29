@@ -40,7 +40,7 @@ const ChatroomSheetRow: FC<RoomInfoType> = ({
           </div>
           <div className="flex items-end">
             <Icon size={24} name="leftDropArrow" />
-            <p>{distanceText}km</p>
+            <p className="leading-[24px]">{distanceText}km</p>
           </div>
         </div>
         <HorizontalLine className="bg-primary-500 h-0.5 rounded-lg" />

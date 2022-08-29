@@ -4,7 +4,7 @@ import { io } from 'socket.io-client';
 
 export default function useSocketIo(url: string) {
   const [disconnected, setDisconnected] = useState(false);
-  let socket = useMemo(() => io(url, { transports: ['websocket'] }), [url]);
+  const socket = useMemo(() => io(url, { transports: ['websocket'] }), [url]);
 
   const initSocket = () => {
     if (socket) return;
@@ -84,7 +84,7 @@ export default function useSocketIo(url: string) {
       return;
     }
     socket.disconnect();
-    socket = undefined;
+    socket.close();
     setDisconnected(true);
   }, [socket]);
 

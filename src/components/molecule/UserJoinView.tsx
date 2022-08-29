@@ -1,7 +1,7 @@
 import UserProfileWithMedia from '@src/components/molecule/Selector/UserProfileWithMedia';
 import { RemoteStreamsType } from '@src/hooks/media/useRemoteStream';
 import cx from 'classnames';
-import React, { FunctionComponent, memo } from 'react';
+import React, { FunctionComponent } from 'react';
 
 const UserJoinView: FunctionComponent<{
   myProfile: string;
@@ -19,11 +19,11 @@ const UserJoinView: FunctionComponent<{
           muted
         />
         <div className="flex h-16 space-x-2">
-          {Array.from(remoteStreams.values()).map((stream) => (
+          {Object.values(remoteStreams).map((remoteStream) => (
             <UserProfileWithMedia
-              key={stream.id}
+              key={remoteStream.id}
               className="w-16 h-16"
-              mediaStream={stream}
+              mediaStream={remoteStream}
               profile_image={''}
               username={''}
             />
@@ -34,4 +34,4 @@ const UserJoinView: FunctionComponent<{
   );
 };
 
-export default memo(UserJoinView);
+export default UserJoinView;

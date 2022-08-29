@@ -5,37 +5,32 @@ type AddRemoteCallback = {
   stream: MediaStream;
 };
 
-export type RemoteStreamsType = Map<string, MediaStream>;
+export type RemoteStreamsType = {
+  [key: string]: MediaStream;
+};
 export type AddRemoteStreamType = ({ peerId, stream }: AddRemoteCallback) => void;
 export type RemoveRemoteStreamType = (peerId: string) => void;
 
 export default function useRemoteStreams() {
-  const [remoteStreams, setRemoteStreams] = useState<RemoteStreamsType>(new Map());
+  const [remoteStreams, setRemoteStreams] = useState<RemoteStreamsType>({});
 
   const addRemoteStream = ({ peerId, stream }: AddRemoteCallback) => {
-    setRemoteStreams((prev) => {
-      return new Map(prev).set(peerId, stream);
-    });
+    setRemoteStreams({ ...remoteStreams, [peerId]: stream });
   };
 
   const removeRemoteStream = useCallback((peerId) => {
-    setRemoteStreams((prev) => {
-      const tempMap = new Map(prev);
-      tempMap.delete(peerId);
-      return tempMap;
-    });
+    const newRemoteStreams = { ...remoteStreams };
+    delete newRemoteStreams[peerId];
+    setRemoteStreams(newRemoteStreams);
   }, []);
 
   useEffect(() => {
     return () => {
-      if (remoteStreams.size > 0) {
-        remoteStreams.forEach((stream) => {
-          stream.getTracks().forEach((track) => {
-            track.stop();
-          });
+      Object.values(remoteStreams).forEach((stream) => {
+        stream.getTracks().forEach((track) => {
+          track.stop();
         });
-        setRemoteStreams(new Map());
-      }
+      });
     };
   });
 
